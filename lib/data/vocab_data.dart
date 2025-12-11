@@ -66,9 +66,6 @@ final List<Word> _baseVocabulary = [
   Word(id: 29, zh: "幫忙", pinyin: "bāng máng", myn: "ကူညီ", sentenceZH: "可以**幫忙**我嗎？", sentenceMYN: "ကျွန်တော့်ကို **ကူညီ** လို့ရမလား။", audioZH: "C0029.mp3"),
   Word(id: 30, zh: "畢業", pinyin: "bì yè", myn: "ကျောင်းပြီး", sentenceZH: "我想順利**畢業**。", sentenceMYN: "ကျွန်တော် အဆင်ပြေပြေနဲ့ **ကျောင်းပြီး** ချင်တယ်။", audioZH: "C0030.mp3"),
 
-
-
-
   // --- General Office (31-90) ---
   Word(id: 31, zh: "建議", pinyin: "jiàn yì", myn: "အကြံပြု",
        sentenceZH: "你有什麼好的**建議**嗎？",
@@ -402,9 +399,6 @@ final List<Word> _baseVocabulary = [
   Word(id: 119, zh: "耳塞", pinyin: "ěr sāi", myn: "နားကြပ်", sentenceZH: "太吵了，我要戴**耳塞**。", sentenceMYN: "အရမ်းဆူတော့ **နားကြပ်** တပ်ထားမှရမယ်။", audioZH: "C0119.mp3"),
   Word(id: 120, zh: "下班", pinyin: "xià bān", myn: "အလုပ်ဆင်း", sentenceZH: "大家辛苦了，**下班**！", sentenceMYN: "အားလုံးပဲ ပင်ပန်းသွားပြီ၊ **အလုပ်ဆင်း** မယ်!", audioZH: "C0120.mp3"),
 
-
-
-
   // --- Restaurant / Cafe (121-150) ---
   Word(id: 121, zh: "菜單", pinyin: "cài dān", myn: "မီနူး", sentenceZH: "請給我看一下**菜單**。", sentenceMYN: "**မီနူး** လေး ကြည့်ပါရစေ။", audioZH: "C0121.mp3"),
   Word(id: 122, zh: "點餐", pinyin: "diǎn cān", myn: "အော်ဒါမှာ", sentenceZH: "請問您準備好**點餐**了嗎？", sentenceMYN: "**အော်ဒါမှာ** ဖို့ အဆင်သင့်ဖြစ်ပြီလား။", audioZH: "C0122.mp3"),
@@ -457,7 +451,157 @@ final List<Word> _baseVocabulary = [
   Word(id: 167, zh: "水溫", pinyin: "shuǐ wēn", myn: "ရေအပူအအေး", sentenceZH: "**水溫**還可以嗎？", sentenceMYN: "**ရေအပူအအေး** အဆင်ပြေရဲ့လား။", audioZH: "C0167.mp3"),
   Word(id: 168, zh: "癢", pinyin: "yǎng", myn: "ယား", sentenceZH: "還有哪裡會**癢**嗎？", sentenceMYN: "ဘယ်နေရာ **ယား** သေးလဲ။", audioZH: "C0168.mp3"),
   Word(id: 169, zh: "鏡子", pinyin: "jìng zi", myn: "မှန်", sentenceZH: "請給我一面**鏡子**。", sentenceMYN: "**မှန်** လေးတစ်ချပ်လောက် ပေးပါ။", audioZH: "C0169.mp3"),
-  Word(id: 170, zh: "顏色", pinyin: "yán sè", myn: "အရောင်", sentenceZH: "這個**顏色**很適合你。", sentenceMYN: "ဒီ **အရောင်** က မင်းနဲ့လိုက်တယ်။", audioZH: "C0170.mp3")
+  Word(id: 170, zh: "顏色", pinyin: "yán sè", myn: "အရောင်", sentenceZH: "這個**顏色**很適合你。", sentenceMYN: "ဒီ **အရောင်** က မင်းနဲ့လိုက်တယ်။", audioZH: "C0170.mp3"),
+
+// ---  海關與機場 (Customs & Airport) ---
+Word(id: 171, zh: "海關", pinyin: "hǎi guān", myn: "အကောက်ခွန်", sentenceZH: "請配合**海關**檢查。", sentenceMYN: "**အကောက်ခွန်** စစ်ဆေးတာကို ပူးပေါင်းပါဝင်ပေးပါ။", audioZH: "C0171.mp3"),
+Word(id: 172, zh: "護照", pinyin: "hù zhào", myn: "ပတ်စပို့", sentenceZH: "請出示您的**護照**。", sentenceMYN: "ခင်ဗျားရဲ့ **ပတ်စပို့** ပြပေးပါ။", audioZH: "C0172.mp3"),
+Word(id: 173, zh: "簽證", pinyin: "qiān zhèng", myn: "ဗီဇာ", sentenceZH: "我的**簽證**是學生簽。", sentenceMYN: "ကျွန်တော့် **ဗီဇာ** က ကျောင်းသားဗီဇာပါ။", audioZH: "C0173.mp3"),
+Word(id: 174, zh: "行李", pinyin: "xíng lǐ", myn: "အထုပ်အပိုး", sentenceZH: "你的**行李**超重了。", sentenceMYN: "မင်းရဲ့ **အထုပ်အပိုး** က ကီလိုပိုနေပြီ။", audioZH: "C0174.mp3"),
+Word(id: 175, zh: "申報", pinyin: "shēn bào", myn: "စာရင်းပြ", sentenceZH: "有帶現金超過規定要**申報**。", sentenceMYN: "ပိုက်ဆံအများကြီးပါရင် **စာရင်းပြ** ရမယ်။", audioZH: "C0175.mp3"),
+Word(id: 176, zh: "違禁品", pinyin: "wéi jìn pǐn", myn: "တားမြစ်ပစ္စည်း", sentenceZH: "這些是**違禁品**，不能帶。", sentenceMYN: "ဒါတွေက **တားမြစ်ပစ္စည်း** တွေ၊ ယူသွားလို့မရဘူး။", audioZH: "C0176.mp3"),
+Word(id: 177, zh: "肉類", pinyin: "ròu lèi", myn: "အသား", sentenceZH: "台灣不能帶**肉類**入境。", sentenceMYN: "ထိုင်ဝမ်ထဲကို **အသား** ယူလာလို့မရဘူး။", audioZH: "C0177.mp3"),
+Word(id: 178, zh: "罰款", pinyin: "fá kuǎn", myn: "ဒဏ်ငွေ", sentenceZH: "亂帶豬肉會被**罰款**。", sentenceMYN: "ဝက်သားယူလာရင် **ဒဏ်ငွေ** ဆောင်ရလိမ့်မယ်။", audioZH: "C0178.mp3"),
+Word(id: 179, zh: "沒收", pinyin: "mò shōu", myn: "သိမ်း", sentenceZH: "水果被海關**沒收**了。", sentenceMYN: "သစ်သီးတွေကို အကောက်ခွန်က **သိမ်း** လိုက်ပြီ။", audioZH: "C0179.mp3"),
+Word(id: 180, zh: "入境卡", pinyin: "rù jìng kǎ", myn: "အဝင်ကတ်", sentenceZH: "請填寫**入境卡**。", sentenceMYN: "**အဝင်ကတ်** ဖြည့်ပေးပါ။", audioZH: "C0180.mp3"),
+Word(id: 181, zh: "指紋", pinyin: "zhǐ wén", myn: "လက်ဗွေ", sentenceZH: "請按壓**指紋**。", sentenceMYN: "**လက်ဗွေ** နှိပ်ပေးပါ။", audioZH: "C0181.mp3"),
+Word(id: 182, zh: "登機證", pinyin: "dēng jī zhèng", myn: "လေယာဉ်လက်မှတ်", sentenceZH: "这是您的**登機證**。", sentenceMYN: "ဒါ ခင်ဗျားရဲ့ **လေယာဉ်လက်မှတ်** (Boarding Pass) ပါ။", audioZH: "C0182.mp3"),
+Word(id: 183, zh: "航廈", pinyin: "háng shà", myn: "တာမီနယ်", sentenceZH: "我要去第一**航廈**。", sentenceMYN: "**တာမီနယ်** (၁) ကို သွားချင်တယ်။", audioZH: "C0183.mp3"),
+Word(id: 184, zh: "轉機", pinyin: "zhuǎn jī", myn: "လေယာဉ်ပြောင်း", sentenceZH: "我在曼谷**轉機**。", sentenceMYN: "ဘန်ကောက်မှာ **လေယာဉ်ပြောင်း** ရမယ်။", audioZH: "C0184.mp3"),
+Word(id: 185, zh: "接機", pinyin: "jiē jī", myn: "လေဆိပ်သွားကြို", sentenceZH: "仲介會來**接機**嗎？", sentenceMYN: "အေးဂျင့်က **လေဆိပ်သွားကြို** မလား။", audioZH: "C0185.mp3"),
+Word(id: 186, zh: "安檢", pinyin: "ān jiǎn", myn: "လုံခြုံရေးစစ်ဆေး", sentenceZH: "過**安檢**時請把外套脫掉。", sentenceMYN: "**လုံခြုံရေးစစ်ဆေး** ရင် အင်္ကျီအပေါ်ထပ် ချွတ်ထားပါ။", audioZH: "C0186.mp3"),
+Word(id: 187, zh: "隨身行李", pinyin: "suí shēn xíng lǐ", myn: "လက်ဆွဲအိတ်", sentenceZH: "行動電源要放在**隨身行李**。", sentenceMYN: "Power Bank ကို **လက်ဆွဲအိတ်** ထဲ ထည့်ရမယ်။", audioZH: "C0187.mp3"),
+Word(id: 188, zh: "托運", pinyin: "tuō yùn", myn: "အိတ်အပ်", sentenceZH: "我要**托運**兩件行李。", sentenceMYN: "ကျွန်တော် အထုပ်နှစ်ထုပ် **အိတ်အပ်** ချင်တယ်။", audioZH: "C0188.mp3"),
+Word(id: 189, zh: "免稅店", pinyin: "miǎn shuì diàn", myn: "ဒီူတီဖရီး", sentenceZH: "我想逛一下**免稅店**。", sentenceMYN: "**ဒီူတီဖရီး** (Duty Free) ဆိုင် ဝင်ကြည့်ချင်တယ်။", audioZH: "C0189.mp3"),
+Word(id: 190, zh: "大門", pinyin: "dà mén", myn: "ဂိတ်", sentenceZH: "請在三號**大門**等我。", sentenceMYN: "**ဂိတ်** အမှတ် ၃ မှာ စောင့်နေပါ။", audioZH: "C0190.mp3"),
+
+// --- 移民與居留 (Immigration & ARC) ---
+Word(id: 191, zh: "移民署", pinyin: "yí mín shǔ", myn: "လဝကရုံး", sentenceZH: "我要去**移民署**辦手續。", sentenceMYN: "**လဝကရုံး** မှာ စာရွက်စာတမ်း သွားလုပ်စရာရှိတယ်။", audioZH: "C0191.mp3"),
+Word(id: 192, zh: "居留證", pinyin: "jū liú zhèng", myn: "အေအာစီ", sentenceZH: "你的**居留證**什麼時候到期？", sentenceMYN: "မင်းရဲ့ **အေအာစီ** ဘယ်တော့ သက်တမ်းကုန်မလဲ။", audioZH: "C0192.mp3"),
+Word(id: 193, zh: "過期", pinyin: "guò qī", myn: "သက်တမ်းကုန်", sentenceZH: "居留證**過期**會很麻煩。", sentenceMYN: "အေအာစီ **သက်တမ်းကုန်** သွားရင် ပြဿနာတက်လိမ့်မယ်။", audioZH: "C0193.mp3"),
+Word(id: 194, zh: "延期", pinyin: "yán qī", myn: "သက်တမ်းတိုး", sentenceZH: "我要去申請**延期**。", sentenceMYN: "**သက်တမ်းတိုး** ဖို့ သွားလျှောက်ရမယ်။", audioZH: "C0194.mp3"),
+Word(id: 195, zh: "逾期居留", pinyin: "yú qī jū liú", myn: "Overstay", sentenceZH: "他在台灣**逾期居留**了。", sentenceMYN: "သူ ထိုင်ဝမ်မှာ **Overstay** ဖြစ်သွားပြီ။", audioZH: "C0195.mp3"),
+Word(id: 196, zh: "仲介", pinyin: "zhòng jiè", myn: "အေးဂျင့်", sentenceZH: "有問題請聯絡**仲介**。", sentenceMYN: "ပြဿနာရှိရင် **အေးဂျင့်** ကို ဆက်သွယ်ပါ။", audioZH: "C0196.mp3"),
+Word(id: 197, zh: "逃跑", pinyin: "táo pǎo", myn: "ဆေး", sentenceZH: "**逃跑**是很危險的。", sentenceMYN: "**ဆေး** (ထွက်ပြေးတာ) က အန္တရာယ်များတယ်။", audioZH: "C0197.mp3"),
+Word(id: 198, zh: "自首", pinyin: "zì shǒu", myn: "အလင်းဝင်", sentenceZH: "現在**自首**罰款比較少。", sentenceMYN: "အခု **အလင်းဝင်** ရင် ဒဏ်ကြေးနည်းတယ်။", audioZH: "C0198.mp3"),
+Word(id: 199, zh: "體檢", pinyin: "tǐ jiǎn", myn: "ဆေးစစ်", sentenceZH: "辦居留證需要**體檢**。", sentenceMYN: "အေအာစီလုပ်ဖို့ **ဆေးစစ်** ရမယ်။", audioZH: "C0199.mp3"),
+Word(id: 200, zh: "永久居留", pinyin: "yǒng jiǔ jū liú", myn: "ပါမစ်", sentenceZH: "我想申請**永久居留**。", sentenceMYN: "ကျွန်တော် **ပါမစ်** (APRC) လျှောက်ချင်တယ်။", audioZH: "C0200.mp3"),
+
+// --- 大學科系 (University Majors) ---
+Word(id: 201, zh: "系", pinyin: "xì", myn: "မေဂျာ", sentenceZH: "你是什麼**系**的？", sentenceMYN: "မင်း ဘာ **မေဂျာ** လဲ။", audioZH: "C0201.mp3"),
+Word(id: 202, zh: "中文系", pinyin: "zhōng wén xì", myn: "တရုတ်စာမေဂျာ", sentenceZH: "我在讀**中文系**。", sentenceMYN: "ကျွန်တော် **တရုတ်စာမေဂျာ** တက်နေတယ်။", audioZH: "C0202.mp3"),
+Word(id: 203, zh: "企管系", pinyin: "qǐ guǎn xì", myn: "စီမံခန့်ခွဲမှုမေဂျာ", sentenceZH: "**企管系**很多人讀。", sentenceMYN: "**စီမံခန့်ခွဲမှုမေဂျာ** (Business) ကျောင်းသားများတယ်။", audioZH: "C0203.mp3"),
+Word(id: 204, zh: "資訊工程", pinyin: "zī xùn gōng chéng", myn: "အိုင်တီ", sentenceZH: "**資訊工程**現在很熱門。", sentenceMYN: "**အိုင်တီ** (IT) က အခုခေတ်စားတယ်။", audioZH: "C0204.mp3"),
+Word(id: 205, zh: "觀光系", pinyin: "guān guāng xì", myn: "ခရီးသွားဝန်ဆောင်မှုမေဂျာ", sentenceZH: "我喜歡旅遊，所以讀**觀光系**。", sentenceMYN: "ခရီးသွားရတာကြိုက်လို့ **ခရီးသွားဝန်ဆောင်မှုမေဂျာ** တက်တယ်။", audioZH: "C0205.mp3"),
+Word(id: 206, zh: "餐飲科", pinyin: "cān yǐn kē", myn: "ချက်ပြုတ်ရေးမေဂျာ", sentenceZH: "**餐飲科**以後可以當廚師。", sentenceMYN: "**ချက်ပြုတ်ရေးမေဂျာ** တက်ရင် စားဖိုမှူးဖြစ်နိုင်တယ်။", audioZH: "C0206.mp3"),
+Word(id: 207, zh: "機械系", pinyin: "jī xiè xì", myn: "စက်မှုမေဂျာ", sentenceZH: "男同學通常讀**機械系**。", sentenceMYN: "ယောကျာ်းလေးတွေက **စက်မှုမေဂျာ** (Mechanical) တက်တာများတယ်။", audioZH: "C0207.mp3"),
+Word(id: 208, zh: "電子系", pinyin: "diàn zǐ xì", myn: "အီလက်ထရောနစ်မေဂျာ", sentenceZH: "**電子系**很難讀。", sentenceMYN: "**အီလက်ထရောနစ်မေဂျာ** က စာခက်တယ်။", audioZH: "C0208.mp3"),
+Word(id: 209, zh: "設計系", pinyin: "shè jì xì", myn: "ဒီဇိုင်းမေဂျာ", sentenceZH: "**設計系**作業很多。", sentenceMYN: "**ဒီဇိုင်းမေဂျာ** က အိမ်စာများတယ်။", audioZH: "C0209.mp3"),
+Word(id: 210, zh: "美容美髮", pinyin: "měi róng měi fǎ", myn: "အလှပြုပြင်ရေးမေဂျာ", sentenceZH: "這所學校有**美容美髮**科。", sentenceMYN: "ဒီကျောင်းမှာ **အလှပြုပြင်ရေးမေဂျာ** ရှိတယ်။", audioZH: "C0210.mp3"),
+Word(id: 211, zh: "行銷", pinyin: "xíng xiāo", myn: "မားကတ်တင်း", sentenceZH: "我對**行銷**有興趣。", sentenceMYN: "ကျွန်တော် **မားကတ်တင်း** စိတ်ဝင်စားတယ်။", audioZH: "C0211.mp3"),
+Word(id: 212, zh: "會計", pinyin: "huì jì", myn: "စာရင်းကိုင်", sentenceZH: "**會計**要算數學。", sentenceMYN: "**စာရင်းကိုင်** က ဂဏန်းတွက်ရတယ်။", audioZH: "C0212.mp3"),
+Word(id: 213, zh: "護理", pinyin: "hù lǐ", myn: "သူနာပြု", sentenceZH: "**護理**系很辛苦。", sentenceMYN: "**သူနာပြု** မေဂျာက ပင်ပန်းတယ်။", audioZH: "C0213.mp3"),
+Word(id: 214, zh: "建築", pinyin: "jiàn zhú", myn: "ဗိသုကာ", sentenceZH: "我想學**建築**。", sentenceMYN: "ကျွန်တော် **ဗိသုကာ** ပညာ သင်ချင်တယ်။", audioZH: "C0214.mp3"),
+Word(id: 215, zh: "學分", pinyin: "xué fēn", myn: "ခရက်ဒစ်", sentenceZH: "我還差兩個**學分**。", sentenceMYN: "**ခရက်ဒစ်** (Credit) နှစ်ခုလိုသေးတယ်။", audioZH: "C0215.mp3"),
+Word(id: 216, zh: "教授", pinyin: "jiào shòu", myn: "ပါမောက္ခ", sentenceZH: "這位**教授**很有名。", sentenceMYN: "ဒီ **ပါမောက္ခ** က နာမည်ကြီးတယ်။", audioZH: "C0216.mp3"),
+Word(id: 217, zh: "學位", pinyin: "xué wèi", myn: "ဘွဲ့", sentenceZH: "拿到**學位**就可以找工作了。", sentenceMYN: "**ဘွဲ့** ရရင် အလုပ်ရှာလို့ရပြီ။", audioZH: "C0217.mp3"),
+Word(id: 218, zh: "碩士", pinyin: "shuò shì", myn: "မဟာဘွဲ့", sentenceZH: "他正在攻讀**碩士**。", sentenceMYN: "သူ **မဟာဘွဲ့** (Master) တက်နေတယ်။", audioZH: "C0218.mp3"),
+Word(id: 219, zh: "報告", pinyin: "bào gào", myn: "ပရောဂျက်", sentenceZH: "下週要交期末**報告**。", sentenceMYN: "နောက်အပတ် အတန်းတင် **ပရောဂျက်** (Project) ထပ်ရမယ်။", audioZH: "C0219.mp3"),
+Word(id: 220, zh: "專題", pinyin: "zhuān tí", myn: "စာတမ်း", sentenceZH: "我們在做畢業**專題**。", sentenceMYN: "ကျွန်တော်တို့ ဘွဲ့ယူ **စာတမ်း** လုပ်နေကြတယ်။", audioZH: "C0220.mp3"),
+
+// --- 不同工作職稱 (Job Titles) ---
+Word(id: 221, zh: "作業員", pinyin: "zuò yè yuán", myn: "အိုပရေတာ", sentenceZH: "工廠在徵**作業員**。", sentenceMYN: "စက်ရုံက **အိုပရေတာ** (Operator) တွေခေါ်နေတယ်။", audioZH: "C0221.mp3"),
+Word(id: 222, zh: "工程師", pinyin: "gōng chéng shī", myn: "အင်ဂျင်နီယာ", sentenceZH: "他是電腦**工程師**。", sentenceMYN: "သူက ကွန်ပျူတာ **အင်ဂျင်နီယာ** ပါ။", audioZH: "C0222.mp3"),
+Word(id: 223, zh: "司機", pinyin: "sī jī", myn: "ဒရိုင်ဘာ", sentenceZH: "我想當貨車**司機**。", sentenceMYN: "ကျွန်တော် ကုန်ကား **ဒရိုင်ဘာ** လုပ်ချင်တယ်။", audioZH: "C0223.mp3"),
+Word(id: 224, zh: "清潔工", pinyin: "qīng jié gōng", myn: "သန့်ရှင်းရေး", sentenceZH: "那位**清潔工**很認真。", sentenceMYN: "အဲဒီ **သန့်ရှင်းရေး** ဝန်ထမ်းက အလုပ်ကြိုးစားတယ်။", audioZH: "C0224.mp3"),
+Word(id: 225, zh: "廚師", pinyin: "chú shī", myn: "စားဖိုမှူး", sentenceZH: "**廚師**正在煮菜。", sentenceMYN: "**စားဖိုမှူး** ချက်ပြုတ်နေတယ်။", audioZH: "C0225.mp3"),
+Word(id: 226, zh: "店長", pinyin: "diàn zhǎng", myn: "ဆိုင်မန်နေဂျာ", sentenceZH: "有事請找**店長**。", sentenceMYN: "ကိစ္စရှိရင် **ဆိုင်မန်နေဂျာ** နဲ့ ပြောပါ။", audioZH: "C0226.mp3"),
+Word(id: 227, zh: "保全", pinyin: "bǎo quán", myn: "လုံခြုံရေး", sentenceZH: "樓下有**保全**。", sentenceMYN: "အောက်ထပ်မှာ **လုံခြုံရေး** ရှိတယ်။", audioZH: "C0227.mp3"),
+Word(id: 228, zh: "翻譯", pinyin: "fān yì", myn: "စကားပြန်", sentenceZH: "我們需要一位緬甸語**翻譯**。", sentenceMYN: "ကျွန်တော်တို့ မြန်မာ **စကားပြန်** တစ်ယောက်လိုတယ်။", audioZH: "C0228.mp3"),
+Word(id: 229, zh: "會計", pinyin: "huì jì", myn: "စာရင်းကိုင်", sentenceZH: "薪水問題問**會計**。", sentenceMYN: "လစာကိစ္စ **စာရင်းကိုင်** ကို မေးပါ။", audioZH: "C0229.mp3"),
+Word(id: 230, zh: "人資", pinyin: "rén zī", myn: "အိပ်ချ်အာ", sentenceZH: "**人資**會幫你辦保險。", sentenceMYN: "**အိပ်ချ်အာ** (HR) က အာမခံကိစ္စ လုပ်ပေးလိမ့်မယ်။", audioZH: "C0230.mp3"),
+Word(id: 231, zh: "焊接工", pinyin: "hàn jiē gōng", myn: "ဝရိန်ဆရာ", sentenceZH: "這裡需要專業的**焊接工**。", sentenceMYN: "ဒီမှာ ကျွမ်းကျင်တဲ့ **ဝရိန်ဆရာ** လိုတယ်။", audioZH: "C0231.mp3"),
+Word(id: 232, zh: "水電工", pinyin: "shuǐ diàn gōng", myn: "မီးဆရာ", sentenceZH: "叫**水電工**來修燈泡。", sentenceMYN: "မီးလုံးပြင်ဖို့ **မီးဆရာ** ခေါ်လိုက်ပါ။", audioZH: "C0232.mp3"),
+Word(id: 233, zh: "木工", pinyin: "mù gōng", myn: "လက်သမား", sentenceZH: "他是做**木工**的。", sentenceMYN: "သူက **လက်သမား** အလုပ်လုပ်တာ။", audioZH: "C0233.mp3"),
+Word(id: 234, zh: "搬運工", pinyin: "bān yùn gōng", myn: "အထမ်းသမား", sentenceZH: "**搬運工**很辛苦。", sentenceMYN: "**အထမ်းသမား** တွေ ပင်ပန်းတယ်။", audioZH: "C0234.mp3"),
+Word(id: 235, zh: "看護", pinyin: "kàn hù", myn: "လူနာစောင့်", sentenceZH: "她在醫院當**看護**。", sentenceMYN: "သူမ ဆေးရုံမှာ **လူနာစောင့်** လုပ်တယ်။", audioZH: "C0235.mp3"),
+Word(id: 236, zh: "實習生", pinyin: "shí xí shēng", myn: "အလုပ်သင်", sentenceZH: "我是新來的**實習生**。", sentenceMYN: "ကျွန်တော်က အသစ်ရောက်တဲ့ **အလုပ်သင်** ပါ။", audioZH: "C0236.mp3"),
+Word(id: 237, zh: "外勞", pinyin: "wài láo", myn: "နိုင်ငံခြားသားအလုပ်သမား", sentenceZH: "我們是合法**外勞**。", sentenceMYN: "ကျွန်တော်တို့က တရားဝင် **နိုင်ငံခြားသားအလုပ်သမား** တွေပါ။", audioZH: "C0237.mp3"),
+Word(id: 238, zh: "公務員", pinyin: "gōng wù yuán", myn: "အစိုးရဝန်ထမ်း", sentenceZH: "在台灣當**公務員**很穩定。", sentenceMYN: "ထိုင်ဝမ်မှာ **အစိုးရဝန်ထမ်း** လုပ်ရတာ တည်ငြိမ်တယ်။", audioZH: "C0238.mp3"),
+Word(id: 239, zh: "農夫", pinyin: "nóng fū", myn: "လယ်သမား", sentenceZH: "有些人在山上當**農夫**。", sentenceMYN: "တချို့က တောင်ပေါ်မှာ **လယ်သမား** (စိုက်ပျိုးရေး) လုပ်ကြတယ်။", audioZH: "C0239.mp3"),
+Word(id: 240, zh: "警察", pinyin: "jǐng chá", myn: "ရဲ", sentenceZH: "遇到危險要叫**警察**。", sentenceMYN: "အန္တရာယ်ရှိရင် **ရဲ** ခေါ်ပါ။", audioZH: "C0240.mp3"),
+
+// --- 天氣 (Weather) ---
+Word(id: 241, zh: "天氣", pinyin: "tiān qì", myn: "ရာသီဥတု", sentenceZH: "今天**天氣**很好。", sentenceMYN: "ဒီနေ့ **ရာသီဥတု** ကောင်းတယ်။", audioZH: "C0241.mp3"),
+Word(id: 242, zh: "很熱", pinyin: "hěn rè", myn: "ပူ", sentenceZH: "夏天**很熱**。", sentenceMYN: "နွေရာသီက အရမ်း **ပူ** တယ်။", audioZH: "C0242.mp3"),
+Word(id: 243, zh: "很冷", pinyin: "hěn lěng", myn: "အေး", sentenceZH: "今天有點**冷**。", sentenceMYN: "ဒီနေ့ နည်းနည်း **အေး** တယ်။", audioZH: "C0243.mp3"),
+Word(id: 244, zh: "下雨", pinyin: "xià yǔ", myn: "မိုးရွာ", sentenceZH: "外面在**下雨**。", sentenceMYN: "အပြင်မှာ **မိုးရွာ** နေတယ်။", audioZH: "C0244.mp3"),
+Word(id: 245, zh: "颱風", pinyin: "tái fēng", myn: "မုန်တိုင်း", sentenceZH: "明天有**颱風**。", sentenceMYN: "မနက်ဖြန် **မုန်တိုင်း** လာမယ်။", audioZH: "C0245.mp3"),
+Word(id: 246, zh: "地震", pinyin: "dì zhèn", myn: "ငလျင်", sentenceZH: "剛剛有**地震**，好可怕。", sentenceMYN: "စောစောက **ငလျင်** လှုပ်သွားတယ်၊ ကြောက်စရာကြီး။", audioZH: "C0246.mp3"),
+Word(id: 247, zh: "太陽", pinyin: "tài yáng", myn: "နေ", sentenceZH: "**太陽**很大。", sentenceMYN: "**နေ** အရမ်းပူတယ်။", audioZH: "C0247.mp3"),
+Word(id: 248, zh: "雨傘", pinyin: "yǔ sǎn", myn: "ထီး", sentenceZH: "記得帶**雨傘**。", sentenceMYN: "**ထီး** ယူသွားဖို့ မမေ့နဲ့။", audioZH: "C0248.mp3"),
+Word(id: 249, zh: "潮濕", pinyin: "cháo shī", myn: "စိုထိုင်း", sentenceZH: "台灣的天氣很**潮濕**。", sentenceMYN: "ထိုင်ဝမ် ရာသီဥတုက အရမ်း **စိုထိုင်း** တယ်။", audioZH: "C0249.mp3"),
+Word(id: 250, zh: "溫度", pinyin: "wēn dù", myn: "အပူချိန်", sentenceZH: "現在**溫度**幾度？", sentenceMYN: "အခု **အပူချိန်** ဘယ်လောက်လဲ။", audioZH: "C0250.mp3"),
+
+// --- 6. 醫院與健康 (Hospital & Health) ---
+Word(id: 251, zh: "醫院", pinyin: "yī yuàn", myn: "ဆေးရုံ", sentenceZH: "我不舒服，要去**醫院**。", sentenceMYN: "ကျွန်တော် နေမကောင်းဘူး၊ **ဆေးရုံ** သွားရမယ်။", audioZH: "C0251.mp3"),
+Word(id: 252, zh: "掛號", pinyin: "guà hào", myn: "စာရင်းပေး", sentenceZH: "請先去櫃台**掛號**。", sentenceMYN: "ကောင်တာမှာ အရင်သွား **စာရင်းပေး** ပါ။", audioZH: "C0252.mp3"),
+Word(id: 253, zh: "急診", pinyin: "jí zhěn", myn: "အရေးပေါ်", sentenceZH: "我們要送他去**急診**。", sentenceMYN: "သူ့ကို **အရေးပေါ်** ဌာန ပို့ရမယ်။", audioZH: "C0253.mp3"),
+Word(id: 254, zh: "健保卡", pinyin: "jiàn bǎo kǎ", myn: "ကျန်းမာရေးကတ်", sentenceZH: "看醫生要帶**健保卡**。", sentenceMYN: "ဆေးခန်းပြရင် **ကျန်းမာရေးကတ်** ယူလာရမယ်။", audioZH: "C0254.mp3"),
+Word(id: 255, zh: "發燒", pinyin: "fā shāo", myn: "ဖျား", sentenceZH: "我有**發燒**和頭痛。", sentenceMYN: "ကျွန်တော် **ဖျား** ပြီး ခေါင်းကိုက်နေတယ်။", audioZH: "C0255.mp3"),
+Word(id: 256, zh: "受傷", pinyin: "shòu shāng", myn: "ဒဏ်ရာရ", sentenceZH: "我的手**受傷**了。", sentenceMYN: "ကျွန်တော့်လက် **ဒဏ်ရာရ** သွားတယ်။", audioZH: "C0256.mp3"),
+Word(id: 257, zh: "吃藥", pinyin: "chī yào", myn: "ဆေးသောက်", sentenceZH: "記得按時**吃藥**。", sentenceMYN: "အချိန်မှန် **ဆေးသောက်** ဖို့ မမေ့နဲ့။", audioZH: "C0257.mp3"),
+Word(id: 258, zh: "打針", pinyin: "dǎ zhēn", myn: "ဆေးထိုး", sentenceZH: "我很怕**打針**。", sentenceMYN: "ကျွန်တော် **ဆေးထိုး** ရမှာ ကြောက်တယ်။", audioZH: "C0258.mp3"),
+Word(id: 259, zh: "肚子痛", pinyin: "dù zi tòng", myn: "ဗိုက်နာ", sentenceZH: "我吃了壞東西，現在**肚子痛**。", sentenceMYN: "အစားမှားပြီး အခု **ဗိုက်နာ** နေတယ်။", audioZH: "C0259.mp3"),
+Word(id: 260, zh: "藥局", pinyin: "yào jú", myn: "ဆေးဆိုင်", sentenceZH: "我可以去**藥局**買止痛藥。", sentenceMYN: "**ဆေးဆိုင်** မှာ အကိုက်အခဲပျောက်ဆေး သွားဝယ်လို့ရတယ်။", audioZH: "C0260.mp3"),
+
+// --- 7. 運動類型 (Sports) ---
+Word(id: 261, zh: "運動", pinyin: "yùn dòng", myn: "အားကစား", sentenceZH: "多**運動**對身體好。", sentenceMYN: "**အားကစား** လုပ်တာ ကျန်းမာရေးအတွက် ကောင်းတယ်။", audioZH: "C0261.mp3"),
+Word(id: 262, zh: "藤球", pinyin: "téng qiú", myn: "ခြင်းလုံး", sentenceZH: "緬甸人很喜歡踢**藤球**。", sentenceMYN: "မြန်မာတွေက **ခြင်းလုံး** ခတ်တာ အရမ်းကြိုက်ကြတယ်။", audioZH: "C0262.mp3"),
+Word(id: 263, zh: "足球", pinyin: "zú qiú", myn: "ဘောလုံး", sentenceZH: "我們週末去踢**足球**吧。", sentenceMYN: "ပိတ်ရက်ကျရင် **ဘောလုံး** သွားကန်ကြမယ်။", audioZH: "C0263.mp3"),
+Word(id: 264, zh: "籃球", pinyin: "lán qiú", myn: "ဘတ်စကက်ဘော", sentenceZH: "你會打**籃球**嗎？", sentenceMYN: "မင်း **ဘတ်စကက်ဘော** ကစားတတ်လား။", audioZH: "C0264.mp3"),
+Word(id: 265, zh: "跑步", pinyin: "pǎo bù", myn: "အပြေးလေ့ကျင့်", sentenceZH: "我每天早上都會**跑步**。", sentenceMYN: "ကျွန်တော် မနက်တိုင်း **အပြေးလေ့ကျင့်** တယ်။", audioZH: "C0265.mp3"),
+Word(id: 266, zh: "羽毛球", pinyin: "yǔ máo qiú", myn: "ကြက်တောင်", sentenceZH: "戴資穎很會打**羽毛球**。", sentenceMYN: "Tai Tzu-ying က **ကြက်တောင်** ရိုက် အရမ်းတော်တယ်။", audioZH: "C0266.mp3"),
+Word(id: 267, zh: "排球", pinyin: "pái qiú", myn: "ဘော်လီဘော", sentenceZH: "女生們在打**排球**。", sentenceMYN: "မိန်းကလေးတွေ **ဘော်လီဘော** ကစားနေကြတယ်။", audioZH: "C0267.mp3"),
+Word(id: 268, zh: "游泳", pinyin: "yóu yǒng", myn: "ရေကူး", sentenceZH: "夏天去**游泳**最舒服。", sentenceMYN: "နွေရာသီ **ရေကူး** ရတာ အရမ်းကောင်းတယ်။", audioZH: "C0268.mp3"),
+Word(id: 269, zh: "健身房", pinyin: "jiàn shēn fáng", myn: "ဂျင်", sentenceZH: "下班後我去**健身房**。", sentenceMYN: "အလုပ်ဆင်းရင် **ဂျင်** (Gym) သွားမယ်။", audioZH: "C0269.mp3"),
+Word(id: 270, zh: "比賽", pinyin: "bǐ sài", myn: "ပြိုင်ပွဲ", sentenceZH: "今天有精彩的**比賽**。", sentenceMYN: "ဒီနေ့ ကြည့်ကောင်းမယ့် **ပြိုင်ပွဲ** ရှိတယ်။", audioZH: "C0270.mp3"),
+
+// --- 8. 台灣食物 (Taiwanese Food) ---
+Word(id: 271, zh: "珍珠奶茶", pinyin: "zhēn zhū nǎi chá", myn: "ပုလဲလက်ဖက်ရည်", sentenceZH: "台灣的**珍珠奶茶**很有名。", sentenceMYN: "ထိုင်ဝမ် **ပုလဲလက်ဖက်ရည်** (Bubble Tea) က နာမည်ကြီးတယ်။", audioZH: "C0271.mp3"),
+Word(id: 272, zh: "雞排", pinyin: "jī pái", myn: "ကြက်ကြော်ပြား", sentenceZH: "我要一份大辣的**雞排**。", sentenceMYN: "အစပ်များများ **ကြက်ကြော်ပြား** တစ်ခု ပေးပါ။", audioZH: "C0272.mp3"),
+Word(id: 273, zh: "臭豆腐", pinyin: "chòu dòu fǔ", myn: "တို့ဟူးပုပ်", sentenceZH: "你不喜歡吃**臭豆腐**嗎？", sentenceMYN: "မင်း **တို့ဟူးပုပ်** မကြိုက်ဘူးလား။", audioZH: "C0273.mp3"),
+Word(id: 274, zh: "牛肉麵", pinyin: "niú ròu miàn", myn: "အမဲသားခေါက်ဆွဲ", sentenceZH: "這家店的**牛肉麵**很好吃。", sentenceMYN: "ဒီဆိုင်က **အမဲသားခေါက်ဆွဲ** အရမ်းစားကောင်းတယ်။", audioZH: "C0274.mp3"),
+Word(id: 275, zh: "滷肉飯", pinyin: "lǔ ròu fàn", myn: "ဝက်သားပေါင်းထမင်း", sentenceZH: "**滷肉飯**便宜又好吃。", sentenceMYN: "**ဝက်သားပေါင်းထမင်း** က ဈေးပေါပြီး စားလို့ကောင်းတယ်။", audioZH: "C0275.mp3"),
+Word(id: 276, zh: "小籠包", pinyin: "xiǎo lóng bāo", myn: "ဖက်ထုပ်ပေါင်း", sentenceZH: "鼎泰豐的**小籠包**很有名。", sentenceMYN: "Din Tai Fung ရဲ့ **ဖက်ထုပ်ပေါင်း** က နာမည်ကြီးတယ်။", audioZH: "C0276.mp3"),
+Word(id: 277, zh: "便當", pinyin: "biàn dāng", myn: "ထမင်းဘူး", sentenceZH: "中午我們訂**便當**吧。", sentenceMYN: "နေ့လယ်စာအတွက် **ထမင်းဘူး** မှာကြမယ်။", audioZH: "C0277.mp3"),
+Word(id: 278, zh: "火鍋", pinyin: "huǒ guō", myn: "ဟော့ပေါ့", sentenceZH: "冬天就是要吃**火鍋**。", sentenceMYN: "ဆောင်းတွင်းဆိုရင် **ဟော့ပေါ့** စားရတာ အကောင်းဆုံးပဲ။", audioZH: "C0278.mp3"),
+Word(id: 279, zh: "夜市", pinyin: "yè shì", myn: "ညဈေး", sentenceZH: "晚上去逛**夜市**。", sentenceMYN: "ညဘက်ကျရင် **ညဈေး** လျှောက်လည်မယ်။", audioZH: "C0279.mp3"),
+Word(id: 280, zh: "吃到飽", pinyin: "chī dào bǎo", myn: "ဘူဖေး", sentenceZH: "這家餐廳是**吃到飽**的。", sentenceMYN: "ဒီဆိုင်က **ဘူဖေး** (Buffet) ဆိုင်ပါ။", audioZH: "C0280.mp3"),
+
+// --- 9. 台灣節日 (Taiwanese Festivals) ---
+Word(id: 281, zh: "過年", pinyin: "guò nián", myn: "နှစ်သစ်ကူး", sentenceZH: "台灣**過年**會放假。", sentenceMYN: "ထိုင်ဝမ် **နှစ်သစ်ကူး** ဆိုရင် ရုံးပိတ်တယ်။", audioZH: "C0281.mp3"),
+Word(id: 282, zh: "紅包", pinyin: "hóng bāo", myn: "မုန့်ဖိုး", sentenceZH: "老闆發**紅包**了。", sentenceMYN: "သူဌေးက **မုန့်ဖိုး** (အနီရောင်စာအိတ်) ပေးပြီ။", audioZH: "C0282.mp3"),
+Word(id: 283, zh: "中秋節", pinyin: "zhōng qiū jié", myn: "လမုန့်ပွဲတော်", sentenceZH: "**中秋節**我們要烤肉。", sentenceMYN: "**လမုန့်ပွဲတော်** မှာ ကျွန်တော်တို့ အသားကင်စားကြမယ်။", audioZH: "C0283.mp3"),
+Word(id: 284, zh: "月餅", pinyin: "yuè bǐng", myn: "လမုန့်", sentenceZH: "請你吃**月餅**。", sentenceMYN: "**လမုန့်** စားပါဦး။", audioZH: "C0284.mp3"),
+Word(id: 285, zh: "端午節", pinyin: "duān wǔ jié", myn: "လှေပြိုင်ပွဲ", sentenceZH: "**端午節**要吃粽子。", sentenceMYN: "**လှေပြိုင်ပွဲ** (Dragon Boat Festival) မှာ ကောက်ညှင်းထုပ် စားရတယ်။", audioZH: "C0285.mp3"),
+Word(id: 286, zh: "粽子", pinyin: "zòng zi", myn: "ကောက်ညှင်းထုပ်", sentenceZH: "**粽子**有很多種口味。", sentenceMYN: "**ကောက်ညှင်းထုပ်** မှာ အရသာအမျိုးမျိုးရှိတယ်။", audioZH: "C0286.mp3"),
+Word(id: 287, zh: "跨年", pinyin: "kuà nián", myn: "နှစ်သစ်ကူးည", sentenceZH: "我們要去101**跨年**。", sentenceMYN: "ကျွန်တော်တို့ 101 မှာ **နှစ်သစ်ကူးည** (Countdown) သွားလုပ်မယ်။", audioZH: "C0287.mp3"),
+Word(id: 288, zh: "煙火", pinyin: "yān huǒ", myn: "မီးရှူးမီးပန်း", sentenceZH: "這裡的**煙火**很漂亮。", sentenceMYN: "ဒီက **မီးရှူးမီးပန်း** တွေက အရမ်းလှတယ်။", audioZH: "C0288.mp3"),
+Word(id: 289, zh: "清明節", pinyin: "qīng míng jié", myn: "ချင်းမင်ပွဲတော်", sentenceZH: "**清明節**要掃墓。", sentenceMYN: "**ချင်းမင်ပွဲတော်** (Qingming) မှာ အုတ်ဂူသွားကန်တော့ရတယ်။", audioZH: "C0289.mp3"),
+Word(id: 290, zh: "連假", pinyin: "lián jià", myn: "ရက်ရှည်ပိတ်ရက်", sentenceZH: "下週有四天**連假**。", sentenceMYN: "နောက်အပတ် ၄ ရက် **ရက်ရှည်ပိတ်ရက်** ရှိတယ်။", audioZH: "C0290.mp3"),
+
+// --- 10. 證件申請 (Document Application) ---
+Word(id: 291, zh: "申請", pinyin: "shēn qǐng", myn: "လျှောက်", sentenceZH: "我要**申請**工作證。", sentenceMYN: "ကျွန်တော် အလုပ်ပါမစ် **လျှောက်** ချင်တယ်။", audioZH: "C0291.mp3"),
+Word(id: 292, zh: "表格", pinyin: "biǎo gé", myn: "ဖောင်", sentenceZH: "請填寫這份**表格**。", sentenceMYN: "ဒီ **ဖောင်** ကို ဖြည့်ပေးပါ။", audioZH: "C0292.mp3"),
+Word(id: 293, zh: "照片", pinyin: "zhào piàn", myn: "ဓာတ်ပုံ", sentenceZH: "需要兩張兩吋**照片**。", sentenceMYN: "၂ လက်မ **ဓာတ်ပုံ** ၂ ပုံ လိုတယ်။", audioZH: "C0293.mp3"),
+Word(id: 294, zh: "影本", pinyin: "yǐng běn", myn: "မိတ္တူ", sentenceZH: "請附上護照**影本**。", sentenceMYN: "ပတ်စပို့ **မိတ္တူ** ပူးတွဲပေးပါ။", audioZH: "C0294.mp3"),
+Word(id: 295, zh: "正本", pinyin: "zhèng běn", myn: "မူရင်း", sentenceZH: "記得帶**正本**去核對。", sentenceMYN: "တိုက်ဆိုင်စစ်ဆေးဖို့ **မူရင်း** ယူသွားဖို့မမေ့နဲ့။", audioZH: "C0295.mp3"),
+Word(id: 296, zh: "印章", pinyin: "yìn zhāng", myn: "တံဆိပ်တုံး", sentenceZH: "這裡要蓋**印章**。", sentenceMYN: "ဒီနားမှာ **တံဆိပ်တုံး** ထုရမယ်။", audioZH: "C0296.mp3"),
+Word(id: 297, zh: "簽名", pinyin: "qiān míng", myn: "လက်မှတ်", sentenceZH: "請在右下角**簽名**。", sentenceMYN: "အောက်နား ညာဘက်ထောင့်မှာ **လက်မှတ်** ထိုးပေးပါ။", audioZH: "C0297.mp3"),
+Word(id: 298, zh: "號碼牌", pinyin: "hào mǎ pái", myn: "တိုကင်", sentenceZH: "請先抽**號碼牌**。", sentenceMYN: "**တိုကင်** အရင်ယူပါ။", audioZH: "C0298.mp3"),
+Word(id: 299, zh: "手續費", pinyin: "shǒu xù fèi", myn: "ဝန်ဆောင်ခ", sentenceZH: "辦這個要多少**手續費**？", sentenceMYN: "ဒါလုပ်ဖို့ **ဝန်ဆောင်ခ** ဘယ်လောက်ကျလဲ။", audioZH: "C0299.mp3"),
+Word(id: 300, zh: "收據", pinyin: "shōu jù", myn: "ပြေစာ", sentenceZH: "這是您的**收據**，請收好。", sentenceMYN: "ဒါ ခင်ဗျားရဲ့ **ပြေစာ** (Receipt) ပါ၊ သေချာသိမ်းထားပါ။", audioZH: "C0300.mp3")
 ];
 
 // 回傳單字清單
