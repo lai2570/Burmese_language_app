@@ -64,12 +64,15 @@ class _HomePageState extends State<HomePage> {
     if (unitNum >= 13 && unitNum <= 15) return "Restaurant (စားသောက်ဆိုင်)";
     if (unitNum >= 16 && unitNum <= 17) return "Salon (အလှပြင်ဆိုင်)";
     if (unitNum >= 18 && unitNum <= 19) return "Customs (အကောက်ခွန်)";
-    if (unitNum >= 20 && unitNum <= 20) return "Immigration (လူဝင်မှုကြီးကြပ်ရေး)";
+    if (unitNum >= 20 && unitNum <= 20) return "ARC (အေအာစီ)";
     if (unitNum >= 21 && unitNum <= 22) return "Majors (မေဂျာ)";
     if (unitNum >= 23 && unitNum <= 24) return "Job Titles (အလုပ်အမည်များ)";
     if (unitNum >= 25 && unitNum <= 25) return "Weather (ရာသီဥတု)";
     if (unitNum >= 26 && unitNum <= 26) return "Hospital (ဆေးရုံ)";
-    
+    if (unitNum >= 27 && unitNum <= 27) return "Sports (အားကစား)";
+    if (unitNum >= 28 && unitNum <= 28) return "Food (အစားအစာ)";
+    if (unitNum >= 29 && unitNum <= 29) return "Festivals (ပွဲတော်များ)";
+    if (unitNum >= 30 && unitNum <= 30) return "Document (စာရွက်စာတမ်း)";
     return "General (အထွေထွေ)";
   }
 
