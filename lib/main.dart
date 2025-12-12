@@ -25,6 +25,15 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Roboto', 
         useMaterial3: true,
       ),
+      // 加入 builder 屬性
+      builder: (context, child) {
+        return MediaQuery(
+          // 強制設定文字縮放比例為 1.0
+          data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),
+          child: child!,
+        );
+      },
+
       home: const HomePage(),
     );
   }
