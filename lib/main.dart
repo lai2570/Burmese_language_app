@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:url_launcher/url_launcher.dart'; // 安裝套件後可取消註解
+import 'package:url_launcher/url_launcher.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/gestures.dart';
 
-// 匯入資料檔
+// 匯入資料檔 (請確認您的檔案路徑正確)
 import 'data/vocab_data.dart'; 
 
 void main() {
@@ -25,21 +27,101 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Roboto', 
         useMaterial3: true,
       ),
-      // 加入 builder 屬性
+      // 強制鎖定文字縮放比例為 1.0 (解決大螢幕跑版問題)
       builder: (context, child) {
         return MediaQuery(
-          // 強制設定文字縮放比例為 1.0
           data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),
           child: child!,
         );
       },
-
       home: const HomePage(),
     );
   }
 }
 
-// --- HomePage ---
+// --- 資料結構：單元分類 (改為 ID 區間控制) ---
+class UnitGroup {
+  final String title;
+  final IconData icon;
+  // 移除 startIndex，改用 ID 區間來過濾
+  final int startId; 
+  final int endId;   
+  final List<String> subUnits; 
+
+  const UnitGroup({
+    required this.title,
+    required this.icon,
+    required this.startId,
+    required this.endId,
+    required this.subUnits,
+  });
+}
+
+// 定義所有單元分類 (根據 vocab_data.dart 的 ID 規則設定)
+final List<UnitGroup> appUnitGroups = [
+  UnitGroup(
+    title: "School (ကျောင်း)", 
+    icon: Icons.school, 
+    startId: 101, endId: 400,
+    subUnits: ["Campus (ကျောင်းဝင်း)", "Class (အတန်းတက်)", "Classmates (အတန်းဖော်များ)"]
+  ),
+  UnitGroup(
+    title: "Office (ရုံး)", 
+    icon: Icons.business_center, 
+    startId: 401, endId: 1000,
+    subUnits: ["Office (ရုံး)", "Recruitment (ဝန်ထမ်းခေါ်)", "Communication (ဆက်သွယ်မှု)", "Finance (ငွေကြေး)", "Attendance (တက်ရောက်မှု)"]
+  ),
+  UnitGroup(
+    title: "Factory (စက်ရုံ)", 
+    icon: Icons.factory, 
+    startId: 1001, endId: 1300,
+    subUnits: ["Factory (စက်ရုံ)", "Warehouse (ဂိုဒေါင်)"]
+  ),
+  UnitGroup(
+    title: "Restaurant (စားသောက်ဆိုင်)", 
+    icon: Icons.restaurant, 
+    startId: 1301, endId: 1600,
+    subUnits: ["Restaurant (စားသောက်ဆိုင်)", "Tableware (ပန်းကန်ခွက်ယောက်)", "Service (ဝန်ဆောင်မှု)"]
+  ),
+  UnitGroup(
+    title: "Salon (ဆံပင်ဆိုင်)", 
+    icon: Icons.content_cut, 
+    startId: 1601, endId: 1800,
+    subUnits: ["Salon (ဆံပင်ဆိုင်)", "Haircut (ဆံပင်ညှပ်)"]
+  ),
+  UnitGroup(
+    title: "Customs (အကောက်ခွန်)", 
+    icon: Icons.local_airport, 
+    startId: 1801, endId: 1200,
+    subUnits: ["Customs (အကောက်ခွန်)", "Airport (လေဆိပ်)"]
+  ),
+  UnitGroup(title: "ARC (အေအာစီ)", icon: Icons.card_membership, startId: 2001, endId: 2100,subUnits: ["ARC (အေအာစီ)"]),
+  UnitGroup(
+    title: "Majors (မေဂျာ)", 
+    icon: Icons.book, 
+    startId: 2101, endId: 2300,
+    subUnits: ["Majors (မေဂျာ)", "Academics (ပညာရေး)"]
+  ),
+  UnitGroup(
+    title: "Job Titles (အလုပ်အမည်များ)", 
+    icon: Icons.badge, 
+    startId: 2301, endId: 2500,
+    subUnits: ["Job Titles 1 (အလုပ်အမည်များ)", "Job Titles 2 (အလုပ်အမည်များ)"]
+  ),
+  UnitGroup(title: "Weather (ရာသီဥတု)", icon: Icons.wb_sunny, startId: 2501, endId: 2600, subUnits: ["Weather (ရာသီဥတု)"]),
+  UnitGroup(
+    title: "Hospital (ဆေးရုံ)", 
+    icon: Icons.local_hospital, 
+    startId: 2601, endId: 2700, 
+    subUnits: ["Medical Care(ဆေးကုသမှု)","Symptoms(ရောဂါလက္ခဏာများ)","Clinics(ဆေးခန်းနှင့် ဌာနများ)"]),
+
+  UnitGroup(title: "Sports (အားကစား)", icon: Icons.sports_soccer, startId: 2701, endId: 2800, subUnits: ["Sports (အားကစား)"]),
+  UnitGroup(title: "Food (အစားအစာ)", icon: Icons.fastfood, startId: 2801, endId: 2900, subUnits: ["Food (အစားအစာ)"]),
+  UnitGroup(title: "Festivals (ပွဲတော်များ)", icon: Icons.celebration, startId: 2901, endId: 3000, subUnits: ["Festivals (ပွဲတော်များ)"]),
+  UnitGroup(title: "Document (စာရွက်စာတမ်း)", icon: Icons.description, startId: 3001, endId: 3100, subUnits: ["Document (စာရွက်စာတမ်း)"]),
+];
+
+// --- HomePage (第一層：顯示大分類) ---
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -48,44 +130,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int totalUnits = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _calculateUnits();
-  }
-
-  void _calculateUnits() {
-    final allWords = getFullVocabulary();
-    setState(() {
-      totalUnits = (allWords.length / 10).floor();
-    });
-  }
-
-  // 【單元分類邏輯】
-  String _getUnitCategory(int unitIndex) {
-    int unitNum = unitIndex + 1;
-    // 依據您的需求設定區間
-    if (unitNum >= 1 && unitNum <= 3) return "School (ကျောင်း)";
-    if (unitNum >= 4 && unitNum <= 9) return "Office (ရုံး)";
-    if (unitNum >= 10 && unitNum <= 12) return "Factory (စက်ရုံ)";
-    if (unitNum >= 13 && unitNum <= 15) return "Restaurant (စားသောက်ဆိုင်)";
-    if (unitNum >= 16 && unitNum <= 17) return "Salon (အလှပြင်ဆိုင်)";
-    if (unitNum >= 18 && unitNum <= 19) return "Customs (အကောက်ခွန်)";
-    if (unitNum >= 20 && unitNum <= 20) return "ARC (အေအာစီ)";
-    if (unitNum >= 21 && unitNum <= 22) return "Majors (မေဂျာ)";
-    if (unitNum >= 23 && unitNum <= 24) return "Job Titles (အလုပ်အမည်များ)";
-    if (unitNum >= 25 && unitNum <= 25) return "Weather (ရာသီဥတု)";
-    if (unitNum >= 26 && unitNum <= 26) return "Hospital (ဆေးရုံ)";
-    if (unitNum >= 27 && unitNum <= 27) return "Sports (အားကစား)";
-    if (unitNum >= 28 && unitNum <= 28) return "Food (အစားအစာ)";
-    if (unitNum >= 29 && unitNum <= 29) return "Festivals (ပွဲတော်များ)";
-    if (unitNum >= 30 && unitNum <= 30) return "Document (စာရွက်စာတမ်း)";
-    return "General (အထွေထွေ)";
-  }
-
-  // 【版權與作者資訊】
+  
+  // 顯示關於資訊
   void _showAuthorInfo() {
     showDialog(
       context: context,
@@ -112,32 +158,12 @@ class _HomePageState extends State<HomePage> {
               const Text('Credits / ဖန်တီးသူများ:', style: TextStyle(fontWeight: FontWeight.bold)),
               const SizedBox(height: 10),
               const Text('Developer: YUNG-TSAI LAI (賴泳在)'),
-              const Text('Translation: ChinQing in Taiwan'),
-              const Divider(height: 30),
-              const Text('Licenses:', style: TextStyle(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 5),
-              const Text(
-                'The vocabulary lists, translations, and audio recordings '
-                'in this application are licensed under Creative Commons '
-                'Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0).',
-                style: TextStyle(fontSize: 12),
-              ),
-              const SizedBox(height: 10),
-              InkWell(
-                child: const Text('View License', style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline)),
-                onTap: () {
-                  // 如果有安裝 url_launcher，這裡可以開啟網頁
-                  debugPrint("Open CC License Website");
-                },
-              ),
+              const Text('Translation: ChinQing in Taiwan(林素青)'),
             ],
           ),
         ),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text("Close"),
-          )
+          TextButton(onPressed: () => Navigator.pop(context), child: const Text("Close"))
         ],
       ),
     );
@@ -177,7 +203,6 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Row(
                   children: [
-                    // About 按鈕
                     GestureDetector(
                       onTap: _showAuthorInfo,
                       child: Container(
@@ -187,7 +212,6 @@ class _HomePageState extends State<HomePage> {
                         child: const Icon(Icons.info_outline, color: Colors.white70, size: 24),
                       ),
                     ),
-                    // 單字本按鈕
                     GestureDetector(
                       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const VocabBookPage())),
                       child: Container(
@@ -201,24 +225,21 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          // Unit Grid
+          // Categories List
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(24.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Row(children: [Icon(Icons.work, color: Colors.indigo, size: 20), SizedBox(width: 8), Text("Learning Units", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF1E293B)))]),
+                  const Row(children: [Icon(Icons.category, color: Colors.indigo, size: 20), SizedBox(width: 8), Text("Categories", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF1E293B)))]),
                   const SizedBox(height: 16),
                   Expanded(
-                    child: totalUnits == 0 
-                    ? const Center(child: Text("No full units available yet."))
-                    : GridView.builder(
+                    child: ListView.separated(
                       padding: EdgeInsets.zero,
-                      itemCount: totalUnits,
-                      // 調整比例以容納標題文字
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1, crossAxisSpacing: 16, mainAxisSpacing: 16, childAspectRatio: 2.8),
-                      itemBuilder: (context, index) => _buildUnitCard(context, index),
+                      itemCount: appUnitGroups.length,
+                      separatorBuilder: (context, index) => const SizedBox(height: 16),
+                      itemBuilder: (context, index) => _buildGroupCard(context, appUnitGroups[index]),
                     ),
                   ),
                 ],
@@ -230,32 +251,35 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildUnitCard(BuildContext context, int index) {
-    // 取得分類標題
-    String category = _getUnitCategory(index);
-
+  Widget _buildGroupCard(BuildContext context, UnitGroup group) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => StudyPage(unitIndex: index)));
+        // 進入 CategoryPage，由它負責過濾與切割單字
+        Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryPage(group: group)));
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 4, offset: const Offset(0, 2))]),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("UNIT ${index + 1}", style: const TextStyle(color: Colors.indigo, fontWeight: FontWeight.w900, fontSize: 13)),
-                const SizedBox(height: 4),
-                Text(category, style: const TextStyle(color: Color(0xFF1E293B), fontWeight: FontWeight.bold, fontSize: 16)),
-                const SizedBox(height: 4),
-                const Text("10 Words", style: TextStyle(color: Colors.grey, fontSize: 12)),
-              ],
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(color: Colors.indigo.shade50, borderRadius: BorderRadius.circular(12)),
+              child: Icon(group.icon, size: 32, color: Colors.indigo),
             ),
-            const Icon(Icons.arrow_forward_ios, size: 18, color: Colors.grey),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(group.title, style: const TextStyle(color: Color(0xFF1E293B), fontWeight: FontWeight.bold, fontSize: 18)),
+                  const SizedBox(height: 4),
+                  // 不再顯示 Topics 數量，避免誤導，或者可以顯示 "Tap to view units"
+                  Text("${group.subUnits.length} Topics Planned", style: const TextStyle(color: Colors.grey, fontSize: 12)),
+                ],
+              ),
+            ),
+            const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
           ],
         ),
       ),
@@ -263,24 +287,125 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-// --- StudyPage ---
+// --- CategoryPage (第二層：邏輯重寫核心) ---
+class CategoryPage extends StatelessWidget {
+  final UnitGroup group;
+
+  const CategoryPage({super.key, required this.group});
+
+  @override
+  Widget build(BuildContext context) {
+    // 1. 取得完整單字庫
+    final allWords = getFullVocabulary();
+    
+    // 2. 根據 ID 區間過濾出屬於這個分類的單字
+    final groupWords = allWords.where((w) => w.id >= group.startId && w.id <= group.endId).toList();
+
+    // 3. 計算能組成幾個完整的 10 字單元 (不滿 10 個則捨棄 -> 使用 floor)
+    int availableUnitsCount = (groupWords.length / 10).floor();
+
+    // 4. 防呆：顯示的單元數不能超過設定檔(subUnits)的標題數量
+    int displayCount = min(availableUnitsCount, group.subUnits.length);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(group.title),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0,
+      ),
+      body: displayCount == 0 
+        ? const Center(child: Text("Coming Soon / No complete units yet", style: TextStyle(color: Colors.grey)))
+        : ListView.separated(
+            padding: const EdgeInsets.all(24),
+            itemCount: displayCount,
+            separatorBuilder: (context, index) => const SizedBox(height: 16),
+            itemBuilder: (context, index) {
+              
+              // 5. 切割出該單元需要的 10 個單字
+              int start = index * 10;
+              int end = start + 10; // 因為前面已經 floor 過了，所以這裡絕對安全
+              final unitWords = groupWords.sublist(start, end);
+
+              // 顯示標題
+              String unitTitle = "UNIT ${index + 1}";
+              String subTitle = group.subUnits[index];
+
+              return GestureDetector(
+                onTap: () {
+                  // 6. 直接傳遞切好的單字列表 (List<Word>) 給 StudyPage
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => StudyPage(
+                      unitTitle: unitTitle, 
+                      wordList: unitWords
+                    )
+                  ));
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 4, offset: const Offset(0, 2))]),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(unitTitle, style: const TextStyle(color: Colors.indigo, fontWeight: FontWeight.w900, fontSize: 13)),
+                          const SizedBox(height: 4),
+                          Text(subTitle, style: const TextStyle(color: Color(0xFF1E293B), fontWeight: FontWeight.bold, fontSize: 16)),
+                        ],
+                      ),
+                      const Icon(Icons.play_circle_fill, size: 32, color: Colors.indigoAccent),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+    );
+  }
+}
+
+// --- StudyPage (接收 List<Word> 而非 Index) ---
 class StudyPage extends StatefulWidget {
-  final int unitIndex;
-  const StudyPage({super.key, required this.unitIndex});
+  final String unitTitle;
+  final List<Word> wordList;
+
+  const StudyPage({
+    super.key, 
+    required this.unitTitle, 
+    required this.wordList
+  });
 
   @override
   State<StudyPage> createState() => _StudyPageState();
 }
 
 class _StudyPageState extends State<StudyPage> {
-  late List<Word> studyList;
+  // 不再需要 studyList 變數，直接用 widget.wordList
   List<int> savedIds = [];
+  final AudioPlayer _audioPlayer = AudioPlayer();
 
   @override
   void initState() {
     super.initState();
-    studyList = getUnitWords(widget.unitIndex);
+    // 這裡不需要再 getUnitWords 了，因為資料是從上一頁傳進來的
     _loadSavedWords();
+  }
+  
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+
+  Future<void> _playAudio(String fileName) async {
+    try {
+      await _audioPlayer.stop();
+      await _audioPlayer.play(AssetSource('audio/$fileName'));
+    } catch (e) {
+      debugPrint("播放失敗: $e");
+    }
   }
 
   Future<void> _loadSavedWords() async {
@@ -300,8 +425,10 @@ class _StudyPageState extends State<StudyPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (studyList.length < 10) {
-      return Scaffold(appBar: AppBar(), body: const Center(child: Text("Error: Incomplete unit.")));
+    final currentList = widget.wordList;
+
+    if (currentList.isEmpty) {
+      return Scaffold(appBar: AppBar(), body: const Center(child: Text("Error: No words.")));
     }
 
     return Scaffold(
@@ -309,7 +436,7 @@ class _StudyPageState extends State<StudyPage> {
       appBar: AppBar(
         backgroundColor: Colors.white, elevation: 0,
         leading: IconButton(icon: const Icon(Icons.chevron_left, color: Colors.black, size: 30), onPressed: () => Navigator.pop(context)),
-        title: Column(children: [Text("Unit ${widget.unitIndex + 1}", style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)), const Text("STUDY MODE", style: TextStyle(color: Colors.grey, fontSize: 10, letterSpacing: 1.5))]), centerTitle: true,
+        title: Column(children: [Text(widget.unitTitle, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)), const Text("STUDY MODE", style: TextStyle(color: Colors.grey, fontSize: 10, letterSpacing: 1.5))]), centerTitle: true,
       ),
       body: Column(
         children: [
@@ -321,10 +448,10 @@ class _StudyPageState extends State<StudyPage> {
           Expanded(
             child: ListView.separated(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              itemCount: studyList.length,
+              itemCount: currentList.length,
               separatorBuilder: (_, __) => const SizedBox(height: 16),
               itemBuilder: (context, index) {
-                final word = studyList[index];
+                final word = currentList[index];
                 final isSaved = savedIds.contains(word.id);
                 return Container(
                   padding: const EdgeInsets.all(20),
@@ -335,7 +462,13 @@ class _StudyPageState extends State<StudyPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween, crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Row(crossAxisAlignment: CrossAxisAlignment.baseline, textBaseline: TextBaseline.alphabetic, children: [Text("${index + 1}. ", style: const TextStyle(color: Colors.grey, fontFamily: 'monospace')), Text(word.zh, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w900))]), Padding(padding: const EdgeInsets.only(left: 20), child: Text(word.pinyin, style: const TextStyle(color: Colors.indigo, fontSize: 16, fontWeight: FontWeight.w500)))]),
+                          GestureDetector(
+                            onTap: () => _playAudio(word.audioZH),
+                            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Row(crossAxisAlignment: CrossAxisAlignment.baseline, textBaseline: TextBaseline.alphabetic, children: [                        
+                              Text("${index + 1}. ", style: const TextStyle(color: Colors.grey, fontFamily: 'monospace')), 
+                              Text(word.zh, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w900, decoration: TextDecoration.underline, decorationStyle: TextDecorationStyle.dotted, decorationColor: Colors.indigoAccent))
+                            ]), Padding(padding: const EdgeInsets.only(left: 20), child: Text(word.pinyin, style: const TextStyle(color: Colors.indigo, fontSize: 16, fontWeight: FontWeight.w500)))]),
+                          ),
                           IconButton(onPressed: () => _toggleSave(word.id), icon: Icon(isSaved ? Icons.star : Icons.star_border, color: isSaved ? Colors.amber : Colors.grey.shade300, size: 28))
                         ],
                       ),
@@ -345,7 +478,14 @@ class _StudyPageState extends State<StudyPage> {
                       Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(color: const Color(0xFFF8FAFC), borderRadius: BorderRadius.circular(12), border: Border(left: BorderSide(color: Colors.indigo.shade200, width: 4))),
-                        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [_buildSentence(word.sentenceZH, true), const SizedBox(height: 8), _buildSentence(word.sentenceMYN, false)]),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start, 
+                          children: [
+                            _buildSentence(word.sentenceZH, true, word.audioZH), 
+                            const SizedBox(height: 8), 
+                            _buildSentence(word.sentenceMYN, false, null)
+                          ]
+                        ),
                       )
                     ],
                   ),
@@ -356,28 +496,56 @@ class _StudyPageState extends State<StudyPage> {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(color: Colors.white, border: Border(top: BorderSide(color: Colors.grey.shade100))),
-            child: SizedBox(width: double.infinity, child: ElevatedButton.icon(onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => QuizPage(words: studyList, unitName: "Unit ${widget.unitIndex + 1}"))), style: ElevatedButton.styleFrom(backgroundColor: Colors.indigo, foregroundColor: Colors.white, padding: const EdgeInsets.symmetric(vertical: 16), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), elevation: 4), icon: const Icon(Icons.play_arrow), label: const Text("Start Quiz", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)))),
+            child: SizedBox(width: double.infinity, 
+              child: ElevatedButton.icon(
+                onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(
+                  builder: (context) => QuizPage(
+                    words: currentList, // 傳入當前列表
+                    unitName: widget.unitTitle // 傳入標題
+                  )
+                )), 
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.indigo, foregroundColor: Colors.white, padding: const EdgeInsets.symmetric(vertical: 16), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), elevation: 4), 
+                icon: const Icon(Icons.play_arrow), 
+                label: const Text("Start Quiz", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))
+              )
+            ),
           )
         ],
       ),
     );
   }
 
-  Widget _buildSentence(String sentence, bool isZh) {
+  Widget _buildSentence(String sentence, bool isZh, String? audioFileName) {
     List<String> parts = sentence.split('**');
     return RichText(
       text: TextSpan(
         style: TextStyle(color: Colors.grey.shade700, fontSize: 15, height: 1.4, fontFamily: 'Roboto'),
         children: parts.asMap().entries.map((entry) {
-          int idx = entry.key; String text = entry.value; bool isBold = idx % 2 == 1;
-          return TextSpan(text: text, style: isBold ? TextStyle(fontWeight: FontWeight.w900, color: isZh ? Colors.indigo : Colors.black87, backgroundColor: isZh ? Colors.indigo.shade50 : null) : null);
+          int idx = entry.key; 
+          String text = entry.value; 
+          bool isBold = idx % 2 == 1;
+          
+          if (isBold && isZh && audioFileName != null) {
+            return TextSpan(
+              text: text,
+              style: TextStyle(fontWeight: FontWeight.w900, color: Colors.indigo, backgroundColor: Colors.indigo.shade50),
+              recognizer: TapGestureRecognizer()..onTap = () {
+                _playAudio(audioFileName);
+              },
+            );
+          }
+          
+          return TextSpan(
+            text: text, 
+            style: isBold ? const TextStyle(fontWeight: FontWeight.w900, color: Colors.black87) : null
+          );
         }).toList(),
       ),
     );
   }
 }
 
-// --- QuizPage ---
+// --- QuizPage  ---
 class QuizPage extends StatefulWidget {
   final List<Word> words;
   final String unitName;
@@ -443,7 +611,7 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
     
     results.add({'word': word, 'isCorrect': isCorrect, 'isTimeout': isTimeout, 'correctAnswer': word.myn, 'userAnswer': isTimeout ? 'Timeout' : options[index]});
 
-    if (currentIndex < 9) {
+    if (currentIndex < 9 && currentIndex < quizQueue.length - 1) { // 防呆：確保不超過題目數量
       setState(() {
         currentIndex++;
         _timerController.duration = const Duration(seconds: 5);
@@ -467,8 +635,9 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
     final currentQ = quizQueue[currentIndex];
     final word = currentQ['word'] as Word;
     final options = currentQ['options'] as List<String>;
-
-    const totalQuestions = 10;
+    
+    // 總題數可能會少於10題(如果單元字數少)
+    final totalQuestions = quizQueue.length;
 
     return Scaffold(
       backgroundColor: const Color(0xFF0F172A),
@@ -525,8 +694,10 @@ class _ResultPageState extends State<ResultPage> {
 
   @override
   Widget build(BuildContext context) {
+    // 避免除以零
     int correctCount = widget.results.where((r) => r['isCorrect'] as bool).length;
-    int percentage = (correctCount * 10);
+    int total = widget.results.isNotEmpty ? widget.results.length : 1;
+    int percentage = ((correctCount / total) * 100).round();
 
     return Scaffold(
       backgroundColor: const Color(0xFFF1F5F9),
@@ -596,7 +767,13 @@ class _ResultPageState extends State<ResultPage> {
               const SizedBox(width: 16), 
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudyPage(unitIndex: (widget.originalWords[0].id / 10).floor()))), 
+                  // 這裡修改：重新學習時，直接將原本的單字列表 (widget.originalWords) 傳回去 StudyPage
+                  onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(
+                    builder: (context) => StudyPage(
+                      unitTitle: widget.unitName, 
+                      wordList: widget.originalWords
+                    )
+                  )), 
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.indigo, foregroundColor: Colors.white, padding: const EdgeInsets.symmetric(vertical: 16)), 
                   child: const Text("Study Again")
                 )
@@ -646,7 +823,6 @@ class _VocabBookPageState extends State<VocabBookPage> {
     _loadSavedWords(); 
   }
 
-  // 隨機測驗功能
   void _startRandomQuiz() {
     if (savedWords.length < 10) return;
     List<Word> shuffled = List.from(savedWords)..shuffle();
