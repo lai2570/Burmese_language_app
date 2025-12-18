@@ -67,6 +67,7 @@ final List<Word> _baseVocabulary = [
   Word(id: 118, zh: "及格", pinyin: "jí gé", myn: "အောင်မှတ်", sentenceZH: "這次考試我**及格**了。", sentenceMYN: "ဒီတစ်ခေါက် စာမေးပွဲ ကျွန်တော် **အောင်မှတ်** ရတယ်။", audioZH: "C0118.mp3"),
   Word(id: 119, zh: "制服", pinyin: "zhì fú", myn: "ယူနီဖောင်း", sentenceZH: "今天必須穿**制服**。", sentenceMYN: "ဒီနေ့ **ယူနီဖောင်း** ဝတ်ကိုဝတ်ရမယ်။", audioZH: "C0119.mp3"),
   Word(id: 120, zh: "學生證", pinyin: "xué shēng zhèng", myn: "ကျောင်းသားကတ်", sentenceZH: "我的**學生證**不見了。", sentenceMYN: "ကျွန်တော့် **ကျောင်းသားကတ်** ပျောက်သွားပြီ။", audioZH: "C0120.mp3"),
+
   Word(id: 121, zh: "老師", pinyin: "lǎo shī", myn: "ဆရာ", sentenceZH: "**老師**，我有問題想問。", sentenceMYN: "**ဆရာ**... ကျွန်တော့်မှာ မေးစရာရှိလို့ပါ။", audioZH: "C0121.mp3"),
   Word(id: 122, zh: "同學", pinyin: "tóng xué", myn: "အတန်းဖော်", sentenceZH: "他是我的新**同學**。", sentenceMYN: "သူက ကျွန်တော့်ရဲ့ **အတန်းဖော်** အသစ်လေ။", audioZH: "C0122.mp3"),
   Word(id: 123, zh: "學長", pinyin: "xué zhǎng", myn: "စီနီယာ", sentenceZH: "這位**學長**人很好。", sentenceMYN: "ဒီ **စီနီယာ** အစ်ကိုက သဘောကောင်းတယ်။", audioZH: "C0123.mp3"),
@@ -153,7 +154,7 @@ final List<Word> _baseVocabulary = [
   Word(id: 1012, zh: "搬運", pinyin: "bān yùn", myn: "သယ်", sentenceZH: "請幫忙**搬運**這些箱子。", sentenceMYN: "ဒီသေတ္တာတွေကို ကူ **သယ်** ပေးပါဦး။", audioZH: "C01012.mp3"),
   Word(id: 1013, zh: "組裝", pinyin: "zǔ zhuāng", myn: "တပ်ဆင်", sentenceZH: "我在生產線上負責**組裝**零件。", sentenceMYN: "ကျွန်တော်က လိုင်းပေါ်မှာ ပစ္စည်း **တပ်ဆင်** တာ လုပ်ရတယ်။", audioZH: "C01013.mp3"),
   Word(id: 1014, zh: "不良品", pinyin: "bù liáng pǐn", myn: "NG", sentenceZH: "這是**不良品**，要分開放。", sentenceMYN: "ဒါက **NG** (အပျက်)၊ သပ်သပ်ဖယ်ထားလိုက်။", audioZH: "C01014.mp3"),
-  Word(id: 1015, zh: "流程", pinyin: "liú chéng", myn: "အဆင့်ဆင့်လုပ်ဆောင်ပုံ", sentenceZH: "請遵守標準作業**流程**。", sentenceMYN: "သတ်မှတ်ထားတဲ့ **အဆင့်ဆင့်လုပ်ဆောင်ပုံ** အတိုင်း လုပ်ပါ။", audioZH: "C01015.mp3"),
+  Word(id: 1015, zh: "流程", pinyin: "liú chéng", myn: "အဆင့်ဆင့်လုပ်ဆောင်  ပုံ", sentenceZH: "請遵守標準作業**流程**。", sentenceMYN: "သတ်မှတ်ထားတဲ့ **အဆင့်ဆင့်လုပ်ဆောင်ပုံ** အတိုင်း လုပ်ပါ။", audioZH: "C01015.mp3"),
   Word(id: 1016, zh: "標籤", pinyin: "biāo qiān", myn: "လေဘယ်", sentenceZH: "請貼上**標籤**。", sentenceMYN: "**လေဘယ်** ကပ်လိုက်ပါ။", audioZH: "C01016.mp3"),
   Word(id: 1017, zh: "排班表", pinyin: "pái bān biǎo", myn: "ဂျူတီဇယား", sentenceZH: "下週的**排班表**出來了。", sentenceMYN: "နောက်အပတ် **ဂျူတီဇယား** ထွက်ပြီ။", audioZH: "C01017.mp3"),
   Word(id: 1018, zh: "堆高機", pinyin: "duī gāo jī", myn: "ဖော့ကား", sentenceZH: "只有他會開**堆高機**。", sentenceMYN: "သူပဲ **ဖော့ကား** မောင်းတတ်တယ်။", audioZH: "C01018.mp3"),
@@ -240,7 +241,7 @@ final List<Word> _baseVocabulary = [
   Word(id: 1810, zh: "沒收", pinyin: "mò shōu", myn: "သိမ်း", sentenceZH: "水果被海關**沒收**了。", sentenceMYN: "သစ်သီးတွေကို အကောက်ခွန်က **သိမ်း** လိုက်ပြီ။", audioZH: "C01810.mp3"),
 
   // Unit 19: Airport (設施與行李) - 包含航廈、登機流程、行李處理與接機
-  Word(id: 1811, zh: "航廈", pinyin: "háng shà", myn: "တာမီနယ်", sentenceZH: "我要去第一**航廈**。", sentenceMYN: "**တာမီနယ်** (၁) ကို သွားချင်တယ်။", audioZH: "C01811.mp3"),
+  Word(id: 1811, zh: "航廈", pinyin: "háng xià", myn: "တာမီနယ်", sentenceZH: "我要去第一**航廈**。", sentenceMYN: "**တာမီနယ်** (၁) ကို သွားချင်တယ်။", audioZH: "C01811.mp3"),
   Word(id: 1812, zh: "登機證", pinyin: "dēng jī zhèng", myn: "လေယာဉ်လက်မှတ်", sentenceZH: "这是您的**登機證**。", sentenceMYN: "ဒါ ခင်ဗျားရဲ့ **လေယာဉ်လက်မှတ်** (Boarding Pass) ပါ။", audioZH: "C01812.mp3"),
   Word(id: 1813, zh: "行李", pinyin: "xíng lǐ", myn: "အထုပ်အပိုး", sentenceZH: "你的**行李**超重了。", sentenceMYN: "မင်းရဲ့ **အထုပ်အပိုး** က ကီလိုပိုနေပြီ။", audioZH: "C01813.mp3"),
   Word(id: 1814, zh: "托運", pinyin: "tuō yùn", myn: "အိတ်အပ်", sentenceZH: "我要**托運**兩件行李。", sentenceMYN: "ကျွန်တော် အထုပ်နှစ်ထုပ် **အိတ်အပ်** ချင်တယ်။", audioZH: "C01814.mp3"),
@@ -302,7 +303,7 @@ final List<Word> _baseVocabulary = [
   Word(id: 2306, zh: "店長", pinyin: "diàn zhǎng", myn: "ဆိုင်မန်နေဂျာ", sentenceZH: "有事請找**店長**。", sentenceMYN: "ကိစ္စရှိရင် **ဆိုင်မန်နေဂျာ** နဲ့ ပြောပါ။", audioZH: "C02306.mp3"),
   Word(id: 2307, zh: "保全", pinyin: "bǎo quán", myn: "လုံခြုံရေး", sentenceZH: "樓下有**保全**。", sentenceMYN: "အောက်ထပ်မှာ **လုံခြုံရေး** ရှိတယ်။", audioZH: "C02307.mp3"),
   Word(id: 2308, zh: "翻譯", pinyin: "fān yì", myn: "စကားပြန်", sentenceZH: "我們需要一位緬甸語**翻譯**。", sentenceMYN: "ကျွန်တော်တို့ မြန်မာ **စကားပြန်** တစ်ယောက်လိုတယ်။", audioZH: "C02308.mp3"),
-  Word(id: 2309, zh: "會計", pinyin: "huì jì", myn: "စာရင်းကိုင်", sentenceZH: "薪水問題問**會計**。", sentenceMYN: "လစာကိစ္စ **စာရင်းကိုင်** ကို မေးပါ။", audioZH: "C02309.mp3"),
+  Word(id: 2309, zh: "外送員", pinyin: "wài sòng yuán", myn: "ဒီလစ်ဗာရီ", sentenceZH: "我在當**外送員**。", sentenceMYN: "ကျွန်တော် **ဒီလစ်ဗာရီ** မောင်းတယ်။", audioZH: "C02309.mp3"),
   Word(id: 2310, zh: "人資", pinyin: "rén zī", myn: "အိပ်ချ်အာ", sentenceZH: "**人資**會幫你辦保險。", sentenceMYN: "**အိပ်ချ်အာ** (HR) က အာမခံကိစ္စ လုပ်ပေးလိမ့်မယ်။", audioZH: "C02310.mp3"),
   Word(id: 2311, zh: "焊接工", pinyin: "hàn jiē gōng", myn: "ဝရိန်ဆရာ", sentenceZH: "這裡需要專業的**焊接工**。", sentenceMYN: "ဒီမှာ ကျွမ်းကျင်တဲ့ **ဝရိန်ဆရာ** လိုတယ်။", audioZH: "C02311.mp3"),
   Word(id: 2312, zh: "水電工", pinyin: "shuǐ diàn gōng", myn: "မီးဆရာ", sentenceZH: "叫**水電工**來修燈泡。", sentenceMYN: "မီးလုံးပြင်ဖို့ **မီးဆရာ** ခေါ်လိုက်ပါ။", audioZH: "C02312.mp3"),
