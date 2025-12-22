@@ -240,7 +240,6 @@ final List<Word> _baseVocabulary = [
   Word(id: 1809, zh: "罰款", pinyin: "fá kuǎn", myn: "ဒဏ်ငွေ", sentenceZH: "亂帶豬肉會被**罰款**。", sentenceMYN: "ဝက်သားယူလာရင် **ဒဏ်ငွေ** ဆောင်ရလိမ့်မယ်။", audioZH: "C01809.mp3"),
   Word(id: 1810, zh: "沒收", pinyin: "mò shōu", myn: "သိမ်း", sentenceZH: "水果被海關**沒收**了。", sentenceMYN: "သစ်သီးတွေကို အကောက်ခွန်က **သိမ်း** လိုက်ပြီ။", audioZH: "C01810.mp3"),
 
-  // Unit 19: Airport (設施與行李) - 包含航廈、登機流程、行李處理與接機
   Word(id: 1811, zh: "航廈", pinyin: "háng xià", myn: "တာမီနယ်", sentenceZH: "我要去第一**航廈**。", sentenceMYN: "**တာမီနယ်** (၁) ကို သွားချင်တယ်။", audioZH: "C01811.mp3"),
   Word(id: 1812, zh: "登機證", pinyin: "dēng jī zhèng", myn: "လေယာဉ်လက်မှတ်", sentenceZH: "这是您的**登機證**。", sentenceMYN: "ဒါ ခင်ဗျားရဲ့ **လေယာဉ်လက်မှတ်** (Boarding Pass) ပါ။", audioZH: "C01812.mp3"),
   Word(id: 1813, zh: "行李", pinyin: "xíng lǐ", myn: "အထုပ်အပိုး", sentenceZH: "你的**行李**超重了。", sentenceMYN: "မင်းရဲ့ **အထုပ်အပိုး** က ကီလိုပိုနေပြီ။", audioZH: "C01813.mp3"),
@@ -268,29 +267,30 @@ final List<Word> _baseVocabulary = [
   // ==========================================
   // Group 8: Majors (Unit 21-22) | Starts at ID 2101
   // ==========================================
-// Unit 20: Majors (常見科系) - 包含各種熱門的主修領域
-  Word(id: 2101, zh: "系", pinyin: "xì", myn: "မေဂျာ", sentenceZH: "你是什麼**系**的？", sentenceMYN: "မင်း ဘာ **မေဂျာ** လဲ။", audioZH: "C02101.mp3"),
+// Unit 20: Majors (常見科系) - 包含大學常見科系名稱與簡單描述
+  Word(id: 2101, zh: "醫學系", pinyin: "yī xué xì", myn: "ဆေးပညာမေဂျာ", sentenceZH: "我哥哥在讀**醫學系**。", sentenceMYN: "ကျွန်တော့်အစ်ကို **ဆေးပညာမေဂျာ** တက်နေတယ်။", audioZH: "C02101.mp3"),
   Word(id: 2102, zh: "中文系", pinyin: "zhōng wén xì", myn: "တရုတ်စာမေဂျာ", sentenceZH: "我在讀**中文系**。", sentenceMYN: "ကျွန်တော် **တရုတ်စာမေဂျာ** တက်နေတယ်။", audioZH: "C02102.mp3"),
   Word(id: 2103, zh: "企管系", pinyin: "qǐ guǎn xì", myn: "စီမံခန့်ခွဲမှုမေဂျာ", sentenceZH: "**企管系**很多人讀。", sentenceMYN: "**စီမံခန့်ခွဲမှုမေဂျာ** (Business) ကျောင်းသားများတယ်။", audioZH: "C02103.mp3"),
-  Word(id: 2104, zh: "資訊工程", pinyin: "zī xùn gōng chéng", myn: "အိုင်တီ", sentenceZH: "**資訊工程**現在很熱門。", sentenceMYN: "**အိုင်တီ** (IT) က အခုခေတ်စားတယ်။", audioZH: "C02104.mp3"),
-  Word(id: 2105, zh: "觀光系", pinyin: "guān guāng xì", myn: "ခရီးသွားဝန်ဆောင်မှုမေဂျာ", sentenceZH: "我喜歡旅遊，所以讀**觀光系**。", sentenceMYN: "ခရီးသွားရတာကြိုက်လို့ **ခရီးသွားဝန်ဆောင်မှုမေဂျာ** တက်တယ်။", audioZH: "C02105.mp3"),
-  Word(id: 2106, zh: "餐飲科", pinyin: "cān yǐn kē", myn: "ချက်ပြုတ်ရေးမေဂျာ", sentenceZH: "**餐飲科**以後可以當廚師。", sentenceMYN: "**ချက်ပြုတ်ရေးမေဂျာ** တက်ရင် စားဖိုမှူးဖြစ်နိုင်တယ်။", audioZH: "C02106.mp3"),
+  Word(id: 2104, zh: "資工系", pinyin: "zī gōng xì", myn: "ကွန်ပျူတာမေဂျာ", sentenceZH: "**資工系**現在很熱門。", sentenceMYN: "**ကွန်ပျူတာမေဂျာ** အခု အရမ်းလူကြိုက်များတယ်။", audioZH: "C02104.mp3"),
+  Word(id: 2105, zh: "法律系", pinyin: "fǎ lǜ xì", myn: "ဥပဒေမေဂျာ", sentenceZH: "她是**法律系**的學生。", sentenceMYN: "သူမက **ဥပဒေမေဂျာ** ကျောင်းသားပါ။", audioZH: "C02105.mp3"),
+  Word(id: 2106, zh: "地質系", pinyin: "dì zhì xì", myn: "မြေဗေဒမေဂျာ", sentenceZH: "我對**地質系**很有興趣。", sentenceMYN: "ကျွန်တော် **မြေဗေဒမေဂျာ** ကို စိတ်ဝင်စားတယ်။", audioZH: "C02106.mp3"),
   Word(id: 2107, zh: "設計系", pinyin: "shè jì xì", myn: "ဒီဇိုင်းမေဂျာ", sentenceZH: "**設計系**作業很多。", sentenceMYN: "**ဒီဇိုင်းမေဂျာ** က အိမ်စာများတယ်။", audioZH: "C02107.mp3"),
-  Word(id: 2108, zh: "機械系", pinyin: "jī xiè xì", myn: "စက်မှုမေဂျာ", sentenceZH: "男同學通常讀**機械系**。", sentenceMYN: "ယောကျာ်းလေးတွေက **စက်မှုမေဂျာ** (Mechanical) တက်တာများတယ်။", audioZH: "C02108.mp3"),
-  Word(id: 2109, zh: "電子系", pinyin: "diàn zǐ xì", myn: "အီလက်ထရောနစ်မေဂျာ", sentenceZH: "**電子系**很難讀。", sentenceMYN: "**အီလက်ထရောနစ်မေဂျာ** က စာခက်တယ်။", audioZH: "C02109.mp3"),
-  Word(id: 2110, zh: "護理", pinyin: "hù lǐ", myn: "သူနာပြု", sentenceZH: "**護理**系很辛苦。", sentenceMYN: "**သူနာပြု** မေဂျာက ပင်ပန်းတယ်။", audioZH: "C02110.mp3"),
-
-  // Unit 21: Academics (學術與進階學科) - 包含專業領域以及學分、學位等校園術語
-  Word(id: 2111, zh: "行銷", pinyin: "xíng xiāo", myn: "မားကတ်တင်း", sentenceZH: "我對**行銷**有興趣。", sentenceMYN: "ကျွန်တော် **မားကတ်တင်း** စိတ်ဝင်စားတယ်။", audioZH: "C02111.mp3"),
-  Word(id: 2112, zh: "會計", pinyin: "huì jì", myn: "စာရင်းကိုင်", sentenceZH: "**會計**要算數學。", sentenceMYN: "**စာရင်းကိုင်** က ဂဏန်းတွက်ရတယ်။", audioZH: "C02112.mp3"),
-  Word(id: 2113, zh: "建築", pinyin: "jiàn zhú", myn: "ဗိသုကာ", sentenceZH: "我想學**建築**。", sentenceMYN: "ကျွန်တော် **ဗိသုကာ** ပညာ သင်ချင်တယ်။", audioZH: "C02113.mp3"),
-  Word(id: 2114, zh: "美容美髮", pinyin: "měi róng měi fǎ", myn: "အလှပြုပြင်ရေးမေဂျာ", sentenceZH: "這所學校有**美容美髮**科。", sentenceMYN: "ဒီကျောင်းမှာ **အလှပြုပြင်ရေးမေဂျာ** ရှိတယ်။", audioZH: "C02114.mp3"),
+  Word(id: 2108, zh: "機械系", pinyin: "jī xiè xì", myn: "စက်မှုမေဂျာ", sentenceZH: "男同學通常讀**機械系**。", sentenceMYN: "ယောကျာ်းလေးတွေက **စက်မှုမေဂျာ** တက်တာများတယ်။", audioZH: "C02108.mp3"),
+  Word(id: 2109, zh: "電機系", pinyin: "diàn jī xì", myn: "လျှပ်စစ်မေဂျာ", sentenceZH: "**電機系**的課很難。", sentenceMYN: "**လျှပ်စစ်မေဂျာ** ရဲ့ သင်ခန်းစာတွေ ခက်တယ်။", audioZH: "C02109.mp3"),
+  Word(id: 2110, zh: "土木系", pinyin: "tǔ mù xì", myn: "စက်မှုမေဂျာ", sentenceZH: "**土木系**要會畫圖。", sentenceMYN: "**စက်မှုမေဂျာ** က ပုံဆွဲတတ်ရမယ်။", audioZH: "C02110.mp3"),
+  Word(id: 2111, zh: "財金系", pinyin: "cái jīn xì", myn: "ဘဏ္ဍာရေးမေဂျာ", sentenceZH: "**財金系**的學生很會算數。", sentenceMYN: "**ဘဏ္ဍာရေးမေဂျာ** ကျောင်းသားတွေ ကိန်းဂဏန်း ကောင်းတယ်။", audioZH: "C02111.mp3"),
+  Word(id: 2112, zh: "國貿系", pinyin: "guó mào xì", myn: "အပြည်ပြည်ဆိုင်ရာကုန်သွယ်မှုမေဂျာ", sentenceZH: "**國貿系**需要會英文。", sentenceMYN: "**အပြည်ပြည်ဆိုင်ရာကုန်သွယ်မှုမေဂျာ** က အင်္ဂလိပ်စာ သိရမယ်။", audioZH: "C02112.mp3"),
+  Word(id: 2113, zh: "觀光系", pinyin: "guān guāng xì", myn: "ခရီးသွားမေဂျာ", sentenceZH: "**觀光系**的實習很有趣。", sentenceMYN: "**ခရီးသွားမေဂျာ** ရဲ့ အလုပ်သင်တွေ စိတ်ဝင်စားဖွယ် ဖြစ်တယ်။", audioZH: "C02113.mp3"),
+  Word(id: 2114, zh: "法律系", pinyin: "fǎ lǜ xì", myn: "ဥပဒေမေဂျာ", sentenceZH: "**法律系**的同學很認真。", sentenceMYN: "**ဥပဒေမေဂျာ** ကျောင်းသားတွေ အလုပ်ကြိုးစားတယ်။", audioZH: "C02114.mp3"),
   Word(id: 2115, zh: "教授", pinyin: "jiào shòu", myn: "ပါမောက္ခ", sentenceZH: "這位**教授**很有名。", sentenceMYN: "ဒီ **ပါမောက္ခ** က နာမည်ကြီးတယ်။", audioZH: "C02115.mp3"),
-  Word(id: 2116, zh: "學分", pinyin: "xué fēn", myn: "ခရက်ဒစ်", sentenceZH: "我還差兩個**學分**。", sentenceMYN: "**ခရက်ဒစ်** (Credit) နှစ်ခုလိုသေးတယ်။", audioZH: "C02116.mp3"),
-  Word(id: 2117, zh: "報告", pinyin: "bào gào", myn: "ပရောဂျက်", sentenceZH: "下週要交期末**報告**。", sentenceMYN: "နောက်အပတ် အတန်းတင် **ပရောဂျက်** (Project) ထပ်ရမယ်။", audioZH: "C02117.mp3"),
+  Word(id: 2116, zh: "學分", pinyin: "xué fēn", myn: "ခရက်ဒစ်", sentenceZH: "我還差兩個**學分**。", sentenceMYN: "**ခရက်ဒစ်** နှစ်ခုလိုသေးတယ်။", audioZH: "C02116.mp3"),
+  Word(id: 2117, zh: "報告", pinyin: "bào gào", myn: "ပရောဂျက်", sentenceZH: "下週要交期末**報告**。", sentenceMYN: "နောက်အပတ် အတန်းတင် **ပရောဂျက်** ထပ်ရမယ်။", audioZH: "C02117.mp3"),
   Word(id: 2118, zh: "專題", pinyin: "zhuān tí", myn: "စာတမ်း", sentenceZH: "我們在做畢業**專題**。", sentenceMYN: "ကျွန်တော်တို့ ဘွဲ့ယူ **စာတမ်း** လုပ်နေကြတယ်။", audioZH: "C02118.mp3"),
   Word(id: 2119, zh: "學位", pinyin: "xué wèi", myn: "ဘွဲ့", sentenceZH: "拿到**學位**就可以找工作了。", sentenceMYN: "**ဘွဲ့** ရရင် အလုပ်ရှာလို့ရပြီ။", audioZH: "C02119.mp3"),
-  Word(id: 2120, zh: "碩士", pinyin: "shuò shì", myn: "မဟာဘွဲ့", sentenceZH: "他正在攻讀**碩士**。", sentenceMYN: "သူ **မဟာဘွဲ့** (Master) တက်နေတယ်။", audioZH: "C02120.mp3"),
+  Word(id: 2120, zh: "碩士", pinyin: "shuò shì", myn: "မဟာဘွဲ့", sentenceZH: "他正在攻讀**碩士**。", sentenceMYN: "သူ **မဟာဘွဲ့** တက်နေတယ်။", audioZH: "C02120.mp3"),
+
+  
+  
   
   // ==========================================
   // Group 9: Job Titles (Unit 23-24) | Starts at ID 2301
@@ -378,35 +378,35 @@ final List<Word> _baseVocabulary = [
   Word(id: 2707, zh: "排球", pinyin: "pái qiú", myn: "ဘော်လီဘော", sentenceZH: "女生們在打**排球**。", sentenceMYN: "မိန်းကလေးတွေ **ဘော်လီဘော** ကစားနေကြတယ်။", audioZH: "C02707.mp3"),
   Word(id: 2708, zh: "游泳", pinyin: "yóu yǒng", myn: "ရေကူး", sentenceZH: "夏天去**游泳**最舒服。", sentenceMYN: "နွေရာသီ **ရေကူး** ရတာ အရမ်းကောင်းတယ်။", audioZH: "C02708.mp3"),
   Word(id: 2709, zh: "健身房", pinyin: "jiàn shēn fáng", myn: "ဂျင်", sentenceZH: "下班後我去**健身房**。", sentenceMYN: "အလုပ်ဆင်းရင် **ဂျင်** (Gym) သွားမယ်။", audioZH: "C02709.mp3"),
-  Word(id: 2710, zh: "比賽", pinyin: "bǐ sài", myn: "ပြိုင်ပွဲ", sentenceZH: "今天有精彩的**比賽**。", sentenceMYN: "ဒီနေ့ ကြည့်ကောင်းမယ့် **ပြိုင်ပွဲ** ရှိတယ်။", audioZH: "C02710.mp3"),
-
+  Word(id: 2710, zh: "棒球", pinyin: "bàng qiú", myn: "ဘေ့စ်ဘော", sentenceZH: "台灣人很愛看**棒球**比賽。", sentenceMYN: "ထိုင်ဝမ်လူတွေက **ဘေ့စ်ဘော** ပြိုင်ပွဲ ကြည့်တာကို အရမ်းချစ်ကြတယ်။", audioZH: "C02710.mp3"),
+  
   // ==========================================
   // Group 13: Food (Unit 28) | Starts at ID 2801
   // ==========================================
   Word(id: 2801, zh: "珍珠奶茶", pinyin: "zhēn zhū nǎi chá", myn: "ပုလဲလက်ဖက်ရည်", sentenceZH: "台灣的**珍珠奶茶**很有名。", sentenceMYN: "ထိုင်ဝမ် **ပုလဲလက်ဖက်ရည်** (Bubble Tea) က နာမည်ကြီးတယ်။", audioZH: "C02801.mp3"),
-  Word(id: 2802, zh: "雞排", pinyin: "jī pái", myn: "ကြက်ကြော်ပြား", sentenceZH: "我要一份大辣的**雞排**。", sentenceMYN: "အစပ်များများ **ကြက်ကြော်ပြား** တစ်ခု ပေးပါ။", audioZH: "C02802.mp3"),
-  Word(id: 2803, zh: "臭豆腐", pinyin: "chòu dòu fǔ", myn: "တို့ဟူးပုပ်", sentenceZH: "你不喜歡吃**臭豆腐**嗎？", sentenceMYN: "မင်း **တို့ဟူးပုပ်** မကြိုက်ဘူးလား။", audioZH: "C02803.mp3"),
+  Word(id: 2802, zh: "雞排", pinyin: "jī pái", myn: "ကြက်ကြော်ပြား", sentenceZH: "我要一份大辣的**雞排**。", sentenceMYN: "အစပ်များများ **ကြက်ကြောငပတစစ** တစစ။", audioZH: "C02802.mp3"),
+  Word(id: 2803, zh: "臭豆腐", pinyin: "chòu dòu fǔ", myn: "တခငငငပတစစ", sentenceZH: "你不喜歡吃**臭豆腐**嗎？", sentenceMYN: "မငင **တခငငငပတစစ** မကတဘယ။", audioZH: "C02803.mp3"),
   Word(id: 2804, zh: "牛肉麵", pinyin: "niú ròu miàn", myn: "အမဲသားခေါက်ဆွဲ", sentenceZH: "這家店的**牛肉麵**很好吃。", sentenceMYN: "ဒီဆိုင်က **အမဲသားခေါက်ဆွဲ** အရမ်းစားကောင်းတယ်။", audioZH: "C02804.mp3"),
   Word(id: 2805, zh: "滷肉飯", pinyin: "lǔ ròu fàn", myn: "ဝက်သားပေါင်းထမင်း", sentenceZH: "**滷肉飯**便宜又好吃。", sentenceMYN: "**ဝက်သားပေါင်းထမင်း** က ဈေးပေါပြီး စားလို့ကောင်းတယ်။", audioZH: "C02805.mp3"),
   Word(id: 2806, zh: "小籠包", pinyin: "xiǎo lóng bāo", myn: "ဖက်ထုပ်ပေါင်း", sentenceZH: "鼎泰豐的**小籠包**很有名。", sentenceMYN: "Din Tai Fung ရဲ့ **ဖက်ထုပ်ပေါင်း** က နာမည်ကြီးတယ်။", audioZH: "C02806.mp3"),
-  Word(id: 2807, zh: "便當", pinyin: "biàn dāng", myn: "ထမင်းဘူး", sentenceZH: "中午我們訂**便當**吧。", sentenceMYN: "နေ့လယ်စာအတွက် **ထမင်းဘူး** မှာကြမယ်။", audioZH: "C02807.mp3"),
+  Word(id: 2807, zh: "豬血糕", pinyin: "zhū xiě gāo", myn: "ဝက်သွေးကိတ်", sentenceZH: "你吃過**豬血糕**嗎？", sentenceMYN: "မင်း **ဝက်သွေးကိတ်** စားဖူးလား။", audioZH: "C02807.mp3"),
   Word(id: 2808, zh: "火鍋", pinyin: "huǒ guō", myn: "ဟော့ပေါ့", sentenceZH: "冬天就是要吃**火鍋**。", sentenceMYN: "ဆောင်းတွင်းဆိုရင် **ဟော့ပေါ့** စားရတာ အကောင်းဆုံးပဲ။", audioZH: "C02808.mp3"),
-  Word(id: 2809, zh: "夜市", pinyin: "yè shì", myn: "ညဈေး", sentenceZH: "晚上去逛**夜市**。", sentenceMYN: "ညဘက်ကျရင် **ညဈေး** လျှောက်လည်မယ်။", audioZH: "C02809.mp3"),
+  Word(id: 2809, zh: "燒肉", pinyin: "shāo ròu", myn: "အမဲသားကင်", sentenceZH: "我們去吃**燒肉**吧！", sentenceMYN: "ကျွန်တော်တို့ **အမဲသားကင်** သွားစားကြမယ်။", audioZH: "C02809.mp3"),
   Word(id: 2810, zh: "吃到飽", pinyin: "chī dào bǎo", myn: "ဘူဖေး", sentenceZH: "這家餐廳是**吃到飽**的。", sentenceMYN: "ဒီဆိုင်က **ဘူဖေး** (Buffet) ဆိုင်ပါ။", audioZH: "C02810.mp3"),
 
   // ==========================================
   // Group 14: Festivals (Unit 29) | Starts at ID 2901
   // ==========================================
-  Word(id: 2901, zh: "過年", pinyin: "guò nián", myn: "နှစ်သစ်ကူး", sentenceZH: "台灣**過年**會放假。", sentenceMYN: "ထိုင်ဝမ် **နှစ်သစ်ကူး** ဆိုရင် ရုံးပိတ်တယ်။", audioZH: "C02901.mp3"),
-  Word(id: 2902, zh: "紅包", pinyin: "hóng bāo", myn: "မုန့်ဖိုး", sentenceZH: "老闆發**紅包**了。", sentenceMYN: "သူဌေးက **မုန့်ဖိုး** (အနီရောင်စာအိတ်) ပေးပြီ။", audioZH: "C02902.mp3"),
+  Word(id: 2901, zh: "農曆新年", pinyin: "nóng lì xīn nián", myn: "နှစ်သစ်ကူး", sentenceZH: "台灣**農曆新年**會放假。", sentenceMYN: "ထိုင်ဝမ် **နှစ်သစ်ကူး** ဆိုရင် ရုံးပိတ်တယ်။", audioZH: "C02901.mp3"),
+  Word(id: 2902, zh: "聖誕節", pinyin: "shèng dàn jié", myn: "ခရစ္စမတ်ပွဲတော်", sentenceZH: "**聖誕節**我們一起交換禮物。", sentenceMYN: "**ခရစ္စမတ်ပွဲတော်** မှာ ကျွန်တော်တို့ လက်ဆောင်လဲလှယ်ကြမယ်။", audioZH: "C02902.mp3"),
   Word(id: 2903, zh: "中秋節", pinyin: "zhōng qiū jié", myn: "လမုန့်ပွဲတော်", sentenceZH: "**中秋節**我們要烤肉。", sentenceMYN: "**လမုန့်ပွဲတော်** မှာ ကျွန်တော်တို့ အသားကင်စားကြမယ်။", audioZH: "C02903.mp3"),
-  Word(id: 2904, zh: "月餅", pinyin: "yuè bǐng", myn: "လမုန့်", sentenceZH: "請你吃**月餅**。", sentenceMYN: "**လမုန့်** စားပါဦး။", audioZH: "C02904.mp3"),
+  Word(id: 2904, zh: "父親節", pinyin: "fù qīn jié", myn: "အဖေ့ပွဲတော်", sentenceZH: "**父親節**我要送爸爸禮物。", sentenceMYN: "**အဖေ့ပွဲတော်** မှာ အဖေ့ကို လက်ဆောင်ပေးမယ်။", audioZH: "C02904.mp3"),
   Word(id: 2905, zh: "端午節", pinyin: "duān wǔ jié", myn: "လှေပြိုင်ပွဲ", sentenceZH: "**端午節**要吃粽子。", sentenceMYN: "**လှေပြိုင်ပွဲ** (Dragon Boat Festival) မှာ ကောက်ညှင်းထုပ် စားရတယ်။", audioZH: "C02905.mp3"),
-  Word(id: 2906, zh: "粽子", pinyin: "zòng zi", myn: "ကောက်ညှင်းထုပ်", sentenceZH: "**粽子**有很多種口味。", sentenceMYN: "**ကောက်ညှင်းထုပ်** မှာ အရသာအမျိုးမျိုးရှိတယ်။", audioZH: "C02906.mp3"),
+  Word(id: 2906, zh: "母親節", pinyin: "mǔ qīn jié", myn: "အမေ့ပွဲတော်", sentenceZH: "**母親節**我要帶媽媽去吃大餐。", sentenceMYN: "**အမေ့ပွဲတော်** မှာ မိခင်ကို စားသောက်ဆိုင်ကြီး သွားစားပေးမယ်။", audioZH: "C02906.mp3"),
   Word(id: 2907, zh: "跨年", pinyin: "kuà nián", myn: "နှစ်သစ်ကူးည", sentenceZH: "我們要去101**跨年**。", sentenceMYN: "ကျွန်တော်တို့ 101 မှာ **နှစ်သစ်ကူးည** (Countdown) သွားလုပ်မယ်။", audioZH: "C02907.mp3"),
-  Word(id: 2908, zh: "煙火", pinyin: "yān huǒ", myn: "မီးရှူးမီးပန်း", sentenceZH: "這裡的**煙火**很漂亮。", sentenceMYN: "ဒီက **မီးရှူးမီးပန်း** တွေက အရမ်းလှတယ်။", audioZH: "C02908.mp3"),
+  Word(id: 2908, zh: "教師節", pinyin: "jiào shī jié", myn: "ဆရာမောင်ပွဲတော်", sentenceZH: "**教師節**我要送老師禮物。", sentenceMYN: "**ဆရာမောင်ပွဲတော်** မှာ ဆရာမောင်ကို လက်ဆောင်ပေးမယ်။", audioZH: "C02908.mp3"),
   Word(id: 2909, zh: "清明節", pinyin: "qīng míng jié", myn: "ချင်းမင်ပွဲတော်", sentenceZH: "**清明節**要掃墓。", sentenceMYN: "**ချင်းမင်ပွဲတော်** (Qingming) မှာ အုတ်ဂူသွားကန်တော့ရတယ်။", audioZH: "C02909.mp3"),
-  Word(id: 2910, zh: "連假", pinyin: "lián jià", myn: "ရက်ရှည်ပိတ်ရက်", sentenceZH: "下週有四天**連假**。", sentenceMYN: "နောက်အပတ် ၄ ရက် **ရက်ရှည်ပိတ်ရက်** ရှိတယ်။", audioZH: "C02910.mp3"),
+  Word(id: 2910, zh: "情人節", pinyin: "qíng rén jié", myn: "ချစ်သူပွဲတော်", sentenceZH: "**情人節**我要和女朋友約會。", sentenceMYN: "**ချစ်သူပွဲတော်** မှာ မိန်းကလေးမိတ်ဆွေ랑 တွေ့ဆုံမယ်။", audioZH: "C02910.mp3"),
 
   // ==========================================
   // Group 15: Document (Unit 30) | Starts at ID 3001
