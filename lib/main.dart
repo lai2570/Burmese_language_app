@@ -1,22 +1,27 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'data/vocab_data.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // 用於儲存使用者的收藏與教學觀看紀錄
+import 'package:audioplayers/audioplayers.dart'; // 用於播放發音與音效
+import 'data/vocab_data.dart'; // 匯入外部單字庫資料
 
 void main() {
   runApp(const MyApp());
 }
 
-// --- 1. 自定義顏色系統 ---
+// ==========================================
+// --- 1. 全域設定與樣式系統 ---
+// 定義應用程式中通用的顏色漸層，方便統一修改
+// ==========================================
 class AppColors {
+  // 主色調漸層 (藍紫色系)，用於 Header 與重要按鈕
   static const primaryGradient = LinearGradient(
     colors: [Color(0xFF667eea), Color(0xFF764ba2)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
   
+  // 卡片背景漸層 (極淺的灰白色)，增加立體感
   static const cardGradient = LinearGradient(
     colors: [Colors.white, Color(0xFFF8F9FF)],
     begin: Alignment.topLeft,
@@ -24,12 +29,15 @@ class AppColors {
   );
 }
 
-// --- 2. 3D 立體按壓按鈕元件 (保留給類別列表使用) ---
+// ==========================================
+// --- 2. 通用元件：3D 按壓效果按鈕 ---
+// 封裝了「點擊縮放動畫」與「點擊音效」，全站通用
+// ==========================================
 class ThreeDButton extends StatefulWidget {
-  final Widget child;
-  final VoidCallback? onPressed; // 允許 null 來禁用按鈕
-  final BorderRadius borderRadius; 
-  final bool playSound; // 控制是否播放音效
+  final Widget child; // 按鈕內部的內容
+  final VoidCallback? onPressed; // 點擊回調，若為 null 則按鈕無效
+  final BorderRadius borderRadius; // 圓角設定
+  final bool playSound; // 是否播放 "Click" 音效
 
   const ThreeDButton({
     super.key, 
@@ -45,17 +53,19 @@ class ThreeDButton extends StatefulWidget {
 
 class _ThreeDButtonState extends State<ThreeDButton> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<double> _scaleAnimation;
-  final AudioPlayer _sfxPlayer = AudioPlayer();
+  late Animation<double> _scaleAnimation; // 控制縮放比例
+  final AudioPlayer _sfxPlayer = AudioPlayer(); // 專用於按鈕音效
 
   @override
   void initState() {
     super.initState();
+    // 設定動畫時間：按下去 100ms，彈回來 150ms
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 100), 
       reverseDuration: const Duration(milliseconds: 150),
     );
+    // 設定縮放範圍：從 1.0 (原大小) 縮小到 0.9 (按壓感)
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.90).animate( 
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
@@ -68,10 +78,11 @@ class _ThreeDButtonState extends State<ThreeDButton> with SingleTickerProviderSt
     super.dispose();
   }
 
+  // 播放點擊音效的邏輯
   Future<void> _playClickSound() async {
     if (widget.playSound && widget.onPressed != null) {
       try {
-        await _sfxPlayer.stop();
+        await _sfxPlayer.stop(); // 防止連續點擊聲音重疊
         await _sfxPlayer.play(AssetSource('audio/click.mp3'), volume: 0.5);
       } catch (e) {
         debugPrint("音效播放失敗: $e");
@@ -79,6 +90,7 @@ class _ThreeDButtonState extends State<ThreeDButton> with SingleTickerProviderSt
     }
   }
 
+  // 手指按下時觸發：播放動畫與聲音
   void _onTapDown(TapDownDetails details) {
     if (widget.onPressed != null) {
       _controller.forward();
@@ -86,15 +98,18 @@ class _ThreeDButtonState extends State<ThreeDButton> with SingleTickerProviderSt
     }
   }
 
+  // 手指放開時觸發：反轉動畫並執行功能
   void _onTapUp(TapUpDetails details) {
     if (widget.onPressed != null) {
       _controller.reverse();
+      // 延遲一點點執行，讓使用者看得到按鈕彈回的效果
       Future.delayed(const Duration(milliseconds: 100), () {
         if (mounted) widget.onPressed!();
       });
     }
   }
 
+  // 手指移開取消點擊
   void _onTapCancel() {
     if (widget.onPressed != null) _controller.reverse();
   }
@@ -113,6 +128,7 @@ class _ThreeDButtonState extends State<ThreeDButton> with SingleTickerProviderSt
             child: Stack(
               children: [
                 widget.child,
+                // 當按鈕被按下時，疊加一層半透明黑色遮罩，增加「按壓變暗」的視覺效果
                 if (_controller.value > 0)
                   Positioned.fill(
                     child: IgnorePointer(
@@ -133,7 +149,10 @@ class _ThreeDButtonState extends State<ThreeDButton> with SingleTickerProviderSt
   }
 }
 
-// --- 3. 應用程式入口 ---
+// ==========================================
+// --- 3. 應用程式入口 (Root Widget) ---
+// 設定全域主題與路由
+// ==========================================
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -144,22 +163,26 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
-        scaffoldBackgroundColor: const Color(0xFFF5F7FA),
+        scaffoldBackgroundColor: const Color(0xFFF5F7FA), // 全域背景色 (淺灰)
         fontFamily: 'Roboto',
         useMaterial3: true,
       ),
+      // 鎖定字體縮放，避免使用者手機設定字體過大導致 UI 跑版
       builder: (context, child) {
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),
           child: child!,
         );
       },
-      home: const SplashScreen(),
+      home: const SplashScreen(), // 啟動畫面
     );
   }
 }
 
-// --- 4. Splash Screen ---
+// ==========================================
+// --- 4. 啟動畫面 (Splash Screen) ---
+// 顯示 Logo 動畫，並在結束後跳轉至首頁
+// ==========================================
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -169,17 +192,19 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<double> _scaleAnimation;
-  late Animation<double> _fadeAnimation;
+  late Animation<double> _scaleAnimation; // Logo 彈性縮放
+  late Animation<double> _fadeAnimation;  // 文字淡入
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(duration: const Duration(milliseconds: 1200), vsync: this);
+    // 設定彈性曲線 (ElasticOut) 讓 Logo 有ㄉㄨㄞㄉㄨㄞ的效果
     _scaleAnimation = Tween<double>(begin: 0.5, end: 1.0).animate(CurvedAnimation(parent: _controller, curve: Curves.elasticOut));
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
     _controller.forward();
     
+    // 1.8秒後跳轉至 HomePage
     Future.delayed(const Duration(milliseconds: 1800), () {
       if (mounted) _navigateToHome();
     });
@@ -217,6 +242,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  // Logo 容器
                   Container(
                     padding: const EdgeInsets.all(30),
                     decoration: BoxDecoration(
@@ -240,18 +266,22 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   }
 }
 
-// --- 5. 資料結構 ---
+// ==========================================
+// --- 5. 資料結構模型 (Data Models) ---
+// 定義分類 (UnitGroup) 與預設資料
+// ==========================================
 class UnitGroup {
-  final String title;
-  final IconData icon;
-  final int startId;
-  final int endId;
-  final List<String> subUnits;
-  final Color color;
+  final String title;       // 分類標題 (英文+緬文)
+  final IconData icon;      // 圖示
+  final int startId;        // 該分類的起始單字 ID (對應 vocab_data.dart)
+  final int endId;          // 該分類的結束單字 ID
+  final List<String> subUnits; // 子單元名稱列表
+  final Color color;        // 該分類的主題色
 
   const UnitGroup({required this.title, required this.icon, required this.startId, required this.endId, required this.subUnits, required this.color});
 }
 
+// 靜態資料列表：定義所有課程分類
 final List<UnitGroup> appUnitGroups = [
   UnitGroup(title: "School (ကျောင်း)", icon: Icons.school, startId: 101, endId: 400, subUnits: ["Campus (ကျောင်းတင်း)", "Class (အတန်းထဲ)", "Classmates (အတန်းဖော်များ)"], color: const Color(0xFF2C3E50)), 
   UnitGroup(title: "Office (ရုံး)", icon: Icons.business_center, startId: 401, endId: 1000, subUnits: ["Office (ရုံး)", "Recruitment (ခန့်မှာ်းတော်)", "Communication (ဆက်သွယ်မှု)", "Finance (ငွေကြေး)", "Attendance (တတ်ရောက်မှု)"], color: const Color(0xFF34495E)), 
@@ -270,7 +300,10 @@ final List<UnitGroup> appUnitGroups = [
   UnitGroup(title: "Document (စာရွက်စာတမ်း)", icon: Icons.description, startId: 3001, endId: 3100, subUnits: ["Document (စာရွက်စာတမ်း)"], color: const Color(0xFF283593)), 
 ];
 
-// --- 6. HomePage ---
+// ==========================================
+// --- 6. 首頁 (HomePage) ---
+// 包含 Header, 分類列表, 作者資訊, 以及第一次開啟時的教學
+// ==========================================
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -284,16 +317,17 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
+    // 控制列表項目的進場動畫 (Staggered Animation)
     _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 800));
     _animationController.forward();
     
-    // 檢查是否為第一次使用，若是則顯示導覽
+    // 檢查是否為第一次使用，若是則顯示教學導覽 (Tutorial)
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final prefs = await SharedPreferences.getInstance();
       bool hasShownTutorial = prefs.getBool('hasShownTutorial') ?? false;
       if (!hasShownTutorial) {
         _showTutorial();
-        await prefs.setBool('hasShownTutorial', true);
+        await prefs.setBool('hasShownTutorial', true); // 標記為已觀看
       }
     });
   }
@@ -304,7 +338,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     super.dispose();
   }
 
-  // 顯示教學導覽
+  // 顯示教學導覽 Dialog
   void _showTutorial() {
     showDialog(
       context: context,
@@ -314,7 +348,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     );
   }
 
-  // 作者資訊頁面
+  // 顯示作者與版權資訊 Dialog
   void _showAuthorInfo() {
     showDialog(
       context: context,
@@ -378,14 +412,14 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 ),
                 const SizedBox(height: 24),
 
-                // --- 按鈕區 ---
+                // --- 按鈕區 (Tutorial & Close) ---
                 Row(
                   children: [
                     Expanded(
                       child: ThreeDButton(
                         onPressed: () {
-                          Navigator.pop(context);
-                          _showTutorial();
+                          Navigator.pop(context); // 先關閉當前 Dialog
+                          _showTutorial();        // 再開啟教學
                         },
                         borderRadius: BorderRadius.circular(12),
                         child: Container(
@@ -431,7 +465,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     );
   }
 
-  // 作者資訊頁的小 helper widget
+  // 作者資訊頁的小 Helper Widget (建立一行資訊)
   Widget _buildInfoRow(IconData icon, String title, String content) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -456,7 +490,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     return Scaffold(
       body: Column(
         children: [
-          // Header
+          // --- Header 區塊 (包含 Logo 與功能按鈕) ---
           Container(
             padding: const EdgeInsets.only(top: 60, left: 24, right: 24, bottom: 32),
             decoration: BoxDecoration(
@@ -469,6 +503,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    // 左側 Logo 與標題
                     Row(
                       children: [
                         Container(
@@ -490,6 +525,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                         ),
                       ],
                     ),
+                    // 右側功能按鈕 (資訊 & 單字本)
                     Row(
                       children: [
                         // 修改：使用平面風格的按鈕
@@ -512,7 +548,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             ),
           ),
           
-          // Categories
+          // --- Categories 列表區塊 ---
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -537,6 +573,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                       itemCount: appUnitGroups.length,
                       separatorBuilder: (context, index) => const SizedBox(height: 16),
                       itemBuilder: (context, index) {
+                        // 使用動畫包裹每一個列表項目，做出依序滑入的效果
                         return FadeTransition(
                           opacity: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(parent: _animationController, curve: Interval((index / appUnitGroups.length) * 0.5, ((index + 1) / appUnitGroups.length) * 0.5 + 0.5, curve: Curves.easeOut))),
                           child: SlideTransition(
@@ -556,7 +593,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     );
   }
 
-  // 修改：右上角專用的平面按鈕
+  // Helper: 右上角專用的平面按鈕 (Flat Style)
   Widget _buildFlatHeaderIcon({required IconData icon, required Color color, required VoidCallback onTap}) {
     return Material(
       color: Colors.transparent,
@@ -569,7 +606,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
-            // 輕微的陰影，讓白色方塊在漸層背景上清楚一點，但保持平面感
+            // 輕微的陰影，讓白色方塊在漸層背景上清楚一點
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.1),
@@ -584,7 +621,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     );
   }
 
-  // 封裝好的糖果按鈕元件 (保留給類別列表使用，因其需要左側按鈕的特殊質感)
+  // Helper: 糖果質感的 Icon 按鈕 (用於列表左側)
   Widget _buildCandyIcon({required IconData icon, required Color color, required VoidCallback onTap, double size = 56}) {
     return ThreeDButton(
       onPressed: onTap,
@@ -593,6 +630,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         width: size,
         height: size,
         decoration: BoxDecoration(
+          // 創造玻璃/糖果般的漸層質感
           gradient: LinearGradient(
             colors: [
               color.withOpacity(0.7), 
@@ -604,18 +642,21 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           ),
           borderRadius: BorderRadius.circular(size * 0.35),
           boxShadow: [
+            // 左上亮光 (Highlight)
             BoxShadow(
               color: Colors.white.withOpacity(0.4),
               offset: const Offset(-1, -1), 
               blurRadius: 3,
               spreadRadius: 0,
             ),
+            // 右下陰影
             BoxShadow(
               color: color.withOpacity(0.8),
               offset: const Offset(1.5, 1.5),   
               blurRadius: 8,
               spreadRadius: 1,
             ),
+            // 底部擴散陰影
             BoxShadow(
               color: Colors.white.withOpacity(0.3),
               blurRadius: 10,
@@ -642,7 +683,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     );
   }
 
-  // 只有點擊左側糖果 Icon 才會進入頁面
+  // 構建列表卡片：只有點擊左側糖果 Icon 才會進入頁面 (符合使用者需求)
   Widget _buildGroupCard(BuildContext context, UnitGroup group) {
     return Container(
       padding: const EdgeInsets.all(12),
@@ -711,7 +752,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   }
 }
 
+// ==========================================
 // --- 新增：導覽 Dialog 元件 ---
+// 用於引導新使用者如何使用 APP
+// ==========================================
 class TutorialDialog extends StatefulWidget {
   const TutorialDialog({super.key});
 
@@ -723,6 +767,7 @@ class _TutorialDialogState extends State<TutorialDialog> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
+  // 定義導覽的三個步驟
   final List<Map<String, dynamic>> _steps = [
     {
       "icon": Icons.category,
@@ -754,6 +799,7 @@ class _TutorialDialogState extends State<TutorialDialog> {
         ),
         child: Column(
           children: [
+            // 上半部：可滑動的 PageView
             Expanded(
               child: PageView.builder(
                 controller: _pageController,
@@ -789,11 +835,13 @@ class _TutorialDialogState extends State<TutorialDialog> {
                 },
               ),
             ),
+            // 下半部：指示點 (Dots Indicator) 與下一步按鈕
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  // 指示點
                   Row(
                     children: List.generate(_steps.length, (index) => Container(
                       margin: const EdgeInsets.symmetric(horizontal: 4),
@@ -804,12 +852,13 @@ class _TutorialDialogState extends State<TutorialDialog> {
                       ),
                     )),
                   ),
+                  // Next / Start 按鈕
                   ThreeDButton(
                     onPressed: () {
                       if (_currentPage < _steps.length - 1) {
                         _pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.ease);
                       } else {
-                        Navigator.pop(context);
+                        Navigator.pop(context); // 結束導覽
                       }
                     },
                     borderRadius: BorderRadius.circular(20),
@@ -829,7 +878,10 @@ class _TutorialDialogState extends State<TutorialDialog> {
   }
 }
 
-// --- 7. CategoryPage ---
+// ==========================================
+// --- 7. 分類子選單頁面 (CategoryPage) ---
+// 根據選擇的大分類 (如 Office)，列出底下的小單元 (Unit 1, Unit 2...)
+// ==========================================
 class CategoryPage extends StatelessWidget {
   final UnitGroup group;
 
@@ -837,14 +889,19 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 獲取所有單字
     final allWords = getFullVocabulary();
+    // 過濾出屬於目前分類的單字 (根據 ID 範圍)
     final groupWords = allWords.where((w) => w.id >= group.startId && w.id <= group.endId).toList();
+    // 計算可用的單元數量 (每 10 個單字為一個 Unit)
     int availableUnitsCount = (groupWords.length / 10).floor();
+    // 實際顯示數量取「資料庫有的」與「UI定義的」兩者之最小值
     int displayCount = min(availableUnitsCount, group.subUnits.length);
 
     return Scaffold(
       body: Column(
         children: [
+          // 頂部 Header
           Container(
             padding: const EdgeInsets.only(top: 50, left: 20, right: 20, bottom: 24),
             decoration: BoxDecoration(
@@ -863,21 +920,23 @@ class CategoryPage extends StatelessWidget {
             ),
           ),
           
+          // 列表區域
           Expanded(
             child: displayCount == 0
+                // 若無資料顯示 Coming Soon
                 ? const Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Icon(Icons.construction, size: 80, color: Colors.grey), SizedBox(height: 16), Text("Coming Soon", style: TextStyle(fontSize: 20, color: Colors.grey, fontWeight: FontWeight.bold))]))
                 : ListView.separated(
                     padding: const EdgeInsets.all(24),
                     itemCount: displayCount,
                     separatorBuilder: (context, index) => const SizedBox(height: 16),
                     itemBuilder: (context, index) {
+                      // 切割該單元的單字列表 (每次取 10 個)
                       int start = index * 10;
                       int end = start + 10;
                       final unitWords = groupWords.sublist(start, end);
                       String unitTitle = "UNIT ${index + 1}";
                       String subTitle = group.subUnits[index];
 
-                      // 修改：將 Unit 列表改成「只點擊左側」的互動模式
                       return Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
@@ -887,7 +946,7 @@ class CategoryPage extends StatelessWidget {
                         ),
                         child: Row(
                           children: [
-                            // 左邊：按鈕 (這是有 3D 特效且可以點擊的地方)
+                            // 左邊：按鈕 (這是有 3D 特效且可以點擊進入 StudyPage 的地方)
                             ThreeDButton(
                               onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => StudyPage(unitTitle: unitTitle, wordList: unitWords, themeColor: group.color))),
                               borderRadius: BorderRadius.circular(16),
@@ -930,7 +989,10 @@ class CategoryPage extends StatelessWidget {
   }
 }
 
-// --- 8. StudyPage ---
+// ==========================================
+// --- 8. 學習頁面 (StudyPage) ---
+// 核心功能：顯示單字卡、播放發音、顯示例句、收藏功能
+// ==========================================
 class StudyPage extends StatefulWidget {
   final String unitTitle;
   final List<Word> wordList;
@@ -943,13 +1005,13 @@ class StudyPage extends StatefulWidget {
 }
 
 class _StudyPageState extends State<StudyPage> {
-  List<int> savedIds = [];
+  List<int> savedIds = []; // 儲存已收藏的單字 ID
   final AudioPlayer _audioPlayer = AudioPlayer();
 
   @override
   void initState() {
     super.initState();
-    _loadSavedWords();
+    _loadSavedWords(); // 初始化時讀取收藏紀錄
   }
   
   @override
@@ -958,6 +1020,7 @@ class _StudyPageState extends State<StudyPage> {
     super.dispose();
   }
 
+  // 播放單字發音
   Future<void> _playAudio(String fileName) async {
     try {
       await _audioPlayer.stop();
@@ -967,6 +1030,7 @@ class _StudyPageState extends State<StudyPage> {
     }
   }
 
+  // 從本地存儲 (SharedPreferences) 讀取收藏
   Future<void> _loadSavedWords() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -974,11 +1038,13 @@ class _StudyPageState extends State<StudyPage> {
     });
   }
 
+  // 切換收藏狀態 (存入/移除)
   Future<void> _toggleSave(int id) async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       if (savedIds.contains(id)) savedIds.remove(id); else savedIds.add(id);
     });
+    // 更新本地存儲
     await prefs.setStringList('savedWords', savedIds.map((e) => e.toString()).toList());
   }
 
@@ -988,6 +1054,7 @@ class _StudyPageState extends State<StudyPage> {
       backgroundColor: const Color(0xFFF5F7FA),
       body: Column(
         children: [
+          // 頂部 Header
           Container(
             padding: const EdgeInsets.only(top: 50, left: 16, right: 16, bottom: 20),
             decoration: BoxDecoration(
@@ -1008,6 +1075,7 @@ class _StudyPageState extends State<StudyPage> {
             ),
           ),
           
+           // 提示區域：告訴使用者可以點擊發音
            Container(
              margin: const EdgeInsets.all(16), 
              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -1022,6 +1090,7 @@ class _StudyPageState extends State<StudyPage> {
              ),
            ),
           
+          // 單字列表
           Expanded(
             child: ListView.separated(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -1037,6 +1106,7 @@ class _StudyPageState extends State<StudyPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // 上半部：中文、拼音、發音按鈕、收藏星星
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween, 
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1065,6 +1135,7 @@ class _StudyPageState extends State<StudyPage> {
                               ]
                             ),
                           ),
+                          // 星星收藏按鈕
                           ThreeDButton(
                             onPressed: () => _toggleSave(word.id),
                             borderRadius: BorderRadius.circular(20),
@@ -1076,8 +1147,10 @@ class _StudyPageState extends State<StudyPage> {
                         ],
                       ),
                       const SizedBox(height: 12),
+                      // 緬甸文翻譯
                       Padding(padding: const EdgeInsets.only(left: 20), child: Text(word.myn, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87))),
                       const SizedBox(height: 16),
+                      // 例句區塊 (灰色背景)
                       Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(color: const Color(0xFFF8FAFC), borderRadius: BorderRadius.circular(12), border: Border(left: BorderSide(color: widget.themeColor.withOpacity(0.5), width: 4))),
@@ -1089,6 +1162,7 @@ class _StudyPageState extends State<StudyPage> {
               },
             ),
           ),
+          // 底部按鈕：開始測驗
           Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(color: Colors.white, border: Border(top: BorderSide(color: Colors.grey.shade100))),
@@ -1111,6 +1185,8 @@ class _StudyPageState extends State<StudyPage> {
     );
   }
 
+  // Helper: 解析例句中的強調標記 (**)
+  // 例如 "這是 **蘋果**" 會將 "蘋果" 變色加粗
   Widget _buildSentence(String sentence, bool isZh, Color color) {
     List<String> parts = sentence.split('**');
     return RichText(
@@ -1126,7 +1202,10 @@ class _StudyPageState extends State<StudyPage> {
   }
 }
 
-// --- 9. QuizPage ---
+// ==========================================
+// --- 9. 測驗頁面 (QuizPage) ---
+// 遊戲化測驗：5秒倒數、二選一(正確 vs 干擾項)
+// ==========================================
 class QuizPage extends StatefulWidget {
   final List<Word> words;
   final String unitName;
@@ -1137,24 +1216,29 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
-  late List<Map<String, dynamic>> quizQueue;
+  late List<Map<String, dynamic>> quizQueue; // 題目佇列
   int currentIndex = 0;
-  List<Map<String, dynamic>> results = [];
-  late AnimationController _timerController;
+  List<Map<String, dynamic>> results = []; // 儲存答題結果
+  late AnimationController _timerController; // 倒數計時動畫
   int timerSeconds = 5;
   final AudioPlayer _audioPlayer = AudioPlayer();
 
   @override
   void initState() {
     super.initState();
-    _prepareQuiz();
+    _prepareQuiz(); // 生成題目
+    // 設定 5 秒倒數
     _timerController = AnimationController(vsync: this, duration: const Duration(seconds: 5));
     _timerController.reverse(from: 1.0);
+    // 監聽：時間到自動判錯
     _timerController.addStatusListener((status) { if (status == AnimationStatus.dismissed) _handleAnswer(null); });
+    // 監聽：更新 UI 數字
     _timerController.addListener(() { setState(() { timerSeconds = (_timerController.value * 5).ceil(); }); });
+    // 播放第一題語音
     WidgetsBinding.instance.addPostFrameCallback((_) { _playCurrentWordAudio(); });
   }
 
+  // 播放目前題目的發音
   Future<void> _playCurrentWordAudio() async {
     if (currentIndex < quizQueue.length) {
       final word = quizQueue[currentIndex]['word'] as Word;
@@ -1162,22 +1246,26 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
     }
   }
 
+  // 題目生成邏輯：隨機洗牌，並為每個單字隨機挑選一個錯誤答案 (干擾項)
   void _prepareQuiz() {
     final random = Random();
     final allWords = getFullVocabulary(); 
     List<Word> shuffledWords = List.from(widget.words)..shuffle();
     quizQueue = shuffledWords.map((word) {
       Word distractor;
+      // 確保干擾項不是正確答案本身
       if (allWords.length <= 1) {
          distractor = Word(id: -1, zh: "錯誤", pinyin: "cuò", myn: "Wrong", sentenceZH: "", sentenceMYN: "", audioZH: "");
       } else {
         do { distractor = allWords[random.nextInt(allWords.length)]; } while (distractor.myn == word.myn); 
       }
+      // 隨機決定正確答案在上面 (0) 還是下面 (1)
       bool correctIsTop = random.nextBool();
       return { 'word': word, 'options': correctIsTop ? [word.myn, distractor.myn] : [distractor.myn, word.myn], 'correctIndex': correctIsTop ? 0 : 1 };
     }).toList();
   }
 
+  // 處理作答：檢查答案、紀錄結果、跳下一題
   void _handleAnswer(int? index) {
     _timerController.stop();
     final currentQ = quizQueue[currentIndex];
@@ -1190,9 +1278,11 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
     results.add({'word': word, 'isCorrect': isCorrect, 'isTimeout': isTimeout, 'correctAnswer': word.myn, 'userAnswer': isTimeout ? 'Timeout' : options[index]});
 
     if (currentIndex < 9 && currentIndex < quizQueue.length - 1) { 
+      // 還有題目，重置計時器並下一題
       setState(() { currentIndex++; _timerController.duration = const Duration(seconds: 5); _timerController.reverse(from: 1.0); });
       _playCurrentWordAudio();
     } else {
+      // 測驗結束，跳轉結果頁
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultPage(results: results, unitName: widget.unitName, originalWords: widget.words)));
     }
   }
@@ -1209,15 +1299,18 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
     final totalQuestions = quizQueue.length;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: const Color(0xFF0F172A), // 深色背景專注模式
       body: SafeArea(
         child: Column(
           children: [
+            // 進度條
             LinearProgressIndicator(value: (currentIndex) / totalQuestions, backgroundColor: Colors.white10, color: const Color(0xFF38ef7d), minHeight: 6),
             Padding(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12), child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [ThreeDButton(onPressed: () => Navigator.pop(context), borderRadius: BorderRadius.circular(20), child: const Padding(padding: EdgeInsets.all(8.0), child: Icon(Icons.close, color: Colors.grey))), Text("${currentIndex + 1} / $totalQuestions", style: const TextStyle(color: Colors.grey, fontSize: 16, fontFamily: 'monospace')), const SizedBox(width: 48)])),
             
+            // 倒數計時圓環
             Stack(alignment: Alignment.center, children: [SizedBox(width: 60, height: 60, child: CircularProgressIndicator(value: _timerController.value, strokeWidth: 4, color: Colors.white, backgroundColor: Colors.white24)), Text("$timerSeconds", style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold))]),
             
+            // 題目區 (中文大字)
             Expanded(
               child: Center(
                 child: Column(
@@ -1245,6 +1338,7 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
                 )
               )
             ),
+            // 選項區 (兩個按鈕)
             Padding(
               padding: const EdgeInsets.all(24.0), 
               child: Column(
@@ -1271,7 +1365,10 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
   }
 }
 
-// --- 10. ResultPage ---
+// ==========================================
+// --- 10. 結果頁面 (ResultPage) ---
+// 顯示分數、播放合格/不合格音效、檢討答錯題目
+// ==========================================
 class ResultPage extends StatefulWidget {
   final List<Map<String, dynamic>> results;
   final String unitName;
@@ -1285,7 +1382,7 @@ class ResultPage extends StatefulWidget {
 
 class _ResultPageState extends State<ResultPage> {
   List<int> savedIds = [];
-  final AudioPlayer _resultAudioPlayer = AudioPlayer(); // 新增播放器
+  final AudioPlayer _resultAudioPlayer = AudioPlayer(); // 專用於結果音效
 
   @override
   void initState() {
@@ -1300,6 +1397,7 @@ class _ResultPageState extends State<ResultPage> {
     super.dispose();
   }
 
+  // 根據分數播放 Pass (及格) 或 Fail (不及格) 音效
   Future<void> _playResultSound() async {
     // 計算分數
     int correctCount = widget.results.where((r) => r['isCorrect'] as bool).length;
@@ -1308,10 +1406,8 @@ class _ResultPageState extends State<ResultPage> {
 
     try {
       if (percentage >= 60) {
-        // 及格
         await _resultAudioPlayer.play(AssetSource('audio/pass.mp3'));
       } else {
-        // 不及格
         await _resultAudioPlayer.play(AssetSource('audio/fail.mp3'));
       }
     } catch (e) {
@@ -1344,12 +1440,14 @@ class _ResultPageState extends State<ResultPage> {
               padding: const EdgeInsets.all(24),
               children: [
                 const SizedBox(height: 40),
+                // 分數卡片
                 Container(
                   padding: const EdgeInsets.all(32),
                   decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(32), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4))], border: Border.all(color: Colors.white)),
                   child: Column(children: [const Icon(Icons.emoji_events, size: 60, color: Color(0xFF764ba2)), const SizedBox(height: 16), const Text("Quiz Complete!", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900)), Text(widget.unitName, style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)), const SizedBox(height: 16), Row(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.baseline, textBaseline: TextBaseline.alphabetic, children: [Text("$percentage", style: const TextStyle(fontSize: 60, fontWeight: FontWeight.w900, color: Color(0xFF667eea))), const Text("%", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.grey))]), const Text("ACCURACY SCORE", style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey))]),
                 ),
                 const SizedBox(height: 24),
+                // 答案檢討列表
                 const Text("Review Answers", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF334155))),
                 const SizedBox(height: 12),
                 ...widget.results.map((res) {
@@ -1377,6 +1475,7 @@ class _ResultPageState extends State<ResultPage> {
               ],
             ),
           ),
+          // 底部按鈕：回首頁 / 再次測驗
           Container(
             padding: const EdgeInsets.all(24), color: Colors.white,
             child: Row(children: [
@@ -1403,7 +1502,10 @@ class _ResultPageState extends State<ResultPage> {
   }
 }
 
-// --- 11. VocabBookPage ---
+// ==========================================
+// --- 11. 單字本頁面 (VocabBookPage) ---
+// 列出所有收藏的單字，並提供「隨機測驗」功能
+// ==========================================
 class VocabBookPage extends StatefulWidget {
   const VocabBookPage({super.key});
 
@@ -1421,6 +1523,7 @@ class _VocabBookPageState extends State<VocabBookPage> {
     _loadSavedWords();
   }
 
+  // 讀取並過濾出收藏的單字物件
   Future<void> _loadSavedWords() async {
     final prefs = await SharedPreferences.getInstance();
     final savedIds = (prefs.getStringList('savedWords') ?? []).map(int.parse).toList();
@@ -1428,6 +1531,7 @@ class _VocabBookPageState extends State<VocabBookPage> {
     setState(() { savedWords = allWords.where((w) => savedIds.contains(w.id)).toList(); isLoading = false; });
   }
 
+  // 移除收藏並刷新列表
   Future<void> _removeWord(int id) async {
     final prefs = await SharedPreferences.getInstance();
     List<String> savedIdStrings = (prefs.getStringList('savedWords') ?? []);
@@ -1436,6 +1540,7 @@ class _VocabBookPageState extends State<VocabBookPage> {
     _loadSavedWords();
   }
 
+  // 啟動單字本專屬的隨機測驗 (僅針對已收藏單字)
   void _startRandomQuiz() {
     if (savedWords.length < 10) return;
     List<Word> shuffled = List.from(savedWords)..shuffle();
@@ -1449,6 +1554,7 @@ class _VocabBookPageState extends State<VocabBookPage> {
       backgroundColor: const Color(0xFFF5F7FA),
       body: Column(
         children: [
+           // Header
            Container(
             padding: const EdgeInsets.only(top: 50, left: 16, right: 16, bottom: 20),
             decoration: const BoxDecoration(gradient: AppColors.primaryGradient, borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30))),
@@ -1464,6 +1570,7 @@ class _VocabBookPageState extends State<VocabBookPage> {
           Expanded(
             child: isLoading ? const Center(child: CircularProgressIndicator()) : Column(
               children: [
+                // 統計資訊與測驗按鈕
                 Container(
                   margin: const EdgeInsets.all(16),
                   padding: const EdgeInsets.all(20),
@@ -1483,7 +1590,10 @@ class _VocabBookPageState extends State<VocabBookPage> {
                     ],
                   ),
                 ),
+                // 提示訊息：需滿10字才能測驗
                 if (savedWords.length < 10) Container(width: double.infinity, padding: const EdgeInsets.all(8), color: Colors.orange.shade50, child: const Text("Save 10+ words to unlock quiz!", textAlign: TextAlign.center, style: TextStyle(color: Colors.orange, fontSize: 12))),
+                
+                // 收藏列表
                 Expanded(
                   child: savedWords.isEmpty ? const Center(child: Text("No words yet.", style: TextStyle(color: Colors.grey))) : ListView.separated(
                     padding: const EdgeInsets.all(16), itemCount: savedWords.length, separatorBuilder: (_, __) => const SizedBox(height: 12),
