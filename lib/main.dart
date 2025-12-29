@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player/video_player.dart'; 
 import 'package:audioplayers/audioplayers.dart';
 import 'data/vocab_data.dart'; 
+import 'package:url_launcher/url_launcher.dart';
 
 void main() async {
   // 1. 確保 Flutter 引擎綁定初始化 (在執行異步操作前必須呼叫)
@@ -901,6 +902,15 @@ class _SettingsDialogState extends State<SettingsDialog> {
   }
 
   // 顯示開發者與版權資訊
+// --- 新增這個函式：用來打開瀏覽器 ---
+  Future<void> _launchURL(String urlString) async {
+    final Uri url = Uri.parse(urlString);
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      debugPrint('Could not launch $url');
+    }
+  }
+
+  // --- 修改後的 About 視窗 ---
   void _showAuthorInfo(BuildContext context) {
     showDialog(
       context: context,
@@ -925,13 +935,37 @@ class _SettingsDialogState extends State<SettingsDialog> {
               const Divider(height: 32),
               _buildInfoRow(Icons.code, "Developer", "賴泳在 (YUNG-TSAI LAI)"),
               _buildInfoRow(Icons.translate, "Translation", "ChinQing in Taiwan (林素青)"),
+              
               const SizedBox(height: 16),
               const Text(
                 '• Code: MIT License\n• Assets: CC BY-NC-ND 4.0\n© 2025 All Rights Reserved.',
                 style: TextStyle(fontSize: 12, color: Colors.grey, height: 1.5),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 24),
+
+              // ==========================================
+              // --- 新增：法律條款連結按鈕區 ---
+              // ==========================================
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    // TODO: 請確認您的 GitHub Pages 網址是否正確
+                    onPressed: () => _launchURL('https://lai2570.github.io/Burmese_language_app/privacy'),
+                    child: const Text("Privacy Policy", style: TextStyle(color: Color(0xFF667eea), fontSize: 12, decoration: TextDecoration.underline)),
+                  ),
+                  const Text("|", style: TextStyle(color: Colors.grey)),
+                  TextButton(
+                    // TODO: 請確認您的 GitHub Pages 網址是否正確
+                    onPressed: () => _launchURL('https://lai2570.github.io/Burmese_language_app/terms'),
+                    child: const Text("Terms & Conditions", style: TextStyle(color: Color(0xFF667eea), fontSize: 12, decoration: TextDecoration.underline)),
+                  ),
+                ],
+              ),
+              // ==========================================
+              
+              const SizedBox(height: 16),
               ThreeDButton(
                 onPressed: () => Navigator.pop(context),
                 borderRadius: BorderRadius.circular(12),
