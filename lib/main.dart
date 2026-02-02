@@ -507,93 +507,93 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     );
   }
 
-  // Helper: 建立像糖果一樣的彩色 3D 圖示
-  Widget _buildCandyIcon({required IconData icon, required Color color, required VoidCallback onTap, double size = 56}) {
-    return ThreeDButton(
-      onPressed: onTap,
-      borderRadius: BorderRadius.circular(20),
-      child: Container(
-        width: size,
-        height: size,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [color.withOpacity(0.7), color, color.withOpacity(0.9)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(size * 0.35),
-          boxShadow: [
-            BoxShadow(color: Colors.white.withOpacity(0.4), offset: const Offset(-1, -1), blurRadius: 3),
-            BoxShadow(color: color.withOpacity(0.8), offset: const Offset(1.0, 1.0), blurRadius: 8, spreadRadius: 1),
-          ],
-        ),
-        child: Center(
-          child: Icon(icon, size: size * 0.5, color: Colors.white, shadows: [Shadow(offset: const Offset(1, 1), blurRadius: 2, color: Colors.black.withOpacity(0.3))]),
-        ),
-      ),
-    );
-  }
-
-  // 建立分類卡片
+  // 修改：建立分類卡片 (現在整張卡片都可點擊且有縮放效果)
   Widget _buildGroupCard(BuildContext context, UnitGroup group) {
     // 根據深色/淺色模式取得對應顏色
     final cardColor = Theme.of(context).cardColor;
     final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? const Color(0xFF1E293B);
+    const double iconSize = 64;
 
     return Container(
-      padding: const EdgeInsets.all(12),
+      // 1. 外層 Container 只負責陰影，避免陰影跟著內容一起被裁切
       decoration: BoxDecoration(
-        color: cardColor,
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
-            blurRadius: 10, 
-            offset: const Offset(0, 4)
+            blurRadius: 8, 
+            offset: const Offset(2, 2)
           )
         ],
       ),
-      child: Row(
-        children: [
-          _buildCandyIcon(
-            icon: group.icon, 
-            color: group.color, 
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryPage(group: group))),
-            size: 64
+      // 2. 使用 ThreeDButton 包覆整個內容
+      child: ThreeDButton(
+        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryPage(group: group))),
+        borderRadius: BorderRadius.circular(24),
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: cardColor, // 卡片背景色
+            borderRadius: BorderRadius.circular(24),
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  group.title, 
-                  style: TextStyle(
-                    color: textColor, 
-                    fontWeight: FontWeight.bold, 
-                    fontSize: 18
-                  )
-                ),
-                const SizedBox(height: 6),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: group.color.withOpacity(0.1), 
-                    borderRadius: BorderRadius.circular(8)
+          child: Row(
+            children: [
+              // 3. 圖示部分 (移除原本的按鈕邏輯，只保留視覺)
+              Container(
+                width: iconSize,
+                height: iconSize,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [group.color.withOpacity(0.7), group.color, group.color.withOpacity(0.9)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
-                  child: Text(
-                    "${group.subUnits.length} Topics", 
-                    style: TextStyle(
-                      color: group.color, 
-                      fontSize: 12, 
-                      fontWeight: FontWeight.w600
-                    )
-                  ),
+                  borderRadius: BorderRadius.circular(iconSize * 0.35),
+                  boxShadow: [
+                    BoxShadow(color: Colors.white.withOpacity(0.4), offset: const Offset(-1, -1), blurRadius: 3),
+                    BoxShadow(color: group.color.withOpacity(0.8), offset: const Offset(1.0, 1.0), blurRadius: 2, spreadRadius: 1),
+                  ],
                 ),
-              ],
-            ),
+                child: Center(
+                  child: Icon(group.icon, size: iconSize * 0.5, color: Colors.white, shadows: [Shadow(offset: const Offset(1, 1), blurRadius: 2, color: Colors.black.withOpacity(0.3))]),
+                ),
+              ),
+              const SizedBox(width: 16),
+              // 文字區域
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      group.title, 
+                      style: TextStyle(
+                        color: textColor, 
+                        fontWeight: FontWeight.bold, 
+                        fontSize: 18
+                      )
+                    ),
+                    const SizedBox(height: 6),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: group.color.withOpacity(0.1), 
+                        borderRadius: BorderRadius.circular(8)
+                      ),
+                      child: Text(
+                        "${group.subUnits.length} Topics", 
+                        style: TextStyle(
+                          color: group.color, 
+                          fontSize: 12, 
+                          fontWeight: FontWeight.w600
+                        )
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -1002,35 +1002,86 @@ class _SettingsDialogState extends State<SettingsDialog> {
 
 // ==========================================
 // --- 8. 分類頁面 (CategoryPage) ---
-// 顯示某個大分類底下的子單元 (Topics)
+// 顯示某個大分類底下的子單元 (Topics)，包含分數顯示與全區域點擊+縮放
 // ==========================================
-class CategoryPage extends StatelessWidget {
+class CategoryPage extends StatefulWidget {
   final UnitGroup group;
-
   const CategoryPage({super.key, required this.group});
 
   @override
-  Widget build(BuildContext context) {
-    // 篩選出該分類範圍內的所有單字
-    final allWords = getFullVocabulary();
-    final groupWords = allWords.where((w) => w.id >= group.startId && w.id <= group.endId).toList();
-    
-    // 計算可用的單元數量 (每10個字一個單元)
+  State<CategoryPage> createState() => _CategoryPageState();
+}
+
+class _CategoryPageState extends State<CategoryPage> {
+  Map<String, int> unitScores = {}; // 儲存單元分數
+
+  @override
+  void initState() {
+    super.initState();
+    _loadScores();
+  }
+
+  // 讀取該分類下所有 Unit 的分數
+  Future<void> _loadScores() async {
+    final prefs = await SharedPreferences.getInstance();
+    final allWords = getFullVocabulary(); 
+    final groupWords = allWords.where((w) => w.id >= widget.group.startId && w.id <= widget.group.endId).toList();
     int availableUnitsCount = (groupWords.length / 10).floor();
-    int displayCount = min(availableUnitsCount, group.subUnits.length);
+    int displayCount = min(availableUnitsCount, widget.group.subUnits.length);
+
+    Map<String, int> loadedScores = {};
+    for (int i = 0; i < displayCount; i++) {
+      String unitTitle = "UNIT ${i + 1}";
+      String key = 'score_${widget.group.title}_$unitTitle';
+      int? score = prefs.getInt(key);
+      if (score != null) {
+        loadedScores[unitTitle] = score;
+      }
+    }
+
+    if (mounted) {
+      setState(() {
+        unitScores = loadedScores;
+      });
+    }
+  }
+
+  // 進入單元
+  void _enterUnit(BuildContext context, String unitTitle, List<Word> unitWords) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => StudyPage(
+          unitTitle: unitTitle,
+          wordList: unitWords,
+          themeColor: widget.group.color,
+          groupTitle: widget.group.title, 
+        )
+      ),
+    ).then((_) {
+      _loadScores(); // 返回時刷新分數
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final allWords = getFullVocabulary();
+    final groupWords = allWords.where((w) => w.id >= widget.group.startId && w.id <= widget.group.endId).toList();
     
-    // Theme Colors
+    int availableUnitsCount = (groupWords.length / 10).floor();
+    int displayCount = min(availableUnitsCount, widget.group.subUnits.length);
+    
     final cardColor = Theme.of(context).cardColor;
     final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? const Color(0xFF1E293B);
 
     return Scaffold(
       body: Column(
         children: [
-          // 頂部導覽列 (與分類同色系)
+          // 頂部導覽列
           Container(
             padding: const EdgeInsets.only(top: 50, left: 20, right: 20, bottom: 24),
             decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [group.color, group.color.withOpacity(0.8)], begin: Alignment.topLeft, end: Alignment.bottomRight),
+              gradient: LinearGradient(colors: [widget.group.color, widget.group.color.withOpacity(0.8)], begin: Alignment.topLeft, end: Alignment.bottomRight),
               borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)),
             ),
             child: Row(
@@ -1040,7 +1091,7 @@ class CategoryPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30),
                   child: const Padding(padding: EdgeInsets.all(8.0), child: Icon(Icons.arrow_back_ios, color: Colors.white)),
                 ),
-                Expanded(child: Text(group.title, style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold))),
+                Expanded(child: Text(widget.group.title, style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold))),
               ],
             ),
           ),
@@ -1048,53 +1099,83 @@ class CategoryPage extends StatelessWidget {
           // 列表內容
           Expanded(
             child: displayCount == 0
-                // 如果沒有資料，顯示 Coming Soon
                 ? const Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Icon(Icons.construction, size: 80, color: Colors.grey), SizedBox(height: 16), Text("Coming Soon", style: TextStyle(fontSize: 20, color: Colors.grey, fontWeight: FontWeight.bold))]))
                 : ListView.separated(
                     padding: const EdgeInsets.all(24),
                     itemCount: displayCount,
                     separatorBuilder: (context, index) => const SizedBox(height: 16),
                     itemBuilder: (context, index) {
-                      // 計算每個單元的單字範圍
                       int start = index * 10;
                       int end = start + 10;
                       final unitWords = groupWords.sublist(start, end);
                       String unitTitle = "UNIT ${index + 1}";
-                      String subTitle = group.subUnits[index];
+                      String subTitle = widget.group.subUnits[index];
+                      int? score = unitScores[unitTitle];
 
+                      // 這裡使用 Container 僅負責繪製「外部陰影」
+                      // 因為 ThreeDButton 會裁切內容 (Clip)，陰影如果寫在裡面會被切掉
                       return Container(
-                        padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: cardColor, 
                           borderRadius: BorderRadius.circular(24),
-                          boxShadow: [BoxShadow(color: group.color.withOpacity(0.2), blurRadius: 12, offset: const Offset(0, 4))],
+                          boxShadow: [BoxShadow(color: widget.group.color.withOpacity(0.2), blurRadius: 12, offset: const Offset(0, 4))],
                         ),
-                        child: Row(
-                          children: [
-                            ThreeDButton(
-                              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => StudyPage(unitTitle: unitTitle, wordList: unitWords, themeColor: group.color))),
-                              borderRadius: BorderRadius.circular(16),
-                              child: Container(
-                                width: 64, height: 64,
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [group.color, group.color.withOpacity(0.7)]), 
-                                  borderRadius: BorderRadius.circular(16)
-                                ),
-                                child: Icon(group.icon, size: 32, color: Colors.white),
-                              ),
+                        child: ThreeDButton(
+                          // 1. 現在整個按鈕都具備縮放功能
+                          onPressed: () => _enterUnit(context, unitTitle, unitWords),
+                          borderRadius: BorderRadius.circular(24),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: cardColor, // 卡片背景色
+                              borderRadius: BorderRadius.circular(24),
                             ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                            child: Padding(
+                              padding: const EdgeInsets.all(12),
+                              child: Row(
                                 children: [
-                                  Text(unitTitle, style: TextStyle(color: group.color, fontWeight: FontWeight.w900, fontSize: 14, letterSpacing: 1.2)),
-                                  const SizedBox(height: 6),
-                                  Text(subTitle, style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontSize: 16)),
+                                  // 2. 圖示部分：移除內層的按鈕邏輯，只保留視覺裝飾
+                                  // 這樣點擊這裡也會觸發外層的縮放
+                                  Container(
+                                    width: 64, height: 64,
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(colors: [widget.group.color, widget.group.color.withOpacity(0.7)]), 
+                                      borderRadius: BorderRadius.circular(16),
+                                      boxShadow: [
+                                        // 內部的小陰影
+                                        BoxShadow(color: widget.group.color.withOpacity(0.3), offset: const Offset(2, 2), blurRadius: 4)
+                                      ]
+                                    ),
+                                    child: Icon(widget.group.icon, size: 32, color: Colors.white),
+                                  ),
+                                  
+                                  const SizedBox(width: 16),
+                                  
+                                  // 文字區域
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(unitTitle, style: TextStyle(color: widget.group.color, fontWeight: FontWeight.w900, fontSize: 14, letterSpacing: 1.2)),
+                                        const SizedBox(height: 6),
+                                        Text(subTitle, style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontSize: 16)),
+                                      ],
+                                    ),
+                                  ),
+                                  
+                                  // 分數顯示
+                                  if (score != null)
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 8),
+                                      child: score == 10
+                                          ? const Icon(Icons.check_circle, color: Colors.green, size: 32)
+                                          : Text(
+                                              "$score/10", 
+                                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey.shade400)
+                                            ),
+                                    )
                                 ],
                               ),
                             ),
-                          ],
+                          ),
                         ),
                       );
                     },
@@ -1106,16 +1187,23 @@ class CategoryPage extends StatelessWidget {
   }
 }
 
+
 // ==========================================
 // --- 9. 學習頁面 (StudyPage) ---
-// 顯示單字列表，可播放聲音與收藏單字
 // ==========================================
 class StudyPage extends StatefulWidget {
   final String unitTitle;
   final List<Word> wordList;
   final Color themeColor;
+  final String groupTitle; // 新增：用於生成儲存分數的 Key
 
-  const StudyPage({super.key, required this.unitTitle, required this.wordList, this.themeColor = const Color(0xFF667eea)});
+  const StudyPage({
+    super.key, 
+    required this.unitTitle, 
+    required this.wordList, 
+    this.themeColor = const Color(0xFF667eea),
+    required this.groupTitle, // 必填
+  });
 
   @override
   State<StudyPage> createState() => _StudyPageState();
@@ -1128,7 +1216,7 @@ class _StudyPageState extends State<StudyPage> {
   @override
   void initState() {
     super.initState();
-    _loadSavedWords(); // 載入已收藏的單字
+    _loadSavedWords(); 
   }
   
   @override
@@ -1137,18 +1225,15 @@ class _StudyPageState extends State<StudyPage> {
     super.dispose();
   }
 
-  // 播放單字發音
   Future<void> _playAudio(String fileName) async {
     try {
       await _audioPlayer.stop();
-      // 使用全域設定的音量
       await _audioPlayer.play(AssetSource('audio/$fileName'), volume: GlobalSettings.voiceVolume);
     } catch (e) {
       debugPrint("播放失敗: $e");
     }
   }
 
-  // 讀取最愛清單 (SharedPreferences)
   Future<void> _loadSavedWords() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -1156,7 +1241,6 @@ class _StudyPageState extends State<StudyPage> {
     });
   }
 
-  // 切換收藏狀態 (加入/移除)
   Future<void> _toggleSave(int id) async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -1230,7 +1314,6 @@ class _StudyPageState extends State<StudyPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // 第一列：中文、發音按鈕、收藏星星
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween, 
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1270,10 +1353,9 @@ class _StudyPageState extends State<StudyPage> {
                         ],
                       ),
                       const SizedBox(height: 12),
-                      // 緬甸語翻譯
                       Padding(padding: const EdgeInsets.only(left: 20), child: Text(word.myn, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: textColor))),
                       const SizedBox(height: 16),
-                      // 例句區塊
+                      // 例句區塊：新增 sentencePINYIN 的顯示
                       Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
@@ -1281,7 +1363,17 @@ class _StudyPageState extends State<StudyPage> {
                           borderRadius: BorderRadius.circular(12), 
                           border: Border(left: BorderSide(color: widget.themeColor.withOpacity(0.5), width: 4))
                         ),
-                        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [_buildSentence(word.sentenceZH, true, widget.themeColor, textColor), const SizedBox(height: 8), _buildSentence(word.sentenceMYN, false, widget.themeColor, textColor)]),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start, 
+                          children: [
+                            _buildSentence(word.sentenceZH, true, widget.themeColor, textColor),
+                            const SizedBox(height: 4),
+                            // 新增：顯示拼音句子 (使用灰色，並套用同樣的粗體邏輯)
+                            _buildSentence(word.sentencePINYIN, false, widget.themeColor, Colors.grey),
+                            const SizedBox(height: 8),
+                            _buildSentence(word.sentenceMYN, false, widget.themeColor, textColor)
+                          ]
+                        ),
                       )
                     ],
                   ),
@@ -1289,12 +1381,16 @@ class _StudyPageState extends State<StudyPage> {
               },
             ),
           ),
-          // 底部：開始測驗按鈕
+          // 底部按鈕：傳遞 groupTitle 和 unitTitle 給 QuizPage
           Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(color: cardColor, border: Border(top: BorderSide(color: Colors.grey.withOpacity(0.1)))),
             child: ThreeDButton(
-              onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => QuizPage(words: widget.wordList, unitName: widget.unitTitle))),
+              onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => QuizPage(
+                words: widget.wordList, 
+                unitName: widget.unitTitle,
+                groupTitle: widget.groupTitle, // 傳遞 groupTitle
+              ))),
               borderRadius: BorderRadius.circular(16),
               child: Container(
                 width: double.infinity,
@@ -1312,16 +1408,16 @@ class _StudyPageState extends State<StudyPage> {
     );
   }
 
-  // Helper: 解析並顯示帶有粗體標記 (**) 的例句
   Widget _buildSentence(String sentence, bool isZh, Color highlightColor, Color baseColor) {
     List<String> parts = sentence.split('**');
     return RichText(
       text: TextSpan(
-        style: TextStyle(color: baseColor.withOpacity(0.8), fontSize: 15, height: 1.4, fontFamily: 'Roboto'),
+        style: TextStyle(color: baseColor.withOpacity(isZh ? 0.8 : 1.0), fontSize: 15, height: 1.4, fontFamily: 'Roboto'),
         children: parts.asMap().entries.map((entry) {
           int idx = entry.key; String text = entry.value; bool isBold = idx % 2 == 1;
-          if (isBold && isZh) return TextSpan(text: text, style: TextStyle(fontWeight: FontWeight.w900, color: highlightColor));
-          return TextSpan(text: text, style: isBold ? TextStyle(fontWeight: FontWeight.w900, color: baseColor) : null);
+          // 修改：如果是拼音(不是中文且是第二行)，粗體時也使用 highlightColor
+          if (isBold) return TextSpan(text: text, style: TextStyle(fontWeight: FontWeight.w900, color: isZh ? highlightColor : baseColor));
+          return TextSpan(text: text, style: null);
         }).toList(),
       ),
     );
@@ -1426,7 +1522,9 @@ class _TutorialDialogState extends State<TutorialDialog> {
 class QuizPage extends StatefulWidget {
   final List<Word> words;
   final String unitName;
-  const QuizPage({super.key, required this.words, required this.unitName});
+  final String? groupTitle;
+
+  const QuizPage({super.key, required this.words, required this.unitName, this.groupTitle});
   @override
   State<QuizPage> createState() => _QuizPageState();
 }
@@ -1435,78 +1533,141 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
   late List<Map<String, dynamic>> quizQueue;
   int currentIndex = 0;
   List<Map<String, dynamic>> results = [];
-  late AnimationController _timerController; // 計時器動畫
+  late AnimationController _timerController;
   int timerSeconds = 5;
   final AudioPlayer _audioPlayer = AudioPlayer();
+
+  // --- 新增變數：用於控制按鈕顏色與暫停邏輯 ---
+  int? _selectedOptionIndex; // 使用者點了哪個選項 (0 或 1)
+  bool _isAnswerProcessing = false; // 是否正在暫停 (防止連點)
+  bool? _isLastCorrect; // 最後一次點擊是否正確 (用於決定顏色)
 
   @override
   void initState() {
     super.initState();
-    _prepareQuiz(); // 準備題目
-    // 設定計時器 5 秒
+    _prepareQuiz();
     _timerController = AnimationController(vsync: this, duration: const Duration(seconds: 5));
     _timerController.reverse(from: 1.0);
-    // 時間到自動觸發錯誤答案
-    _timerController.addStatusListener((status) { if (status == AnimationStatus.dismissed) _handleAnswer(null); });
-    _timerController.addListener(() { setState(() { timerSeconds = (_timerController.value * 5).ceil(); }); });
-    // 進入頁面後播放第一題聲音
-    WidgetsBinding.instance.addPostFrameCallback((_) { _playCurrentWordAudio(); });
+    // 時間到自動視為錯誤 (傳入 null)
+    _timerController.addStatusListener((status) {
+      if (status == AnimationStatus.dismissed) _handleAnswer(null);
+    });
+    _timerController.addListener(() {
+      setState(() {
+        timerSeconds = (_timerController.value * 5).ceil();
+      });
+    });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _playCurrentWordAudio();
+    });
   }
 
-  // 播放當前題目的發音
   Future<void> _playCurrentWordAudio() async {
     if (currentIndex < quizQueue.length) {
       final word = quizQueue[currentIndex]['word'] as Word;
-      try { 
-        await _audioPlayer.stop(); 
-        await _audioPlayer.play(AssetSource('audio/${word.audioZH}'), volume: GlobalSettings.voiceVolume); 
-      } catch (e) { debugPrint("Quiz audio error: $e"); }
+      try {
+        await _audioPlayer.stop();
+        await _audioPlayer.play(AssetSource('audio/${word.audioZH}'), volume: GlobalSettings.voiceVolume);
+      } catch (e) {
+        debugPrint("Quiz audio error: $e");
+      }
     }
   }
 
-  // 準備題庫：洗牌並產生錯誤選項
   void _prepareQuiz() {
     final random = Random();
-    final allWords = getFullVocabulary(); 
+    final allWords = getFullVocabulary();
     List<Word> shuffledWords = List.from(widget.words)..shuffle();
     quizQueue = shuffledWords.map((word) {
       Word distractor;
-      // 找一個錯誤選項 (避免選到自己)
       if (allWords.length <= 1) {
-         distractor = Word(id: -1, zh: "錯誤", pinyin: "cuò", myn: "Wrong", sentenceZH: "", sentenceMYN: "", audioZH: "");
+        distractor = Word(id: -1, zh: "錯誤", pinyin: "cuò", myn: "Wrong", sentenceZH: "", sentencePINYIN: "", sentenceMYN: "", audioZH: "");
       } else {
-        do { distractor = allWords[random.nextInt(allWords.length)]; } while (distractor.myn == word.myn); 
+        do {
+          distractor = allWords[random.nextInt(allWords.length)];
+        } while (distractor.myn == word.myn);
       }
-      // 隨機決定正確答案在上面還是下面
       bool correctIsTop = random.nextBool();
-      return { 'word': word, 'options': correctIsTop ? [word.myn, distractor.myn] : [distractor.myn, word.myn], 'correctIndex': correctIsTop ? 0 : 1 };
+      return {
+        'word': word,
+        'options': correctIsTop ? [word.myn, distractor.myn] : [distractor.myn, word.myn],
+        'correctIndex': correctIsTop ? 0 : 1
+      };
     }).toList();
   }
 
-  // 處理作答結果
-  void _handleAnswer(int? index) {
-    _timerController.stop();
+  // --- 修改後的答題邏輯 ---
+  Future<void> _handleAnswer(int? index) async {
+    // 如果正在顯示顏色(暫停中)，則忽略點擊，防止重複觸發
+    if (_isAnswerProcessing) return;
+
+    _timerController.stop(); // 停止計時
+
     final currentQ = quizQueue[currentIndex];
     final word = currentQ['word'] as Word;
     final options = currentQ['options'] as List<String>;
     final correctIndex = currentQ['correctIndex'] as int;
-    
+
     bool isTimeout = index == null;
     bool isCorrect = !isTimeout && index == correctIndex;
-    results.add({'word': word, 'isCorrect': isCorrect, 'isTimeout': isTimeout, 'correctAnswer': word.myn, 'userAnswer': isTimeout ? 'Timeout' : options[index]});
 
-    // 還有下一題嗎？
-    if (currentIndex < 9 && currentIndex < quizQueue.length - 1) { 
-      setState(() { currentIndex++; _timerController.duration = const Duration(seconds: 5); _timerController.reverse(from: 1.0); });
+    // 1. 如果是使用者點擊 (非超時)，先更新 UI 顯示顏色並暫停
+    if (!isTimeout) {
+      setState(() {
+        _isAnswerProcessing = true;     // 鎖定狀態
+        _selectedOptionIndex = index;   // 記錄點了哪個
+        _isLastCorrect = isCorrect;     // 記錄對錯以決定顏色
+      });
+
+      // 暫停 0.5 秒 (500ms)
+      await Future.delayed(const Duration(milliseconds: 500));
+    }
+
+    // 2. 記錄結果 (原本的邏輯)
+    results.add({
+      'word': word,
+      'isCorrect': isCorrect,
+      'isTimeout': isTimeout,
+      'correctAnswer': word.myn,
+      'userAnswer': isTimeout ? 'Timeout' : options[index]
+    });
+
+    // 3. 判斷是否還有下一題
+    if (currentIndex < 9 && currentIndex < quizQueue.length - 1) {
+      setState(() {
+        currentIndex++;
+        // 重置 UI 狀態
+        _selectedOptionIndex = null;
+        _isAnswerProcessing = false;
+        _isLastCorrect = null;
+        
+        // 重置計時器
+        _timerController.duration = const Duration(seconds: 5);
+        _timerController.reverse(from: 1.0);
+      });
       _playCurrentWordAudio();
     } else {
-      // 測驗結束，跳轉到結果頁
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ResultPage(results: results, unitName: widget.unitName, originalWords: widget.words)));
+      // 測驗結束，跳轉
+      if (mounted) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ResultPage(
+                      results: results,
+                      unitName: widget.unitName,
+                      originalWords: widget.words,
+                      groupTitle: widget.groupTitle,
+                    )));
+      }
     }
   }
 
   @override
-  void dispose() { _timerController.dispose(); _audioPlayer.dispose(); super.dispose(); }
+  void dispose() {
+    _timerController.dispose();
+    _audioPlayer.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1517,65 +1678,80 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
     final totalQuestions = quizQueue.length;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A), // 深色背景專注答題
+      backgroundColor: const Color(0xFF0F172A),
       body: SafeArea(
         child: Column(
           children: [
-            // 進度條
             LinearProgressIndicator(value: (currentIndex) / totalQuestions, backgroundColor: Colors.white10, color: const Color(0xFF38ef7d), minHeight: 6),
-            Padding(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12), child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [ThreeDButton(onPressed: () => Navigator.pop(context), borderRadius: BorderRadius.circular(20), child: const Padding(padding: EdgeInsets.all(8.0), child: Icon(Icons.close, color: Colors.grey))), Text("${currentIndex + 1} / $totalQuestions", style: const TextStyle(color: Colors.grey, fontSize: 16, fontFamily: 'monospace')), const SizedBox(width: 48)])),
-            
-            // 倒數計時圓圈
-            Stack(alignment: Alignment.center, children: [SizedBox(width: 60, height: 60, child: CircularProgressIndicator(value: _timerController.value, strokeWidth: 4, color: Colors.white, backgroundColor: Colors.white24)), Text("$timerSeconds", style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold))]),
-            
-            // 題目區塊 (中文 + 播放按鈕)
-            Expanded(
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min, 
-                  children: [
-                    ThreeDButton(
-                      onPressed: _playCurrentWordAudio,
-                      borderRadius: BorderRadius.circular(20),
-                      child: Text(word.zh, style: const TextStyle(color: Colors.white, fontSize: 64, fontWeight: FontWeight.w900)),
-                    ),
-                    const SizedBox(height: 12), 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                         Text(word.pinyin, style: const TextStyle(color: Color(0xFF667eea), fontSize: 24, fontWeight: FontWeight.w500)),
-                         const SizedBox(width: 10),
-                         ThreeDButton(
-                           onPressed: _playCurrentWordAudio,
-                           borderRadius: BorderRadius.circular(20),
-                           child: const Padding(padding: EdgeInsets.all(8.0), child: Icon(Icons.volume_up, color: Colors.white70)),
-                         )
-                      ],
-                    )
-                  ]
-                )
-              )
-            ),
-            // 選項按鈕區
             Padding(
-              padding: const EdgeInsets.all(24.0), 
-              child: Column(
-                children: List.generate(2, (idx) => Padding(
-                  padding: const EdgeInsets.only(bottom: 16), 
-                  child: ThreeDButton(
-                    onPressed: () => _handleAnswer(idx),
-                    borderRadius: BorderRadius.circular(16),
-                    child: Container(
-                      width: double.infinity, 
-                      height: 80, 
-                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
-                      alignment: Alignment.center,
-                      child: Text(options[idx], style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF0F172A)))
-                    ),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                  ThreeDButton(onPressed: () => Navigator.pop(context), borderRadius: BorderRadius.circular(20), child: const Padding(padding: EdgeInsets.all(8.0), child: Icon(Icons.close, color: Colors.grey))),
+                  Text("${currentIndex + 1} / $totalQuestions", style: const TextStyle(color: Colors.grey, fontSize: 16, fontFamily: 'monospace')),
+                  const SizedBox(width: 48)
+                ])),
+            Stack(alignment: Alignment.center, children: [
+              SizedBox(width: 60, height: 60, child: CircularProgressIndicator(value: _timerController.value, strokeWidth: 4, color: Colors.white, backgroundColor: Colors.white24)),
+              Text("$timerSeconds", style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold))
+            ]),
+            Expanded(
+                child: Center(
+                    child: Column(mainAxisSize: MainAxisSize.min, children: [
+              ThreeDButton(
+                onPressed: _playCurrentWordAudio,
+                borderRadius: BorderRadius.circular(20),
+                child: Text(word.zh, style: const TextStyle(color: Colors.white, fontSize: 64, fontWeight: FontWeight.w900)),
+              ),
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(word.pinyin, style: const TextStyle(color: Color(0xFF667eea), fontSize: 24, fontWeight: FontWeight.w500)),
+                  const SizedBox(width: 10),
+                  ThreeDButton(
+                    onPressed: _playCurrentWordAudio,
+                    borderRadius: BorderRadius.circular(20),
+                    child: const Padding(padding: EdgeInsets.all(8.0), child: Icon(Icons.volume_up, color: Colors.white70)),
                   )
-                ))
+                ],
               )
-            )
+            ]))),
+            
+            // --- 修改後的選項按鈕區 ---
+            Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                    children: List.generate(2, (idx) {
+                  // 判斷按鈕顏色
+                  Color btnColor = Colors.white; // 預設白色
+                  Color textColor = const Color(0xFF0F172A); // 預設深色字
+
+                  // 如果正在處理答案，且這個按鈕是被選中的那個
+                  if (_isAnswerProcessing && _selectedOptionIndex == idx) {
+                    if (_isLastCorrect == true) {
+                      btnColor = const Color(0xFF38ef7d); // 綠色 (正確)
+                      textColor = Colors.white;
+                    } else {
+                      btnColor = const Color(0xFFF5576C); // 紅色 (錯誤)
+                      textColor = Colors.white;
+                    }
+                  }
+
+                  return Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: ThreeDButton(
+                        onPressed: () => _handleAnswer(idx),
+                        borderRadius: BorderRadius.circular(16),
+                        child: AnimatedContainer( // 使用 AnimatedContainer 讓顏色切換更滑順
+                          duration: const Duration(milliseconds: 200),
+                          width: double.infinity,
+                          height: 80,
+                          decoration: BoxDecoration(color: btnColor, borderRadius: BorderRadius.circular(16)),
+                          alignment: Alignment.center,
+                          child: Text(options[idx], style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: textColor)),
+                        ),
+                      ));
+                })))
           ],
         ),
       ),
@@ -1585,13 +1761,22 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
 
 // ==========================================
 // --- 12. 結果頁面 (ResultPage) ---
-// 顯示測驗成績，並根據分數播放音效
+// 顯示測驗成績，並儲存分數
 // ==========================================
 class ResultPage extends StatefulWidget {
   final List<Map<String, dynamic>> results;
   final String unitName;
   final List<Word> originalWords;
-  const ResultPage({super.key, required this.results, required this.unitName, required this.originalWords});
+  final String? groupTitle; // 新增
+
+  const ResultPage({
+    super.key, 
+    required this.results, 
+    required this.unitName, 
+    required this.originalWords,
+    this.groupTitle,
+  });
+
   @override
   State<ResultPage> createState() => _ResultPageState();
 }
@@ -1604,7 +1789,29 @@ class _ResultPageState extends State<ResultPage> {
   void initState() {
     super.initState();
     _loadSavedWords();
-    _playResultSound(); // 播放過關或失敗音效
+    _playResultSound();
+    _saveScore(); // 進來就存檔
+  }
+
+  // 計算並儲存分數到 SharedPreferences
+  Future<void> _saveScore() async {
+    // 只有當這是正規單元測驗 (有 groupTitle) 時才存檔，自訂單字本測驗不存
+    if (widget.groupTitle != null) {
+      int correctCount = widget.results.where((r) => r['isCorrect'] as bool).length;
+      int total = widget.results.length;
+      // 換算成 10 分制 (假設每單元都是 10 題，如果題目數不同，這裡會自動依比例轉為 10 分)
+      int scoreOnTen = ((correctCount / total) * 10).round();
+      
+      final prefs = await SharedPreferences.getInstance();
+      String key = 'score_${widget.groupTitle}_${widget.unitName}';
+      
+      // 讀取舊分數，只在分數更高時更新 (或者你希望覆蓋每次成績？這邊預設是覆蓋)
+      // 如果希望保留最高分，可以打開下面註解：
+      // int? oldScore = prefs.getInt(key);
+      // if (oldScore == null || scoreOnTen > oldScore) {
+         await prefs.setInt(key, scoreOnTen);
+      // }
+    }
   }
 
   @override
@@ -1613,7 +1820,6 @@ class _ResultPageState extends State<ResultPage> {
     super.dispose();
   }
 
-  // 播放結果音效 (>=60分 通過，否則失敗)
   Future<void> _playResultSound() async {
     int correctCount = widget.results.where((r) => r['isCorrect'] as bool).length;
     int total = widget.results.isNotEmpty ? widget.results.length : 1;
@@ -1656,14 +1862,12 @@ class _ResultPageState extends State<ResultPage> {
               padding: const EdgeInsets.all(24),
               children: [
                 const SizedBox(height: 40),
-                // 成績卡片
                 Container(
                   padding: const EdgeInsets.all(32),
                   decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(32), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4))]),
                   child: Column(children: [const Icon(Icons.emoji_events, size: 60, color: Color(0xFF764ba2)), const SizedBox(height: 16), Text("Quiz Complete!", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: textColor)), Text(widget.unitName, style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)), const SizedBox(height: 16), Row(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.baseline, textBaseline: TextBaseline.alphabetic, children: [Text("$percentage", style: const TextStyle(fontSize: 60, fontWeight: FontWeight.w900, color: Color(0xFF667eea))), const Text("%", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.grey))]), const Text("ACCURACY SCORE", style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey))]),
                 ),
                 const SizedBox(height: 24),
-                // 答案檢討
                 Text("Review Answers", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: textColor)),
                 const SizedBox(height: 12),
                 ...widget.results.map((res) {
@@ -1691,7 +1895,6 @@ class _ResultPageState extends State<ResultPage> {
               ],
             ),
           ),
-          // 底部按鈕：回首頁 / 再測一次
           Container(
             padding: const EdgeInsets.all(24), color: cardColor,
             child: Row(children: [
@@ -1705,7 +1908,12 @@ class _ResultPageState extends State<ResultPage> {
               const SizedBox(width: 16), 
               Expanded(
                 child: ThreeDButton(
-                  onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudyPage(unitTitle: widget.unitName, wordList: widget.originalWords, themeColor: const Color(0xFF667eea)))),
+                  onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudyPage(
+                    unitTitle: widget.unitName, 
+                    wordList: widget.originalWords, 
+                    themeColor: const Color(0xFF667eea),
+                    groupTitle: widget.groupTitle ?? "", // 確保有值
+                  ))),
                   borderRadius: BorderRadius.circular(16),
                   child: Container(padding: const EdgeInsets.symmetric(vertical: 16), decoration: BoxDecoration(color: const Color(0xFF667eea), borderRadius: BorderRadius.circular(16)), alignment: Alignment.center, child: const Text("Study Again", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
                 )
