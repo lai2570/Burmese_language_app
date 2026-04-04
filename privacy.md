@@ -1,4 +1,5 @@
 ** IMPORTANT NOTICE FOR iOS (APPLE APP STORE) USERS **
+
 If you downloaded this Application from the Apple App Store: This iOS version does NOT collect, store, or share any personal user data, and does NOT use any third-party services. The data collection and third-party practices described below apply ONLY to the Android (Google Play) version.
 
 # Privacy Policy
