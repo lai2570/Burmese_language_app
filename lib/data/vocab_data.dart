@@ -425,6 +425,8 @@ final List<Word> _baseVocabulary = [
   Word(id: 3008, zh: "號碼牌", pinyin: "hào mǎ pái", myn: "တိုကင်", sentenceZH: "請先抽**號碼牌**。", sentencePINYIN: "qǐng xiān chōu **hào mǎ pái**.", sentenceMYN: "**တိုကင်** အရင်ယူပါ။", audioZH: "C03008.mp3"),
   Word(id: 3009, zh: "手續費", pinyin: "shǒu xù fèi", myn: "ဝန်ဆောင်ခ", sentenceZH: "辦這個要多少**手續費**？", sentencePINYIN: "bàn zhè gè yào duō shǎo **shǒu xù fèi**?", sentenceMYN: "ဒါလုပ်ဖို့ **ဝန်ဆောင်ခ** ဘယ်လောက်ကျလဲ။", audioZH: "C03009.mp3"),
   Word(id: 3010, zh: "收據", pinyin: "shōu jù", myn: "ပြေစာ", sentenceZH: "這是您的**收據**，請收好。", sentencePINYIN: "zhè shì nín de **shōu jù**, qǐng shōu hǎo.", sentenceMYN: "ဒါ ခင်ဗျားရဲ့ **ပြေစာ** (Receipt) ပါ၊ သေချာသိမ်းထားပါ။", audioZH: "C03010.mp3"),
+  
+
 
 ];
 

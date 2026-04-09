@@ -1439,7 +1439,7 @@ class _TutorialDialogState extends State<TutorialDialog> {
   int _currentPage = 0;
 
   final List<Map<String, dynamic>> _steps = [
-    {"icon": Icons.category, "color": Color(0xFF667eea), "text": "1. Click the left icon to start.\nဘယ်ဘက်ရှိ လေးထောင့်ပုံကို နှိပ်ပြီး စတင်လေ့လာပါ။"},
+    {"icon": Icons.category, "color": Color(0xFF667eea), "text": "1. Click a unit icon to start learning.\nသင်ခန်းစာပုံကို နှိပ်ပြီး စတင်လေ့လာပါ။"},
     {"icon": Icons.star, "color": Colors.amber, "text": "2. Take quizzes & Star words to save.\nပဟေဠိဖြေပါ၊ မသိသော စကားလုံးများကို Star နှိပ်ပြီး မှတ်သားပါ။"},
     {"icon": Icons.menu_book, "color": Color(0xFFff9a9e), "text": "3. Collect 10+ words to unlock review quiz!\nစကားလုံး ၁၀ လုံးကျော်ပါက ပြန်လည်လေ့ကျင့်နိုင်ပါပြီ။"},
   ];
