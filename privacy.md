@@ -1,3 +1,7 @@
+** IMPORTANT NOTICE FOR iOS (APPLE APP STORE) USERS **
+
+If you downloaded this Application from the Apple App Store: This iOS version does NOT collect, store, or share any personal user data, and does NOT use any third-party services. The data collection and third-party practices described below apply ONLY to the Android (Google Play) version.
+
 # Privacy Policy
 
 This privacy policy is applicable to the Chin Chin Chinese app (hereinafter referred to as "Application") for mobile devices, which was developed by YUNG-TSAI LAI (hereinafter referred to as "Service Provider") as a Free service. This service is provided "AS IS".
