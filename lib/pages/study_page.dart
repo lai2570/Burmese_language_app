@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chin/data/vocab_data.dart';
 import 'package:chin/core/global_settings.dart';
 import 'package:chin/widgets/three_d_button.dart';
+import 'package:chin/theme/app_colors.dart';
 import 'quiz_page.dart';
 
 class StudyPage extends StatefulWidget {
@@ -16,7 +17,7 @@ class StudyPage extends StatefulWidget {
     super.key,
     required this.unitTitle,
     required this.wordList,
-    this.themeColor = const Color(0xFF667eea),
+    this.themeColor = AppColors.primary,
     required this.groupTitle,
   });
 

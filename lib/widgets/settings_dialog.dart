@@ -40,7 +40,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: const BoxDecoration(color: Color(0xFFF0F4F8), shape: BoxShape.circle),
-                child: const Icon(Icons.settings, size: 36, color: Color(0xFF667eea)),
+                child: const Icon(Icons.settings, size: 36, color: AppColors.primary),
               ),
               const SizedBox(height: 16),
               Text('Settings', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: textColor)),
@@ -79,7 +79,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
                 subtitle: const Text("အမှောင်စနစ်", style: TextStyle(fontSize: 12, color: Colors.grey)),
                 trailing: Switch(
                   value: isDark,
-                  activeColor: const Color(0xFF667eea),
+                  activeColor: AppColors.primary,
                   onChanged: (val) { GlobalSettings.toggleTheme(); },
                 ),
               ),
@@ -124,7 +124,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
                   decoration: BoxDecoration(
                     gradient: AppColors.primaryGradient,
                     borderRadius: BorderRadius.circular(12),
-                    boxShadow: [BoxShadow(color: const Color(0xFF667eea).withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 4))],
+                    boxShadow: [BoxShadow(color: AppColors.primary.withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 4))],
                   ),
                   child: const Center(child: Text("Close", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
                 ),
@@ -153,7 +153,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
             ),
           ],
         ),
-        Slider(value: value, min: 0.0, max: 1.0, activeColor: const Color(0xFF667eea), inactiveColor: Colors.grey.shade200, onChanged: onChanged),
+        Slider(value: value, min: 0.0, max: 1.0, activeColor: AppColors.primary, inactiveColor: Colors.grey.shade200, onChanged: onChanged),
       ],
     );
   }
@@ -182,9 +182,9 @@ class _SettingsDialogState extends State<SettingsDialog> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.info_outline, size: 40, color: Color(0xFF667eea)),
+              const Icon(Icons.info_outline, size: 40, color: AppColors.primary),
               const SizedBox(height: 16),
-              const Text('Chin Chin Chinese', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF1E293B))),
+              const Text('Chin Chin Chinese', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.textDark)),
               const Text('Version 1.0.0', style: TextStyle(color: Colors.grey, fontSize: 14)),
               const Divider(height: 32),
               _buildInfoRow(Icons.code, "Developer", "賴泳在 (YUNG-TSAI LAI)"),
@@ -201,12 +201,12 @@ class _SettingsDialogState extends State<SettingsDialog> {
                 children: [
                   TextButton(
                     onPressed: () => _launchURL('https://lai2570.github.io/Burmese_language_app/privacy'),
-                    child: const Text("Privacy Policy", style: TextStyle(color: Color(0xFF667eea), fontSize: 12, decoration: TextDecoration.underline)),
+                    child: const Text("Privacy Policy", style: TextStyle(color: AppColors.primary, fontSize: 12, decoration: TextDecoration.underline)),
                   ),
                   const Text("|", style: TextStyle(color: Colors.grey)),
                   TextButton(
                     onPressed: () => _launchURL('https://lai2570.github.io/Burmese_language_app/terms'),
-                    child: const Text("Terms & Conditions", style: TextStyle(color: Color(0xFF667eea), fontSize: 12, decoration: TextDecoration.underline)),
+                    child: const Text("Terms & Conditions", style: TextStyle(color: AppColors.primary, fontSize: 12, decoration: TextDecoration.underline)),
                   ),
                 ],
               ),
@@ -232,13 +232,13 @@ class _SettingsDialogState extends State<SettingsDialog> {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         children: [
-          Icon(icon, size: 20, color: const Color(0xFF94A3B8)),
+          Icon(icon, size: 20, color: AppColors.textMuted),
           const SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: const TextStyle(fontSize: 12, color: Color(0xFF94A3B8))),
-              Text(content, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xFF334155))),
+              Text(title, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
+              Text(content, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.textMedium)),
             ],
           ),
         ],

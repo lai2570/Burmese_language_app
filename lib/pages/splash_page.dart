@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'package:chin/theme/app_colors.dart';
 import 'home_page.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -66,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             )
           else
-            Container(color: const Color(0xFF667eea)),
+            Container(color: AppColors.primary),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

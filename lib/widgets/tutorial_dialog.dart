@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_colors.dart';
 import 'three_d_button.dart';
 
 class TutorialDialog extends StatefulWidget {
@@ -12,9 +13,9 @@ class _TutorialDialogState extends State<TutorialDialog> {
   int _currentPage = 0;
 
   final List<Map<String, dynamic>> _steps = [
-    {"icon": Icons.category, "color": Color(0xFF667eea), "text": "1. Click a unit icon to start learning.\nသင်ခန်းစာပုံကို နှိပ်ပြီး စတင်လေ့လာပါ။"},
+    {"icon": Icons.category, "color": AppColors.primary, "text": "1. Click a unit icon to start learning.\nသင်ခန်းစာပုံကို နှိပ်ပြီး စတင်လေ့လာပါ။"},
     {"icon": Icons.star, "color": Colors.amber, "text": "2. Take quizzes & Star words to save.\nပဟေဠိဖြေပါ၊ မသိသော စကားလုံးများကို Star နှိပ်ပြီး မှတ်သားပါ။"},
-    {"icon": Icons.menu_book, "color": Color(0xFFff9a9e), "text": "3. Collect 10+ words to unlock review quiz!\nစကားလုံး ၁၀ လုံးကျော်ပါက ပြန်လည်လေ့ကျင့်နိုင်ပါပြီ။"},
+    {"icon": Icons.menu_book, "color": AppColors.accent, "text": "3. Collect 10+ words to unlock review quiz!\nစကားလုံး ၁၀ လုံးကျော်ပါက ပြန်လည်လေ့ကျင့်နိုင်ပါပြီ။"},
   ];
 
   @override
@@ -60,7 +61,7 @@ class _TutorialDialogState extends State<TutorialDialog> {
                     children: List.generate(_steps.length, (index) => Container(
                       margin: const EdgeInsets.symmetric(horizontal: 4),
                       width: 8, height: 8,
-                      decoration: BoxDecoration(shape: BoxShape.circle, color: _currentPage == index ? const Color(0xFF667eea) : Colors.grey.shade300),
+                      decoration: BoxDecoration(shape: BoxShape.circle, color: _currentPage == index ? AppColors.primary : Colors.grey.shade300),
                     )),
                   ),
                   ThreeDButton(
@@ -74,7 +75,7 @@ class _TutorialDialogState extends State<TutorialDialog> {
                     borderRadius: BorderRadius.circular(20),
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                      decoration: BoxDecoration(color: const Color(0xFF667eea), borderRadius: BorderRadius.circular(20)),
+                      decoration: BoxDecoration(color: AppColors.primary, borderRadius: BorderRadius.circular(20)),
                       child: Text(_currentPage == _steps.length - 1 ? "Start" : "Next", style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                     ),
                   )

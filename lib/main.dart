@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'core/global_settings.dart';
+import 'theme/app_colors.dart';
 import 'pages/splash_page.dart';
 
 void main() async {
@@ -28,27 +29,27 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             brightness: Brightness.light,
             primarySwatch: Colors.deepPurple,
-            scaffoldBackgroundColor: const Color(0xFFF5F7FA),
+            scaffoldBackgroundColor: AppColors.scaffoldLight,
             cardColor: Colors.white,
             fontFamily: 'Roboto',
             useMaterial3: true,
             iconTheme: const IconThemeData(color: Colors.black54),
             textTheme: const TextTheme(
-              bodyLarge: TextStyle(color: Color(0xFF1E293B)),
-              bodyMedium: TextStyle(color: Color(0xFF334155)),
+              bodyLarge: TextStyle(color: AppColors.textDark),
+              bodyMedium: TextStyle(color: AppColors.textMedium),
             ),
           ),
           darkTheme: ThemeData(
             brightness: Brightness.dark,
             primarySwatch: Colors.deepPurple,
-            scaffoldBackgroundColor: const Color(0xFF111827),
-            cardColor: const Color(0xFF1F2937),
+            scaffoldBackgroundColor: AppColors.scaffoldDark,
+            cardColor: AppColors.cardDark,
             fontFamily: 'Roboto',
             useMaterial3: true,
             iconTheme: const IconThemeData(color: Colors.white70),
             textTheme: const TextTheme(
-              bodyLarge: TextStyle(color: Color(0xFFF1F5F9)),
-              bodyMedium: TextStyle(color: Color(0xFFCBD5E1)),
+              bodyLarge: TextStyle(color: AppColors.textLightOnDark),
+              bodyMedium: TextStyle(color: AppColors.textMediumOnDark),
             ),
           ),
           builder: (context, child) {

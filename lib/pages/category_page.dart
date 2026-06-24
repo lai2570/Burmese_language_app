@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chin/data/vocab_data.dart';
 import 'package:chin/data/unit_group.dart';
 import 'package:chin/widgets/three_d_button.dart';
+import 'package:chin/theme/app_colors.dart';
 import 'study_page.dart';
 
 class CategoryPage extends StatefulWidget {
@@ -72,7 +73,7 @@ class _CategoryPageState extends State<CategoryPage> {
     int displayCount = min(availableUnitsCount, widget.group.subUnits.length);
 
     final cardColor = Theme.of(context).cardColor;
-    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? const Color(0xFF1E293B);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? AppColors.textDark;
 
     return Scaffold(
       body: Column(

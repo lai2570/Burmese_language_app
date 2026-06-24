@@ -4,6 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:chin/data/vocab_data.dart';
 import 'package:chin/core/global_settings.dart';
 import 'package:chin/widgets/three_d_button.dart';
+import 'package:chin/theme/app_colors.dart';
 import 'result_page.dart';
 
 class QuizPage extends StatefulWidget {
@@ -151,11 +152,11 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
     final totalQuestions = quizQueue.length;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A),
+      backgroundColor: AppColors.quizBackground,
       body: SafeArea(
         child: Column(
           children: [
-            LinearProgressIndicator(value: (currentIndex) / totalQuestions, backgroundColor: Colors.white10, color: const Color(0xFF38ef7d), minHeight: 6),
+            LinearProgressIndicator(value: (currentIndex) / totalQuestions, backgroundColor: Colors.white10, color: AppColors.success, minHeight: 6),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -180,7 +181,7 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(word.pinyin, style: const TextStyle(color: Color(0xFF667eea), fontSize: 24, fontWeight: FontWeight.w500)),
+                      Text(word.pinyin, style: const TextStyle(color: AppColors.primary, fontSize: 24, fontWeight: FontWeight.w500)),
                       const SizedBox(width: 10),
                       ThreeDButton(
                         onPressed: _playCurrentWordAudio,
@@ -197,13 +198,13 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
               child: Column(
                 children: List.generate(2, (idx) {
                   Color btnColor = Colors.white;
-                  Color textColor = const Color(0xFF0F172A);
+                  Color textColor = AppColors.quizBackground;
                   if (_isAnswerProcessing && _selectedOptionIndex == idx) {
                     if (_isLastCorrect == true) {
-                      btnColor = const Color(0xFF38ef7d);
+                      btnColor = AppColors.success;
                       textColor = Colors.white;
                     } else {
-                      btnColor = const Color(0xFFF5576C);
+                      btnColor = AppColors.error;
                       textColor = Colors.white;
                     }
                   }

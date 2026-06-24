@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   Widget _buildGroupCard(BuildContext context, UnitGroup group) {
     final cardColor = Theme.of(context).cardColor;
-    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? const Color(0xFF1E293B);
+    final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? AppColors.textDark;
     const double iconSize = 64;
 
     return Container(
@@ -137,7 +137,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             decoration: BoxDecoration(
               gradient: AppColors.primaryGradient,
               borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(40), bottomRight: Radius.circular(40)),
-              boxShadow: [BoxShadow(color: const Color(0xFF667eea).withOpacity(0.3), blurRadius: 20, offset: const Offset(0, 10))],
+              boxShadow: [BoxShadow(color: AppColors.primary.withOpacity(0.3), blurRadius: 20, offset: const Offset(0, 10))],
             ),
             child: Column(
               children: [
@@ -167,9 +167,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     ),
                     Row(
                       children: [
-                        _buildFlatHeaderIcon(icon: Icons.settings, color: const Color(0xFF667eea), onTap: _showSettings),
+                        _buildFlatHeaderIcon(icon: Icons.settings, color: AppColors.primary, onTap: _showSettings),
                         const SizedBox(width: 12),
-                        _buildFlatHeaderIcon(icon: Icons.menu_book, color: const Color(0xFFff9a9e), onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const VocabBookPage()))),
+                        _buildFlatHeaderIcon(icon: Icons.menu_book, color: AppColors.accent, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const VocabBookPage()))),
                       ],
                     ),
                   ],

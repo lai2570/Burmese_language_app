@@ -74,7 +74,7 @@ class _VocabBookPageState extends State<VocabBookPage> {
                         borderRadius: BorderRadius.circular(12),
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                          decoration: BoxDecoration(color: savedWords.length >= 10 ? const Color(0xFF667eea) : Colors.grey.shade300, borderRadius: BorderRadius.circular(12)),
+                          decoration: BoxDecoration(color: savedWords.length >= 10 ? AppColors.primary : Colors.grey.shade300, borderRadius: BorderRadius.circular(12)),
                           child: const Row(children: [Icon(Icons.play_arrow, color: Colors.white, size: 20), SizedBox(width: 8), Text("Quiz (10)", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))]),
                         ),
                       ),

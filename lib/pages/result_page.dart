@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chin/data/vocab_data.dart';
 import 'package:chin/core/global_settings.dart';
 import 'package:chin/widgets/three_d_button.dart';
+import 'package:chin/theme/app_colors.dart';
 import 'study_page.dart';
 
 class ResultPage extends StatefulWidget {
@@ -98,7 +99,7 @@ class _ResultPageState extends State<ResultPage> {
                 Container(
                   padding: const EdgeInsets.all(32),
                   decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(32), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4))]),
-                  child: Column(children: [const Icon(Icons.emoji_events, size: 60, color: Color(0xFF764ba2)), const SizedBox(height: 16), Text("Quiz Complete!", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: textColor)), Text(widget.unitName, style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)), const SizedBox(height: 16), Row(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.baseline, textBaseline: TextBaseline.alphabetic, children: [Text("$percentage", style: const TextStyle(fontSize: 60, fontWeight: FontWeight.w900, color: Color(0xFF667eea))), const Text("%", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.grey))]), const Text("ACCURACY SCORE", style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey))]),
+                  child: Column(children: [const Icon(Icons.emoji_events, size: 60, color: AppColors.primaryDark), const SizedBox(height: 16), Text("Quiz Complete!", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: textColor)), Text(widget.unitName, style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)), const SizedBox(height: 16), Row(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.baseline, textBaseline: TextBaseline.alphabetic, children: [Text("$percentage", style: const TextStyle(fontSize: 60, fontWeight: FontWeight.w900, color: Color(0xFF667eea))), const Text("%", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.grey))]), const Text("ACCURACY SCORE", style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey))]),
                 ),
                 const SizedBox(height: 24),
                 Text("Review Answers", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: textColor)),
@@ -113,7 +114,7 @@ class _ResultPageState extends State<ResultPage> {
                     decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(16)),
                     child: Row(
                       children: [
-                        Icon(isCorrect ? Icons.check_circle : Icons.cancel, color: isCorrect ? const Color(0xFF38ef7d) : const Color(0xFFF5576C), size: 30),
+                        Icon(isCorrect ? Icons.check_circle : Icons.cancel, color: isCorrect ? AppColors.success : AppColors.error, size: 30),
                         const SizedBox(width: 16),
                         Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(word.zh, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: textColor)), Text(word.pinyin, style: const TextStyle(color: Colors.grey, fontSize: 13)), if (!isCorrect) Text("Ans: ${res['correctAnswer']}", style: const TextStyle(color: Color(0xFF38ef7d), fontWeight: FontWeight.bold))])),
                         ThreeDButton(
@@ -144,11 +145,11 @@ class _ResultPageState extends State<ResultPage> {
                   onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StudyPage(
                     unitTitle: widget.unitName,
                     wordList: widget.originalWords,
-                    themeColor: const Color(0xFF667eea),
+                    themeColor: AppColors.primary,
                     groupTitle: widget.groupTitle ?? "",
                   ))),
                   borderRadius: BorderRadius.circular(16),
-                  child: Container(padding: const EdgeInsets.symmetric(vertical: 16), decoration: BoxDecoration(color: const Color(0xFF667eea), borderRadius: BorderRadius.circular(16)), alignment: Alignment.center, child: const Text("Study Again", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+                  child: Container(padding: const EdgeInsets.symmetric(vertical: 16), decoration: BoxDecoration(color: AppColors.primary, borderRadius: BorderRadius.circular(16)), alignment: Alignment.center, child: const Text("Study Again", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
                 ),
               ),
             ]),
