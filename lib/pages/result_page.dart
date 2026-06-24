@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chin/data/vocab_data.dart';
 import 'package:chin/core/global_settings.dart';
 import 'package:chin/widgets/three_d_button.dart';
-import 'package:chin/main.dart' show StudyPage;
+import 'study_page.dart';
 
 class ResultPage extends StatefulWidget {
   final List<Map<String, dynamic>> results;
