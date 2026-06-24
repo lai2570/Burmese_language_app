@@ -8,6 +8,7 @@ import 'data/vocab_data.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'core/global_settings.dart';
 import 'widgets/three_d_button.dart';
+import 'widgets/tutorial_dialog.dart';
 
 void main() async {
   // 1. 確保 Flutter 引擎綁定初始化 (在執行異步操作前必須呼叫)
@@ -1270,97 +1271,6 @@ class _StudyPageState extends State<StudyPage> {
           if (isBold) return TextSpan(text: text, style: TextStyle(fontWeight: FontWeight.w900, color: isZh ? highlightColor : baseColor));
           return TextSpan(text: text, style: null);
         }).toList(),
-      ),
-    );
-  }
-}
-
-// ==========================================
-// --- 10. Tutorial Dialog ---
-// 新手教學彈窗
-// ==========================================
-class TutorialDialog extends StatefulWidget {
-  const TutorialDialog({super.key});
-  @override
-  State<TutorialDialog> createState() => _TutorialDialogState();
-}
-
-class _TutorialDialogState extends State<TutorialDialog> {
-  final PageController _pageController = PageController();
-  int _currentPage = 0;
-
-  final List<Map<String, dynamic>> _steps = [
-    {"icon": Icons.category, "color": Color(0xFF667eea), "text": "1. Click a unit icon to start learning.\nသင်ခန်းစာပုံကို နှိပ်ပြီး စတင်လေ့လာပါ။"},
-    {"icon": Icons.star, "color": Colors.amber, "text": "2. Take quizzes & Star words to save.\nပဟေဠိဖြေပါ၊ မသိသော စကားလုံးများကို Star နှိပ်ပြီး မှတ်သားပါ။"},
-    {"icon": Icons.menu_book, "color": Color(0xFFff9a9e), "text": "3. Collect 10+ words to unlock review quiz!\nစကားလုံး ၁၀ လုံးကျော်ပါက ပြန်လည်လေ့ကျင့်နိုင်ပါပြီ။"},
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-      backgroundColor: Colors.transparent,
-      child: Container(
-        height: 420,
-        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24)),
-        child: Column(
-          children: [
-            Expanded(
-              child: PageView.builder(
-                controller: _pageController,
-                onPageChanged: (int page) => setState(() => _currentPage = page),
-                itemCount: _steps.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(color: _steps[index]['color'].withOpacity(0.1), shape: BoxShape.circle),
-                          child: Icon(_steps[index]['icon'], size: 60, color: _steps[index]['color']),
-                        ),
-                        const SizedBox(height: 24),
-                        Text(_steps[index]['text'], textAlign: TextAlign.center, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, height: 1.5, color: Colors.black87)),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: List.generate(_steps.length, (index) => Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      width: 8, height: 8,
-                      decoration: BoxDecoration(shape: BoxShape.circle, color: _currentPage == index ? const Color(0xFF667eea) : Colors.grey.shade300),
-                    )),
-                  ),
-                  ThreeDButton(
-                    onPressed: () {
-                      if (_currentPage < _steps.length - 1) {
-                        _pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.ease);
-                      } else {
-                        Navigator.pop(context);
-                      }
-                    },
-                    borderRadius: BorderRadius.circular(20),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                      decoration: BoxDecoration(color: const Color(0xFF667eea), borderRadius: BorderRadius.circular(20)),
-                      child: Text(_currentPage == _steps.length - 1 ? "Start" : "Next", style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
       ),
     );
   }
