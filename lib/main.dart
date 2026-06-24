@@ -9,6 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'core/global_settings.dart';
 import 'widgets/three_d_button.dart';
 import 'widgets/tutorial_dialog.dart';
+import 'theme/app_colors.dart';
 
 void main() async {
   // 1. 確保 Flutter 引擎綁定初始化 (在執行異步操作前必須呼叫)
@@ -28,33 +29,6 @@ void main() async {
 
   // 3. 啟動 APP
   runApp(const MyApp());
-}
-
-// ==========================================
-// --- 1. 樣式系統 (Design System) ---
-// 定義 APP 中重複使用的顏色與漸層
-// ==========================================
-class AppColors {
-  // 主色調漸層 (紫藍色系)
-  static const primaryGradient = LinearGradient(
-    colors: [Color(0xFF667eea), Color(0xFF764ba2)],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-  );
-  
-  // 淺色模式卡片漸層
-  static const cardGradient = LinearGradient(
-    colors: [Colors.white, Color(0xFFF8F9FF)],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-  );
-  
-  // 深色模式卡片漸層
-  static const darkCardGradient = LinearGradient(
-    colors: [Color(0xFF2D3748), Color(0xFF1A202C)],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-  );
 }
 
 // ==========================================
