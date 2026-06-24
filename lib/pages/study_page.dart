@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chin/data/vocab_data.dart';
 import 'package:chin/core/global_settings.dart';
 import 'package:chin/widgets/three_d_button.dart';
+import 'package:chin/l10n/app_localizations.dart';
 import 'package:chin/theme/app_colors.dart';
 import 'package:chin/theme/app_dimensions.dart';
 import 'quiz_page.dart';
@@ -68,6 +69,7 @@ class _StudyPageState extends State<StudyPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final cardColor = Theme.of(context).cardColor;
     final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black87;
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -89,7 +91,7 @@ class _StudyPageState extends State<StudyPage> {
                   borderRadius: BorderRadius.circular(AppDimensions.radiusPill),
                   child: const Padding(padding: AppDimensions.paddingXs, child: Icon(Icons.arrow_back_ios, color: Colors.white)),
                 ),
-                Expanded(child: Column(children: [Text(widget.unitTitle, style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)), const Text("STUDY MODE", style: TextStyle(color: Colors.white70, fontSize: 10, letterSpacing: 1.5))])),
+                Expanded(child: Column(children: [Text(widget.unitTitle, style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)), Text(l10n.studyMode, style: const TextStyle(color: Colors.white70, fontSize: 10, letterSpacing: 1.5))])),
                 const SizedBox(width: 48),
               ],
             ),
@@ -103,7 +105,7 @@ class _StudyPageState extends State<StudyPage> {
               children: [
                 Icon(Icons.volume_up, color: widget.themeColor, size: 20),
                 const SizedBox(width: 8),
-                RichText(text: TextSpan(style: TextStyle(color: widget.themeColor, fontSize: 13, fontFamily: 'Roboto'), children: const [TextSpan(text: "Click "), WidgetSpan(child: Icon(Icons.volume_up, size: 16, color: Colors.indigo), alignment: PlaceholderAlignment.middle), TextSpan(text: " to listen / နားထောင်ရန်နှိပ်ပါ")])),
+                RichText(text: TextSpan(style: TextStyle(color: widget.themeColor, fontSize: 13, fontFamily: 'Roboto'), children: [TextSpan(text: l10n.listenBefore), const WidgetSpan(child: Icon(Icons.volume_up, size: 16, color: Colors.indigo), alignment: PlaceholderAlignment.middle), TextSpan(text: l10n.listenAfter)])),
               ],
             ),
           ),
@@ -202,9 +204,9 @@ class _StudyPageState extends State<StudyPage> {
                 width: double.infinity,
                 padding: AppDimensions.buttonPaddingV,
                 decoration: BoxDecoration(color: widget.themeColor, borderRadius: BorderRadius.circular(AppDimensions.radiusMd), boxShadow: [BoxShadow(color: widget.themeColor.withOpacity(0.4), blurRadius: 8, offset: const Offset(0, 4))]),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Icon(Icons.play_arrow, color: Colors.white), SizedBox(width: 8), Text("Start Quiz", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold))],
+                  children: [const Icon(Icons.play_arrow, color: Colors.white), const SizedBox(width: 8), Text(l10n.btnStartQuiz, style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold))],
                 ),
               ),
             ),

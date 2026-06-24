@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'core/global_settings.dart';
+import 'l10n/app_localizations.dart';
 import 'theme/app_colors.dart';
 import 'pages/splash_page.dart';
 
@@ -23,6 +24,8 @@ class MyApp extends StatelessWidget {
       valueListenable: GlobalSettings.themeMode,
       builder: (context, currentMode, child) {
         return MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           title: 'Chin Chin Chinese',
           debugShowCheckedModeBanner: false,
           themeMode: currentMode,

@@ -1,6 +1,7 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../core/global_settings.dart';
+import '../l10n/app_localizations.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_dimensions.dart';
 import 'three_d_button.dart';
@@ -19,6 +20,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     bool isDark = Theme.of(context).brightness == Brightness.dark;
     Color textColor = Theme.of(context).textTheme.bodyLarge?.color ?? Colors.black;
     Color cardColor = Theme.of(context).cardColor;
@@ -44,13 +46,13 @@ class _SettingsDialogState extends State<SettingsDialog> {
                 child: const Icon(Icons.settings, size: 36, color: AppColors.primary),
               ),
               const SizedBox(height: 16),
-              Text('Settings', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: textColor)),
-              Text('ပြင်ဆင်မှုများ', style: TextStyle(color: Colors.grey.shade500, fontSize: 14)),
+              Text(l10n.settingsTitle, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: textColor)),
+              Text(l10n.settingsSubtitle, style: TextStyle(color: Colors.grey.shade500, fontSize: 14)),
               const SizedBox(height: 24),
               _buildVolumeControl(
                 icon: Icons.record_voice_over,
-                title: "Voice Volume",
-                subTitle: "အသံ အတိုးအကျယ်",
+                title: l10n.voiceVolume,
+                subTitle: l10n.voiceVolumeSubtitle,
                 value: _voiceVol,
                 onChanged: (val) {
                   setState(() => _voiceVol = val);
@@ -60,8 +62,8 @@ class _SettingsDialogState extends State<SettingsDialog> {
               const SizedBox(height: 12),
               _buildVolumeControl(
                 icon: Icons.music_note,
-                title: "Sound Effects",
-                subTitle: "အသံ အထူးပြုလုပ်ချက်",
+                title: l10n.soundEffects,
+                subTitle: l10n.soundEffectsSubtitle,
                 value: _sfxVol,
                 onChanged: (val) {
                   setState(() => _sfxVol = val);
@@ -76,8 +78,8 @@ class _SettingsDialogState extends State<SettingsDialog> {
                   decoration: BoxDecoration(color: Colors.indigo.withOpacity(0.1), borderRadius: BorderRadius.circular(AppDimensions.radiusXs)),
                   child: Icon(isDark ? Icons.dark_mode : Icons.light_mode, color: Colors.indigo),
                 ),
-                title: Text("Dark Mode", style: TextStyle(fontWeight: FontWeight.bold, color: textColor)),
-                subtitle: const Text("အမှောင်စနစ်", style: TextStyle(fontSize: 12, color: Colors.grey)),
+                title: Text(l10n.darkMode, style: TextStyle(fontWeight: FontWeight.bold, color: textColor)),
+                subtitle: Text(l10n.darkModeSubtitle, style: const TextStyle(fontSize: 12, color: Colors.grey)),
                 trailing: Switch(
                   value: isDark,
                   activeColor: AppColors.primary,
@@ -91,8 +93,8 @@ class _SettingsDialogState extends State<SettingsDialog> {
                   decoration: BoxDecoration(color: Colors.amber.withOpacity(0.1), borderRadius: BorderRadius.circular(AppDimensions.radiusXs)),
                   child: const Icon(Icons.school, color: Colors.amber),
                 ),
-                title: Text("Watch Tutorial", style: TextStyle(fontWeight: FontWeight.bold, color: textColor)),
-                subtitle: const Text("လမ်းညွှန် ကြည့်ရန်", style: TextStyle(fontSize: 12, color: Colors.grey)),
+                title: Text(l10n.watchTutorial, style: TextStyle(fontWeight: FontWeight.bold, color: textColor)),
+                subtitle: Text(l10n.watchTutorialSubtitle, style: const TextStyle(fontSize: 12, color: Colors.grey)),
                 onTap: () {
                   Navigator.pop(context);
                   showDialog(context: context, builder: (context) => const TutorialDialog());
@@ -105,8 +107,8 @@ class _SettingsDialogState extends State<SettingsDialog> {
                   decoration: BoxDecoration(color: Colors.blueGrey.withOpacity(0.1), borderRadius: BorderRadius.circular(AppDimensions.radiusXs)),
                   child: const Icon(Icons.info, color: Colors.blueGrey),
                 ),
-                title: Text("About", style: TextStyle(fontWeight: FontWeight.bold, color: textColor)),
-                subtitle: const Text("အကြောင်းအရာ", style: TextStyle(fontSize: 12, color: Colors.grey)),
+                title: Text(l10n.about, style: TextStyle(fontWeight: FontWeight.bold, color: textColor)),
+                subtitle: Text(l10n.aboutSubtitle, style: const TextStyle(fontSize: 12, color: Colors.grey)),
                 onTap: () {
                   Navigator.pop(context);
                   _showAuthorInfo(context);
@@ -127,7 +129,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
                     borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
                     boxShadow: [BoxShadow(color: AppColors.primary.withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 4))],
                   ),
-                  child: const Center(child: Text("Close", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+                  child: Center(child: Text(l10n.btnClose, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
                 ),
               ),
             ],
@@ -167,6 +169,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
   }
 
   void _showAuthorInfo(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => Dialog(
@@ -185,15 +188,15 @@ class _SettingsDialogState extends State<SettingsDialog> {
             children: [
               const Icon(Icons.info_outline, size: 40, color: AppColors.primary),
               const SizedBox(height: 16),
-              const Text('Chin Chin Chinese', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.textDark)),
-              const Text('Version 1.0.0', style: TextStyle(color: Colors.grey, fontSize: 14)),
+              Text(l10n.appName, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.textDark)),
+              Text(l10n.aboutAppVersion, style: const TextStyle(color: Colors.grey, fontSize: 14)),
               const Divider(height: 32),
-              _buildInfoRow(Icons.code, "Developer", "賴泳在 (YUNG-TSAI LAI)"),
-              _buildInfoRow(Icons.translate, "Translation", "ChinQing in Taiwan (林素青)"),
+              _buildInfoRow(Icons.code, l10n.aboutDeveloper, "賴泳在 (YUNG-TSAI LAI)"),
+              _buildInfoRow(Icons.translate, l10n.aboutTranslation, "ChinQing in Taiwan (林素青)"),
               const SizedBox(height: 16),
-              const Text(
-                '• Code: MIT License\n• Assets: CC BY-NC-ND 4.0\n© 2025 All Rights Reserved.',
-                style: TextStyle(fontSize: 12, color: Colors.grey, height: 1.5),
+              Text(
+                l10n.aboutLicense,
+                style: const TextStyle(fontSize: 12, color: Colors.grey, height: 1.5),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 12),
@@ -202,12 +205,12 @@ class _SettingsDialogState extends State<SettingsDialog> {
                 children: [
                   TextButton(
                     onPressed: () => _launchURL('https://lai2570.github.io/Burmese_language_app/privacy'),
-                    child: const Text("Privacy Policy", style: TextStyle(color: AppColors.primary, fontSize: 12, decoration: TextDecoration.underline)),
+                    child: Text(l10n.privacyPolicy, style: const TextStyle(color: AppColors.primary, fontSize: 12, decoration: TextDecoration.underline)),
                   ),
                   const Text("|", style: TextStyle(color: Colors.grey)),
                   TextButton(
                     onPressed: () => _launchURL('https://lai2570.github.io/Burmese_language_app/terms'),
-                    child: const Text("Terms & Conditions", style: TextStyle(color: AppColors.primary, fontSize: 12, decoration: TextDecoration.underline)),
+                    child: Text(l10n.termsConditions, style: const TextStyle(color: AppColors.primary, fontSize: 12, decoration: TextDecoration.underline)),
                   ),
                 ],
               ),
@@ -218,7 +221,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
                 child: Container(
                   padding: AppDimensions.buttonPaddingVs,
                   decoration: BoxDecoration(gradient: AppColors.primaryGradient, borderRadius: BorderRadius.circular(AppDimensions.radiusSm)),
-                  child: const Center(child: Text("Close", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+                  child: Center(child: Text(l10n.btnClose, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
                 ),
               ),
             ],

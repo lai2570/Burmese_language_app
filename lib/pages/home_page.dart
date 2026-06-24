@@ -1,6 +1,7 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chin/data/unit_group.dart';
+import 'package:chin/l10n/app_localizations.dart';
 import 'package:chin/widgets/three_d_button.dart';
 import 'package:chin/widgets/tutorial_dialog.dart';
 import 'package:chin/widgets/settings_dialog.dart';
@@ -71,6 +72,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   }
 
   Widget _buildGroupCard(BuildContext context, UnitGroup group) {
+    final l10n = AppLocalizations.of(context)!;
     final cardColor = Theme.of(context).cardColor;
     final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? AppColors.textDark;
     const double iconSize = 64;
@@ -117,7 +119,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(color: group.color.withOpacity(0.1), borderRadius: BorderRadius.circular(AppDimensions.radiusXs)),
-                      child: Text("${group.subUnits.length} Topics", style: TextStyle(color: group.color, fontSize: 12, fontWeight: FontWeight.w600)),
+                      child: Text(l10n.topicsCount(group.subUnits.length), style: TextStyle(color: group.color, fontSize: 12, fontWeight: FontWeight.w600)),
                     ),
                   ],
                 ),
@@ -131,6 +133,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       body: Column(
         children: [
@@ -158,11 +161,11 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                           child: const Center(child: Text("C", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF667eea)))),
                         ),
                         const SizedBox(width: 12),
-                        const Column(
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Chin Chin Chinese", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold, letterSpacing: 0.5)),
-                            Text("For Myanmar Learners", style: TextStyle(color: Colors.white70, fontSize: 12)),
+                            Text(l10n.appName, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold, letterSpacing: 0.5)),
+                            Text(l10n.appSubtitle, style: const TextStyle(color: Colors.white70, fontSize: 12)),
                           ],
                         ),
                       ],
@@ -193,7 +196,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                         child: const Icon(Icons.category, color: Colors.white, size: 20),
                       ),
                       const SizedBox(width: 12),
-                      Text("Categories", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Theme.of(context).textTheme.bodyLarge?.color)),
+                      Text(l10n.navCategories, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Theme.of(context).textTheme.bodyLarge?.color)),
                     ],
                   ),
                   const SizedBox(height: 20),

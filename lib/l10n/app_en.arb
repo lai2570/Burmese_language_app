@@ -1,0 +1,65 @@
+{
+  "@@locale": "en",
+
+  "appName": "Chin Chin Chinese",
+  "appSubtitle": "For Myanmar Learners",
+  "navCategories": "Categories",
+  "topicsCount": "{count} Topics",
+  "@topicsCount": {
+    "description": "Number of sub-topics in a category",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+
+  "settingsTitle": "Settings",
+  "settingsSubtitle": "ပြင်ဆင်မှုများ",
+  "voiceVolume": "Voice Volume",
+  "voiceVolumeSubtitle": "အသံ အတိုးအကျယ်",
+  "soundEffects": "Sound Effects",
+  "soundEffectsSubtitle": "အသံ အထူးပြုလုပ်ချက်",
+  "darkMode": "Dark Mode",
+  "darkModeSubtitle": "အမှောင်စနစ်",
+  "watchTutorial": "Watch Tutorial",
+  "watchTutorialSubtitle": "လမ်းညွှန် ကြည့်ရန်",
+  "about": "About",
+  "aboutSubtitle": "အကြောင်းအရာ",
+  "btnClose": "Close",
+
+  "aboutAppVersion": "Version 1.0.0",
+  "aboutDeveloper": "Developer",
+  "aboutTranslation": "Translation",
+  "aboutLicense": "• Code: MIT License\n• Assets: CC BY-NC-ND 4.0\n© 2025 All Rights Reserved.",
+  "privacyPolicy": "Privacy Policy",
+  "termsConditions": "Terms & Conditions",
+
+  "tutorialStep1": "1. Click a unit icon to start learning.\nသင်ခန်းစာပုံကို နှိပ်ပြီး စတင်လေ့လာပါ။",
+  "tutorialStep2": "2. Take quizzes & Star words to save.\nပဟေဠိဖြေပါ၊ မသိသော စကားလုံးများကို Star နှိပ်ပြီး မှတ်သားပါ။",
+  "tutorialStep3": "3. Collect 10+ words to unlock review quiz!\nစကားလုံး ၁၀ လုံးကျော်ပါက ပြန်လည်လေ့ကျင့်နိုင်ပါပြီ။",
+  "btnNext": "Next",
+  "btnStart": "Start",
+
+  "studyMode": "STUDY MODE",
+  "listenBefore": "Click ",
+  "listenAfter": " to listen / နားထောင်ရန်နှိပ်ပါ",
+  "btnStartQuiz": "Start Quiz",
+
+  "quizComplete": "Quiz Complete!",
+  "accuracyScore": "ACCURACY SCORE",
+  "reviewAnswers": "Review Answers",
+  "answerPrefix": "Ans: ",
+  "btnHome": "Home",
+  "btnStudyAgain": "Study Again",
+
+  "myVocabulary": "My Vocabulary",
+  "savedWords": "Saved Words",
+  "myVocabQuiz": "My Vocab Quiz",
+  "btnQuiz10": "Quiz (10)",
+  "unlockQuizHint": "Save 10+ words to unlock quiz!",
+  "noWordsYet": "No words yet.",
+
+  "comingSoon": "Coming Soon"
+}

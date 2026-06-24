@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chin/data/vocab_data.dart';
 import 'package:chin/data/unit_group.dart';
 import 'package:chin/widgets/three_d_button.dart';
+import 'package:chin/l10n/app_localizations.dart';
 import 'package:chin/theme/app_colors.dart';
 import 'package:chin/theme/app_dimensions.dart';
 import 'study_page.dart';
@@ -73,6 +74,7 @@ class _CategoryPageState extends State<CategoryPage> {
     int availableUnitsCount = (groupWords.length / 10).floor();
     int displayCount = min(availableUnitsCount, widget.group.subUnits.length);
 
+    final l10n = AppLocalizations.of(context)!;
     final cardColor = Theme.of(context).cardColor;
     final textColor = Theme.of(context).textTheme.bodyLarge?.color ?? AppColors.textDark;
 
@@ -98,7 +100,7 @@ class _CategoryPageState extends State<CategoryPage> {
           ),
           Expanded(
             child: displayCount == 0
-                ? const Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Icon(Icons.construction, size: 80, color: Colors.grey), SizedBox(height: 16), Text("Coming Soon", style: TextStyle(fontSize: 20, color: Colors.grey, fontWeight: FontWeight.bold))]))
+                ? Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [const Icon(Icons.construction, size: 80, color: Colors.grey), const SizedBox(height: 16), Text(l10n.comingSoon, style: const TextStyle(fontSize: 20, color: Colors.grey, fontWeight: FontWeight.bold))]))
                 : ListView.separated(
                     padding: AppDimensions.paddingXl,
                     itemCount: displayCount,

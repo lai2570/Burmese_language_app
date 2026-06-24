@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chin/data/vocab_data.dart';
 import 'package:chin/core/global_settings.dart';
 import 'package:chin/widgets/three_d_button.dart';
+import 'package:chin/l10n/app_localizations.dart';
 import 'package:chin/theme/app_colors.dart';
 import 'package:chin/theme/app_dimensions.dart';
 import 'study_page.dart';
@@ -84,6 +85,7 @@ class _ResultPageState extends State<ResultPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     int correctCount = widget.results.where((r) => r['isCorrect'] as bool).length;
     int percentage = ((correctCount / (widget.results.isNotEmpty ? widget.results.length : 1)) * 100).round();
     final cardColor = Theme.of(context).cardColor;
@@ -100,10 +102,10 @@ class _ResultPageState extends State<ResultPage> {
                 Container(
                   padding: const EdgeInsets.all(32),
                   decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(32), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4))]),
-                  child: Column(children: [const Icon(Icons.emoji_events, size: 60, color: AppColors.primaryDark), const SizedBox(height: 16), Text("Quiz Complete!", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: textColor)), Text(widget.unitName, style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)), const SizedBox(height: 16), Row(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.baseline, textBaseline: TextBaseline.alphabetic, children: [Text("$percentage", style: const TextStyle(fontSize: 60, fontWeight: FontWeight.w900, color: Color(0xFF667eea))), const Text("%", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.grey))]), const Text("ACCURACY SCORE", style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey))]),
+                  child: Column(children: [const Icon(Icons.emoji_events, size: 60, color: AppColors.primaryDark), const SizedBox(height: 16), Text(l10n.quizComplete, style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: textColor)), Text(widget.unitName, style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)), const SizedBox(height: 16), Row(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.baseline, textBaseline: TextBaseline.alphabetic, children: [Text("$percentage", style: const TextStyle(fontSize: 60, fontWeight: FontWeight.w900, color: Color(0xFF667eea))), const Text("%", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.grey))]), Text(l10n.accuracyScore, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey))]),
                 ),
                 const SizedBox(height: 24),
-                Text("Review Answers", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: textColor)),
+                Text(l10n.reviewAnswers, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: textColor)),
                 const SizedBox(height: 12),
                 ...widget.results.map((res) {
                   final word = res['word'] as Word;
@@ -117,7 +119,7 @@ class _ResultPageState extends State<ResultPage> {
                       children: [
                         Icon(isCorrect ? Icons.check_circle : Icons.cancel, color: isCorrect ? AppColors.success : AppColors.error, size: 30),
                         const SizedBox(width: 16),
-                        Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(word.zh, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: textColor)), Text(word.pinyin, style: const TextStyle(color: Colors.grey, fontSize: 13)), if (!isCorrect) Text("Ans: ${res['correctAnswer']}", style: const TextStyle(color: Color(0xFF38ef7d), fontWeight: FontWeight.bold))])),
+                        Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(word.zh, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: textColor)), Text(word.pinyin, style: const TextStyle(color: Colors.grey, fontSize: 13)), if (!isCorrect) Text('${l10n.answerPrefix}${res['correctAnswer']}', style: const TextStyle(color: Color(0xFF38ef7d), fontWeight: FontWeight.bold))])),
                         ThreeDButton(
                           onPressed: () => _toggleSave(word.id),
                           borderRadius: BorderRadius.circular(AppDimensions.radiusLg),
@@ -137,7 +139,7 @@ class _ResultPageState extends State<ResultPage> {
                 child: ThreeDButton(
                   onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
                   borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-                  child: Container(padding: AppDimensions.buttonPaddingV, decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(AppDimensions.radiusMd)), alignment: Alignment.center, child: const Text("Home", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold))),
+                  child: Container(padding: AppDimensions.buttonPaddingV, decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(AppDimensions.radiusMd)), alignment: Alignment.center, child: Text(l10n.btnHome, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold))),
                 ),
               ),
               const SizedBox(width: 16),
@@ -150,7 +152,7 @@ class _ResultPageState extends State<ResultPage> {
                     groupTitle: widget.groupTitle ?? "",
                   ))),
                   borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
-                  child: Container(padding: AppDimensions.buttonPaddingV, decoration: BoxDecoration(color: AppColors.primary, borderRadius: BorderRadius.circular(AppDimensions.radiusMd)), alignment: Alignment.center, child: const Text("Study Again", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+                  child: Container(padding: AppDimensions.buttonPaddingV, decoration: BoxDecoration(color: AppColors.primary, borderRadius: BorderRadius.circular(AppDimensions.radiusMd)), alignment: Alignment.center, child: Text(l10n.btnStudyAgain, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
                 ),
               ),
             ]),

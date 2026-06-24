@@ -1,0 +1,56 @@
+{
+  "@@locale": "my",
+
+  "appName": "Chin Chin Chinese",
+  "appSubtitle": "မြန်မာလေ့လာသူများအတွက်",
+  "navCategories": "အမျိုးအစားများ",
+  "topicsCount": "{count} ခေါင်းစဉ်",
+
+  "settingsTitle": "ပြင်ဆင်မှုများ",
+  "settingsSubtitle": "Settings",
+  "voiceVolume": "အသံ အတိုးအကျယ်",
+  "voiceVolumeSubtitle": "Voice Volume",
+  "soundEffects": "အသံ အထူးပြုလုပ်ချက်",
+  "soundEffectsSubtitle": "Sound Effects",
+  "darkMode": "အမှောင်စနစ်",
+  "darkModeSubtitle": "Dark Mode",
+  "watchTutorial": "လမ်းညွှန် ကြည့်ရန်",
+  "watchTutorialSubtitle": "Watch Tutorial",
+  "about": "အကြောင်းအရာ",
+  "aboutSubtitle": "About",
+  "btnClose": "ပိတ်မည်",
+
+  "aboutAppVersion": "ဗားရှင်း 1.0.0",
+  "aboutDeveloper": "ဆော့ဖ်ဝဲ ဖန်တီးသူ",
+  "aboutTranslation": "ဘာသာပြန်",
+  "aboutLicense": "• Code: MIT License\n• Assets: CC BY-NC-ND 4.0\n© 2025 All Rights Reserved.",
+  "privacyPolicy": "ကိုယ်ရေးကာကွယ်မှုမူဝါဒ",
+  "termsConditions": "စည်းကမ်းချက်များ",
+
+  "tutorialStep1": "1. ယူနစ်ပုံကို နှိပ်ပြီး လေ့လာပါ။\nသင်ခန်းစာပုံကို နှိပ်ပြီး စတင်လေ့လာပါ။",
+  "tutorialStep2": "2. ပဟေဠိဖြေပါ၊ Star နှိပ်ပြီး မှတ်သားပါ။\nTake quizzes & Star words to save.",
+  "tutorialStep3": "3. စကားလုံး ၁၀ လုံးကျော်ပါက ပြန်လည်လေ့ကျင့်နိုင်ပါပြီ။\nCollect 10+ words to unlock review quiz!",
+  "btnNext": "ရှေ့ဆက်",
+  "btnStart": "စတင်",
+
+  "studyMode": "လေ့လာမှုစနစ်",
+  "listenBefore": "နှိပ်ပါ ",
+  "listenAfter": " နားထောင်ရန်",
+  "btnStartQuiz": "ပဟေဠိ စတင်",
+
+  "quizComplete": "ပဟေဠိ ပြီးဆုံးပြီ!",
+  "accuracyScore": "မှန်ကန်မှုရာခိုင်နှုန်း",
+  "reviewAnswers": "အဖြေများ ပြန်ကြည့်",
+  "answerPrefix": "အဖြေ: ",
+  "btnHome": "ပင်မစာမျက်နှာ",
+  "btnStudyAgain": "ထပ်လေ့လာ",
+
+  "myVocabulary": "ကျွန်ုပ်၏ဝေါဟာရ",
+  "savedWords": "သိမ်းဆည်းထားသော စကားလုံး",
+  "myVocabQuiz": "ကျွန်ုပ်ဝေါဟာရ ပဟေဠိ",
+  "btnQuiz10": "ပဟေဠိ (၁၀)",
+  "unlockQuizHint": "ပဟေဠိဖြေရန် စကားလုံး ၁၀ လုံးသိမ်းပါ!",
+  "noWordsYet": "မသိမ်းရသေးပါ။",
+
+  "comingSoon": "မကြာမီ ရောက်မည်"
+}

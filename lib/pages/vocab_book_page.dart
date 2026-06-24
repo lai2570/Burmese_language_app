@@ -1,6 +1,7 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chin/data/vocab_data.dart';
+import 'package:chin/l10n/app_localizations.dart';
 import 'package:chin/theme/app_colors.dart';
 import 'package:chin/theme/app_dimensions.dart';
 import 'package:chin/widgets/three_d_button.dart';
@@ -39,13 +40,15 @@ class _VocabBookPageState extends State<VocabBookPage> {
 
   void _startRandomQuiz() {
     if (savedWords.length < 10) return;
+    final l10n = AppLocalizations.of(context)!;
     List<Word> shuffled = List.from(savedWords)..shuffle();
     List<Word> quizSet = shuffled.take(10).toList();
-    Navigator.push(context, MaterialPageRoute(builder: (context) => QuizPage(words: quizSet, unitName: "My Vocab Quiz")));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => QuizPage(words: quizSet, unitName: l10n.myVocabQuiz)));
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       body: Column(
         children: [
@@ -55,7 +58,7 @@ class _VocabBookPageState extends State<VocabBookPage> {
             child: Row(
               children: [
                 ThreeDButton(onPressed: () => Navigator.pop(context), borderRadius: BorderRadius.circular(AppDimensions.radiusPill), child: const Padding(padding: AppDimensions.paddingXs, child: Icon(Icons.arrow_back_ios, color: Colors.white))),
-                const Expanded(child: Center(child: Text("My Vocabulary", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)))),
+                Expanded(child: Center(child: Text(l10n.myVocabulary, style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)))),
                 const SizedBox(width: 48),
               ],
             ),
@@ -69,22 +72,22 @@ class _VocabBookPageState extends State<VocabBookPage> {
                   decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(AppDimensions.radiusLg), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 10, offset: const Offset(0, 4))]),
                   child: Row(
                     children: [
-                      Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text("${savedWords.length}", style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Color(0xFF667eea))), const Text("Saved Words", style: TextStyle(color: Colors.grey))])),
+                      Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text("${savedWords.length}", style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Color(0xFF667eea))), Text(l10n.savedWords, style: const TextStyle(color: Colors.grey))])),
                       ThreeDButton(
                         onPressed: savedWords.length >= 10 ? _startRandomQuiz : null,
                         borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
                         child: Container(
                           padding: AppDimensions.buttonPadding,
                           decoration: BoxDecoration(color: savedWords.length >= 10 ? AppColors.primary : Colors.grey.shade300, borderRadius: BorderRadius.circular(AppDimensions.radiusSm)),
-                          child: const Row(children: [Icon(Icons.play_arrow, color: Colors.white, size: 20), SizedBox(width: 8), Text("Quiz (10)", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))]),
+                          child: Row(children: [const Icon(Icons.play_arrow, color: Colors.white, size: 20), const SizedBox(width: 8), Text(l10n.btnQuiz10, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold))]),
                         ),
                       ),
                     ],
                   ),
                 ),
-                if (savedWords.length < 10) Container(width: double.infinity, padding: AppDimensions.paddingXs, color: Colors.orange.shade50, child: const Text("Save 10+ words to unlock quiz!", textAlign: TextAlign.center, style: TextStyle(color: Colors.orange, fontSize: 12))),
+                if (savedWords.length < 10) Container(width: double.infinity, padding: AppDimensions.paddingXs, color: Colors.orange.shade50, child: Text(l10n.unlockQuizHint, textAlign: TextAlign.center, style: const TextStyle(color: Colors.orange, fontSize: 12))),
                 Expanded(
-                  child: savedWords.isEmpty ? const Center(child: Text("No words yet.", style: TextStyle(color: Colors.grey))) : ListView.separated(
+                  child: savedWords.isEmpty ? Center(child: Text(l10n.noWordsYet, style: const TextStyle(color: Colors.grey))) : ListView.separated(
                     padding: AppDimensions.paddingMd, itemCount: savedWords.length, separatorBuilder: (_, __) => const SizedBox(height: 12),
                     itemBuilder: (context, index) {
                       final word = savedWords[index];
