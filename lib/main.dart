@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:video_player/video_player.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'data/vocab_data.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -11,6 +10,7 @@ import 'widgets/three_d_button.dart';
 import 'widgets/tutorial_dialog.dart';
 import 'theme/app_colors.dart';
 import 'data/unit_group.dart';
+import 'pages/splash_page.dart';
 
 void main() async {
   // 1. 確保 Flutter 引擎綁定初始化 (在執行異步操作前必須呼叫)
@@ -90,135 +90,6 @@ class MyApp extends StatelessWidget {
           home: const SplashScreen(), // 第一個畫面：歡迎頁
         );
       },
-    );
-  }
-}
-
-// ==========================================
-// --- 4. 啟動畫面 (Splash Screen) ---
-// 控制歡迎動畫影片與跳轉
-// ==========================================
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  late VideoPlayerController _controller;
-  bool _initialized = false;
-
-  @override
-  void initState() {
-    super.initState();
-    // 1. 初始化影片控制器
-    _controller = VideoPlayerController.asset("assets/intro.mp4")
-      ..initialize().then((_) {
-        // 確保影片載入完成後更新 UI 並開始播放
-        setState(() {
-          _initialized = true;
-        });
-        _controller.play();
-        _controller.setVolume(0.0); // 如果影片有聲音不想播出來，設為靜音，若要聲音則改為 1.0
-      });
-
-    // 2. 設定定時器跳轉
-    // 影片長度 1.2 秒 (1200ms)。
-    // 建議設定稍微久一點點 (例如 2000ms)，讓使用者能看清楚最後的畫面再跳轉，才不會感覺太急促。
-    Future.delayed(const Duration(milliseconds: 2000), () {
-      if (mounted) _navigateToHome();
-    });
-  }
-
-  void _navigateToHome() {
-    Navigator.pushReplacement(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => const HomePage(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-            FadeTransition(opacity: animation, child: child),
-        transitionDuration: const Duration(milliseconds: 500),
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose(); // 務必釋放影片資源
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // 背景設為黑色，避免影片載入前瞬間白屏
-      backgroundColor: Colors.black, 
-      body: Stack(
-        fit: StackFit.expand, // 讓 Stack 填滿整個螢幕
-        children: [
-          // --- 底層：影片 ---
-          if (_initialized)
-            SizedBox.expand(
-              child: FittedBox(
-                // 關鍵設定：Cover 會讓影片填滿容器，保持比例，多餘部分裁切
-                // 這樣在平板上就不會變形，也不會留黑邊
-                fit: BoxFit.cover, 
-                child: SizedBox(
-                  width: _controller.value.size.width,
-                  height: _controller.value.size.height,
-                  child: VideoPlayer(_controller),
-                ),
-              ),
-            )
-          else
-            // 影片載入前的佔位 (可選)
-            Container(color: const Color(0xFF667eea)),
-
-          // --- 上層：文字 ---
-          // 移除所有裝飾容器，只保留文字
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // 為了不擋住影片主體，這邊可以適度調整位置，目前置中
-                const Text(
-                  "Chin Chin Chinese",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.5,
-                    // 加一點陰影讓文字在任何影片背景上都看得清楚
-                    shadows: [
-                      Shadow(
-                        blurRadius: 10.0,
-                        color: Colors.black45,
-                        offset: Offset(2.0, 2.0),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  "For Myanmar Learners",
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.9),
-                    fontSize: 16,
-                    letterSpacing: 1.2,
-                    shadows: const [
-                      Shadow(
-                        blurRadius: 8.0,
-                        color: Colors.black45,
-                        offset: Offset(1.0, 1.0),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
