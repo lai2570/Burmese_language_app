@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chin/data/vocab_data.dart';
 import 'package:chin/theme/app_colors.dart';
 import 'package:chin/widgets/three_d_button.dart';
-import 'package:chin/main.dart' show QuizPage;
+import 'quiz_page.dart';
 
 class VocabBookPage extends StatefulWidget {
   const VocabBookPage({super.key});
