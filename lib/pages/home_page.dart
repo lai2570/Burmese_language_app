@@ -5,6 +5,7 @@ import 'package:chin/widgets/three_d_button.dart';
 import 'package:chin/widgets/tutorial_dialog.dart';
 import 'package:chin/widgets/settings_dialog.dart';
 import 'package:chin/theme/app_colors.dart';
+import 'package:chin/theme/app_durations.dart';
 import 'vocab_book_page.dart';
 import 'category_page.dart';
 
@@ -21,7 +22,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 800));
+    _animationController = AnimationController(vsync: this, duration: AppDurations.listAnimation);
     _animationController.forward();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {

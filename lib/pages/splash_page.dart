@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chin/theme/app_colors.dart';
+import 'package:chin/theme/app_durations.dart';
 import 'home_page.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -25,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
         _controller.setVolume(0.0);
       });
 
-    Future.delayed(const Duration(milliseconds: 2000), () {
+    Future.delayed(AppDurations.splashDisplay, () {
       if (mounted) _navigateToHome();
     });
   }
@@ -37,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
         pageBuilder: (context, animation, secondaryAnimation) => const HomePage(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             FadeTransition(opacity: animation, child: child),
-        transitionDuration: const Duration(milliseconds: 500),
+        transitionDuration: AppDurations.shortDelay,
       ),
     );
   }

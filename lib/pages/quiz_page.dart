@@ -5,6 +5,7 @@ import 'package:chin/data/vocab_data.dart';
 import 'package:chin/core/global_settings.dart';
 import 'package:chin/widgets/three_d_button.dart';
 import 'package:chin/theme/app_colors.dart';
+import 'package:chin/theme/app_durations.dart';
 import 'result_page.dart';
 
 class QuizPage extends StatefulWidget {
@@ -33,7 +34,7 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _prepareQuiz();
-    _timerController = AnimationController(vsync: this, duration: const Duration(seconds: 5));
+    _timerController = AnimationController(vsync: this, duration: AppDurations.quizTimer);
     _timerController.reverse(from: 1.0);
     _timerController.addStatusListener((status) {
       if (status == AnimationStatus.dismissed) _handleAnswer(null);
@@ -100,7 +101,7 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
         _selectedOptionIndex = index;
         _isLastCorrect = isCorrect;
       });
-      await Future.delayed(const Duration(milliseconds: 500));
+      await Future.delayed(AppDurations.shortDelay);
     }
 
     results.add({
@@ -117,7 +118,7 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
         _selectedOptionIndex = null;
         _isAnswerProcessing = false;
         _isLastCorrect = null;
-        _timerController.duration = const Duration(seconds: 5);
+        _timerController.duration = AppDurations.quizTimer;
         _timerController.reverse(from: 1.0);
       });
       _playCurrentWordAudio();
@@ -214,7 +215,7 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
                       onPressed: () => _handleAnswer(idx),
                       borderRadius: BorderRadius.circular(16),
                       child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 200),
+                        duration: AppDurations.answerReveal,
                         width: double.infinity,
                         height: 80,
                         decoration: BoxDecoration(color: btnColor, borderRadius: BorderRadius.circular(16)),

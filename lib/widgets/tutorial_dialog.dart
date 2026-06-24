@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
+import '../theme/app_durations.dart';
 import 'three_d_button.dart';
 
 class TutorialDialog extends StatefulWidget {
@@ -67,7 +68,7 @@ class _TutorialDialogState extends State<TutorialDialog> {
                   ThreeDButton(
                     onPressed: () {
                       if (_currentPage < _steps.length - 1) {
-                        _pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.ease);
+                        _pageController.nextPage(duration: AppDurations.pageTransition, curve: Curves.ease);
                       } else {
                         Navigator.pop(context);
                       }

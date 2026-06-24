@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import '../core/global_settings.dart';
+import '../theme/app_durations.dart';
 
 class ThreeDButton extends StatefulWidget {
   final Widget child;
@@ -31,8 +32,8 @@ class _ThreeDButtonState extends State<ThreeDButton> with SingleTickerProviderSt
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 50),
-      reverseDuration: const Duration(milliseconds: 150),
+      duration: AppDurations.buttonPress,
+      reverseDuration: AppDurations.buttonRelease,
     );
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.90).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
