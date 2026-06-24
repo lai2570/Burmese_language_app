@@ -2,10 +2,11 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:video_player/video_player.dart'; 
+import 'package:video_player/video_player.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'data/vocab_data.dart'; 
+import 'data/vocab_data.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'core/global_settings.dart';
 
 void main() async {
   // 1. 確保 Flutter 引擎綁定初始化 (在執行異步操作前必須呼叫)
@@ -25,33 +26,6 @@ void main() async {
 
   // 3. 啟動 APP
   runApp(const MyApp());
-}
-
-// ==========================================
-// --- 0. 全域設定管理 (Global Settings) ---
-//這是一個靜態類別，負責管理整個 APP 共用的狀態
-// ==========================================
-class GlobalSettings {
-  // 使用 ValueNotifier 監聽主題變化，當數值改變時，UI 會自動重繪
-  static final ValueNotifier<ThemeMode> themeMode = ValueNotifier(ThemeMode.light);
-  
-  // 音量變數 (範圍 0.0 ~ 1.0)
-  static double voiceVolume = 1.0; // 單字發音音量
-  static double sfxVolume = 0.5;   // 點擊與音效音量
-
-  // 功能：切換深色/淺色主題並寫入手機儲存空間
-  static void toggleTheme() async {
-    themeMode.value = themeMode.value == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setBool('isDarkMode', themeMode.value == ThemeMode.dark);
-  }
-
-  // 功能：儲存音量設定 (當使用者在設定頁關閉時呼叫)
-  static void saveVolumes() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setDouble('voiceVolume', voiceVolume);
-    prefs.setDouble('sfxVolume', sfxVolume);
-  }
 }
 
 // ==========================================
