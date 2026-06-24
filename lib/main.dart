@@ -7,6 +7,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'data/vocab_data.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'core/global_settings.dart';
+import 'widgets/three_d_button.dart';
 
 void main() async {
   // 1. 確保 Flutter 引擎綁定初始化 (在執行異步操作前必須呼叫)
@@ -53,130 +54,6 @@ class AppColors {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
-}
-
-// ==========================================
-// --- 2. 通用元件：3D 按壓效果按鈕 ---
-// 封裝了一個帶有縮放動畫與音效的按鈕
-// ==========================================
-class ThreeDButton extends StatefulWidget {
-  final Widget child;             // 按鈕內容
-  final VoidCallback? onPressed;  // 點擊事件
-  final BorderRadius borderRadius;// 圓角設定
-  final bool playSound;           // 是否播放音效
-
-  const ThreeDButton({
-    super.key,
-    required this.child,
-    required this.onPressed,
-    this.borderRadius = BorderRadius.zero,
-    this.playSound = true,
-  });
-
-  @override
-  State<ThreeDButton> createState() => _ThreeDButtonState();
-}
-
-class _ThreeDButtonState extends State<ThreeDButton> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _scaleAnimation;
-  final AudioPlayer _sfxPlayer = AudioPlayer();
-  bool _isAnimating = false; // 防止連點
-
-  @override
-  void initState() {
-    super.initState();
-    // 設定按鈕縮放動畫：按下時耗時 50ms，回彈耗時 150ms
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 50),
-      reverseDuration: const Duration(milliseconds: 150),
-    );
-    // 縮放比例：從 1.0 縮小到 0.90
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.90).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    _sfxPlayer.dispose();
-    super.dispose();
-  }
-
-  // 播放點擊音效
-  Future<void> _playClickSound() async {
-    if (widget.playSound && widget.onPressed != null) {
-      try {
-        await _sfxPlayer.stop();
-        // 注意：這裡使用了 GlobalSettings 控制音量
-        await _sfxPlayer.play(AssetSource('audio/click.mp3'), volume: GlobalSettings.sfxVolume);
-      } catch (e) {
-        debugPrint("音效播放失敗: $e");
-      }
-    }
-  }
-
-  // 處理點擊邏輯
-  Future<void> _handleTap() async {
-    if (widget.onPressed == null || _isAnimating) return;
-    setState(() => _isAnimating = true);
-    try {
-      _playClickSound();      // 1. 播音效
-      await _controller.forward(); // 2. 動畫：按下去
-      await _controller.reverse(); // 3. 動畫：彈回來
-      if (mounted) widget.onPressed!(); // 4. 執行傳入的函式
-    } finally {
-      if (mounted) setState(() => _isAnimating = false);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleTap,
-      behavior: HitTestBehavior.opaque, 
-      child: AnimatedBuilder(
-        animation: _controller,
-        builder: (context, child) {
-          return Transform.scale(
-            scale: _scaleAnimation.value,
-            child: Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: widget.borderRadius,
-                  child: widget.child,
-                ),
-                // 這是按鈕按下去時的「變暗」遮罩效果
-                if (_controller.value > 0)
-                  Positioned.fill(
-                    child: IgnorePointer(
-                      child: ClipRRect(
-                        borderRadius: widget.borderRadius,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              stops: const [0.0, 1.0],
-                              colors: [
-                                Colors.white.withOpacity(0.2 * _controller.value),
-                                Colors.black.withOpacity(0.3 * _controller.value),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
 }
 
 // ==========================================
