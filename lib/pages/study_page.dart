@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chin/data/vocab_data.dart';
 import 'package:chin/core/global_settings.dart';
 import 'package:chin/widgets/three_d_button.dart';
 import 'package:chin/theme/app_colors.dart';
+import 'package:chin/theme/app_dimensions.dart';
 import 'quiz_page.dart';
 
 class StudyPage extends StatefulWidget {
@@ -85,8 +86,8 @@ class _StudyPageState extends State<StudyPage> {
               children: [
                 ThreeDButton(
                   onPressed: () => Navigator.pop(context),
-                  borderRadius: BorderRadius.circular(30),
-                  child: const Padding(padding: EdgeInsets.all(8.0), child: Icon(Icons.arrow_back_ios, color: Colors.white)),
+                  borderRadius: BorderRadius.circular(AppDimensions.radiusPill),
+                  child: const Padding(padding: AppDimensions.paddingXs, child: Icon(Icons.arrow_back_ios, color: Colors.white)),
                 ),
                 Expanded(child: Column(children: [Text(widget.unitTitle, style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)), const Text("STUDY MODE", style: TextStyle(color: Colors.white70, fontSize: 10, letterSpacing: 1.5))])),
                 const SizedBox(width: 48),
@@ -94,9 +95,9 @@ class _StudyPageState extends State<StudyPage> {
             ),
           ),
           Container(
-            margin: const EdgeInsets.all(16),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: BoxDecoration(color: widget.themeColor.withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
+            margin: AppDimensions.paddingMd,
+            padding: AppDimensions.buttonPadding,
+            decoration: BoxDecoration(color: widget.themeColor.withOpacity(0.1), borderRadius: BorderRadius.circular(AppDimensions.radiusSm)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -115,10 +116,10 @@ class _StudyPageState extends State<StudyPage> {
                 final word = widget.wordList[index];
                 final isSaved = savedIds.contains(word.id);
                 return Container(
-                  padding: const EdgeInsets.all(20),
+                  padding: AppDimensions.paddingLg,
                   decoration: BoxDecoration(
                     color: cardColor,
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(AppDimensions.radiusLg),
                     boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4))],
                   ),
                   child: Column(
@@ -138,7 +139,7 @@ class _StudyPageState extends State<StudyPage> {
                                   const SizedBox(width: 8),
                                   ThreeDButton(
                                     onPressed: () => _playAudio(word.audioZH),
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(AppDimensions.radiusLg),
                                     child: Container(
                                       padding: const EdgeInsets.all(6),
                                       decoration: BoxDecoration(color: widget.themeColor.withOpacity(0.1), shape: BoxShape.circle),
@@ -152,9 +153,9 @@ class _StudyPageState extends State<StudyPage> {
                           ),
                           ThreeDButton(
                             onPressed: () => _toggleSave(word.id),
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(AppDimensions.radiusLg),
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: AppDimensions.paddingXs,
                               child: Icon(isSaved ? Icons.star : Icons.star_border, color: isSaved ? Colors.amber : Colors.grey.shade300, size: 28),
                             ),
                           ),
@@ -164,10 +165,10 @@ class _StudyPageState extends State<StudyPage> {
                       Padding(padding: const EdgeInsets.only(left: 20), child: Text(word.myn, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: textColor))),
                       const SizedBox(height: 16),
                       Container(
-                        padding: const EdgeInsets.all(12),
+                        padding: AppDimensions.paddingSm,
                         decoration: BoxDecoration(
                           color: isDark ? Colors.black26 : const Color(0xFFF8FAFC),
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
                           border: Border(left: BorderSide(color: widget.themeColor.withOpacity(0.5), width: 4)),
                         ),
                         child: Column(
@@ -188,7 +189,7 @@ class _StudyPageState extends State<StudyPage> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(24),
+            padding: AppDimensions.paddingXl,
             decoration: BoxDecoration(color: cardColor, border: Border(top: BorderSide(color: Colors.grey.withOpacity(0.1)))),
             child: ThreeDButton(
               onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => QuizPage(
@@ -196,11 +197,11 @@ class _StudyPageState extends State<StudyPage> {
                 unitName: widget.unitTitle,
                 groupTitle: widget.groupTitle,
               ))),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
               child: Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                decoration: BoxDecoration(color: widget.themeColor, borderRadius: BorderRadius.circular(16), boxShadow: [BoxShadow(color: widget.themeColor.withOpacity(0.4), blurRadius: 8, offset: const Offset(0, 4))]),
+                padding: AppDimensions.buttonPaddingV,
+                decoration: BoxDecoration(color: widget.themeColor, borderRadius: BorderRadius.circular(AppDimensions.radiusMd), boxShadow: [BoxShadow(color: widget.themeColor.withOpacity(0.4), blurRadius: 8, offset: const Offset(0, 4))]),
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [Icon(Icons.play_arrow, color: Colors.white), SizedBox(width: 8), Text("Start Quiz", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold))],

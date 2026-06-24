@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../core/global_settings.dart';
 import '../theme/app_colors.dart';
+import '../theme/app_dimensions.dart';
 import 'three_d_button.dart';
 import 'tutorial_dialog.dart';
 
@@ -23,14 +24,14 @@ class _SettingsDialogState extends State<SettingsDialog> {
     Color cardColor = Theme.of(context).cardColor;
 
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppDimensions.radiusXl)),
       elevation: 0,
       backgroundColor: Colors.transparent,
       child: Container(
-        padding: const EdgeInsets.all(20),
+        padding: AppDimensions.paddingLg,
         decoration: BoxDecoration(
           color: cardColor,
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(AppDimensions.radiusXl),
           boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 20, offset: const Offset(0, 10))],
         ),
         child: SingleChildScrollView(
@@ -38,7 +39,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                padding: const EdgeInsets.all(16),
+                padding: AppDimensions.paddingMd,
                 decoration: const BoxDecoration(color: Color(0xFFF0F4F8), shape: BoxShape.circle),
                 child: const Icon(Icons.settings, size: 36, color: AppColors.primary),
               ),
@@ -71,8 +72,8 @@ class _SettingsDialogState extends State<SettingsDialog> {
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(color: Colors.indigo.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
+                  padding: AppDimensions.paddingXs,
+                  decoration: BoxDecoration(color: Colors.indigo.withOpacity(0.1), borderRadius: BorderRadius.circular(AppDimensions.radiusXs)),
                   child: Icon(isDark ? Icons.dark_mode : Icons.light_mode, color: Colors.indigo),
                 ),
                 title: Text("Dark Mode", style: TextStyle(fontWeight: FontWeight.bold, color: textColor)),
@@ -86,8 +87,8 @@ class _SettingsDialogState extends State<SettingsDialog> {
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(color: Colors.amber.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
+                  padding: AppDimensions.paddingXs,
+                  decoration: BoxDecoration(color: Colors.amber.withOpacity(0.1), borderRadius: BorderRadius.circular(AppDimensions.radiusXs)),
                   child: const Icon(Icons.school, color: Colors.amber),
                 ),
                 title: Text("Watch Tutorial", style: TextStyle(fontWeight: FontWeight.bold, color: textColor)),
@@ -100,8 +101,8 @@ class _SettingsDialogState extends State<SettingsDialog> {
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(color: Colors.blueGrey.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
+                  padding: AppDimensions.paddingXs,
+                  decoration: BoxDecoration(color: Colors.blueGrey.withOpacity(0.1), borderRadius: BorderRadius.circular(AppDimensions.radiusXs)),
                   child: const Icon(Icons.info, color: Colors.blueGrey),
                 ),
                 title: Text("About", style: TextStyle(fontWeight: FontWeight.bold, color: textColor)),
@@ -117,13 +118,13 @@ class _SettingsDialogState extends State<SettingsDialog> {
                   GlobalSettings.saveVolumes();
                   Navigator.pop(context);
                 },
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
                 child: Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  padding: AppDimensions.buttonPaddingVs,
                   decoration: BoxDecoration(
                     gradient: AppColors.primaryGradient,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
                     boxShadow: [BoxShadow(color: AppColors.primary.withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 4))],
                   ),
                   child: const Center(child: Text("Close", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
@@ -169,14 +170,14 @@ class _SettingsDialogState extends State<SettingsDialog> {
     showDialog(
       context: context,
       builder: (context) => Dialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppDimensions.radiusXl)),
         elevation: 0,
         backgroundColor: Colors.transparent,
         child: Container(
-          padding: const EdgeInsets.all(20),
+          padding: AppDimensions.paddingLg,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(24),
+            borderRadius: BorderRadius.circular(AppDimensions.radiusXl),
             boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 20, offset: const Offset(0, 10))],
           ),
           child: Column(
@@ -213,10 +214,10 @@ class _SettingsDialogState extends State<SettingsDialog> {
               const SizedBox(height: 16),
               ThreeDButton(
                 onPressed: () => Navigator.pop(context),
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  decoration: BoxDecoration(gradient: AppColors.primaryGradient, borderRadius: BorderRadius.circular(12)),
+                  padding: AppDimensions.buttonPaddingVs,
+                  decoration: BoxDecoration(gradient: AppColors.primaryGradient, borderRadius: BorderRadius.circular(AppDimensions.radiusSm)),
                   child: const Center(child: Text("Close", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
                 ),
               ),

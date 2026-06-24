@@ -1,10 +1,11 @@
-import 'dart:math';
+﻿import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chin/data/vocab_data.dart';
 import 'package:chin/data/unit_group.dart';
 import 'package:chin/widgets/three_d_button.dart';
 import 'package:chin/theme/app_colors.dart';
+import 'package:chin/theme/app_dimensions.dart';
 import 'study_page.dart';
 
 class CategoryPage extends StatefulWidget {
@@ -88,8 +89,8 @@ class _CategoryPageState extends State<CategoryPage> {
               children: [
                 ThreeDButton(
                   onPressed: () => Navigator.pop(context),
-                  borderRadius: BorderRadius.circular(30),
-                  child: const Padding(padding: EdgeInsets.all(8.0), child: Icon(Icons.arrow_back_ios, color: Colors.white)),
+                  borderRadius: BorderRadius.circular(AppDimensions.radiusPill),
+                  child: const Padding(padding: AppDimensions.paddingXs, child: Icon(Icons.arrow_back_ios, color: Colors.white)),
                 ),
                 Expanded(child: Text(widget.group.title, style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold))),
               ],
@@ -99,7 +100,7 @@ class _CategoryPageState extends State<CategoryPage> {
             child: displayCount == 0
                 ? const Center(child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Icon(Icons.construction, size: 80, color: Colors.grey), SizedBox(height: 16), Text("Coming Soon", style: TextStyle(fontSize: 20, color: Colors.grey, fontWeight: FontWeight.bold))]))
                 : ListView.separated(
-                    padding: const EdgeInsets.all(24),
+                    padding: AppDimensions.paddingXl,
                     itemCount: displayCount,
                     separatorBuilder: (context, index) => const SizedBox(height: 16),
                     itemBuilder: (context, index) {
@@ -112,23 +113,23 @@ class _CategoryPageState extends State<CategoryPage> {
 
                       return Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(24),
+                          borderRadius: BorderRadius.circular(AppDimensions.radiusXl),
                           boxShadow: [BoxShadow(color: widget.group.color.withOpacity(0.2), blurRadius: 12, offset: const Offset(0, 4))],
                         ),
                         child: ThreeDButton(
                           onPressed: () => _enterUnit(context, unitTitle, unitWords),
-                          borderRadius: BorderRadius.circular(24),
+                          borderRadius: BorderRadius.circular(AppDimensions.radiusXl),
                           child: Container(
-                            decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(24)),
+                            decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(AppDimensions.radiusXl)),
                             child: Padding(
-                              padding: const EdgeInsets.all(12),
+                              padding: AppDimensions.paddingSm,
                               child: Row(
                                 children: [
                                   Container(
                                     width: 64, height: 64,
                                     decoration: BoxDecoration(
                                       gradient: LinearGradient(colors: [widget.group.color, widget.group.color.withOpacity(0.7)]),
-                                      borderRadius: BorderRadius.circular(16),
+                                      borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
                                       boxShadow: [BoxShadow(color: widget.group.color.withOpacity(0.3), offset: const Offset(2, 2), blurRadius: 4)],
                                     ),
                                     child: Icon(widget.group.icon, size: 32, color: Colors.white),

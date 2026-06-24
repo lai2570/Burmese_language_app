@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_durations.dart';
+import '../theme/app_dimensions.dart';
 import 'three_d_button.dart';
 
 class TutorialDialog extends StatefulWidget {
@@ -22,11 +23,11 @@ class _TutorialDialogState extends State<TutorialDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppDimensions.radiusXl)),
       backgroundColor: Colors.transparent,
       child: Container(
         height: 420,
-        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24)),
+        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(AppDimensions.radiusXl)),
         child: Column(
           children: [
             Expanded(
@@ -36,12 +37,12 @@ class _TutorialDialogState extends State<TutorialDialog> {
                 itemCount: _steps.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.all(24.0),
+                    padding: AppDimensions.paddingXl,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          padding: const EdgeInsets.all(20),
+                          padding: AppDimensions.paddingLg,
                           decoration: BoxDecoration(color: _steps[index]['color'].withOpacity(0.1), shape: BoxShape.circle),
                           child: Icon(_steps[index]['icon'], size: 60, color: _steps[index]['color']),
                         ),
@@ -54,7 +55,7 @@ class _TutorialDialogState extends State<TutorialDialog> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: AppDimensions.paddingLg,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -73,10 +74,10 @@ class _TutorialDialogState extends State<TutorialDialog> {
                         Navigator.pop(context);
                       }
                     },
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(AppDimensions.radiusLg),
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                      decoration: BoxDecoration(color: AppColors.primary, borderRadius: BorderRadius.circular(20)),
+                      decoration: BoxDecoration(color: AppColors.primary, borderRadius: BorderRadius.circular(AppDimensions.radiusLg)),
                       child: Text(_currentPage == _steps.length - 1 ? "Start" : "Next", style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                     ),
                   )

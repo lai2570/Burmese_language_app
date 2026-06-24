@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chin/data/unit_group.dart';
 import 'package:chin/widgets/three_d_button.dart';
 import 'package:chin/widgets/tutorial_dialog.dart';
 import 'package:chin/widgets/settings_dialog.dart';
 import 'package:chin/theme/app_colors.dart';
+import 'package:chin/theme/app_dimensions.dart';
 import 'package:chin/theme/app_durations.dart';
 import 'vocab_book_page.dart';
 import 'category_page.dart';
@@ -54,13 +55,13 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
         child: Container(
           width: 42,
           height: 42,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
             boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 4, offset: const Offset(0, 2))],
           ),
           child: Icon(icon, color: color, size: 24),
@@ -76,15 +77,15 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusXl),
         boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 8, offset: const Offset(2, 2))],
       ),
       child: ThreeDButton(
         onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryPage(group: group))),
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(AppDimensions.radiusXl),
         child: Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(24)),
+          padding: AppDimensions.paddingSm,
+          decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(AppDimensions.radiusXl)),
           child: Row(
             children: [
               Container(
@@ -115,7 +116,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     const SizedBox(height: 6),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(color: group.color.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
+                      decoration: BoxDecoration(color: group.color.withOpacity(0.1), borderRadius: BorderRadius.circular(AppDimensions.radiusXs)),
                       child: Text("${group.subUnits.length} Topics", style: TextStyle(color: group.color, fontSize: 12, fontWeight: FontWeight.w600)),
                     ),
                   ],
@@ -151,7 +152,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                           width: 50, height: 50,
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(AppDimensions.radiusSm),
                             boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10, offset: const Offset(0, 4))],
                           ),
                           child: const Center(child: Text("C", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF667eea)))),
@@ -180,15 +181,15 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: AppDimensions.paddingLg,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
                       Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(gradient: AppColors.primaryGradient, borderRadius: BorderRadius.circular(12)),
+                        padding: AppDimensions.paddingXs,
+                        decoration: BoxDecoration(gradient: AppColors.primaryGradient, borderRadius: BorderRadius.circular(AppDimensions.radiusSm)),
                         child: const Icon(Icons.category, color: Colors.white, size: 20),
                       ),
                       const SizedBox(width: 12),

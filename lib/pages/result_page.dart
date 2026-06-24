@@ -1,4 +1,4 @@
-import 'dart:async';
+﻿import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -6,6 +6,7 @@ import 'package:chin/data/vocab_data.dart';
 import 'package:chin/core/global_settings.dart';
 import 'package:chin/widgets/three_d_button.dart';
 import 'package:chin/theme/app_colors.dart';
+import 'package:chin/theme/app_dimensions.dart';
 import 'study_page.dart';
 
 class ResultPage extends StatefulWidget {
@@ -93,7 +94,7 @@ class _ResultPageState extends State<ResultPage> {
         children: [
           Expanded(
             child: ListView(
-              padding: const EdgeInsets.all(24),
+              padding: AppDimensions.paddingXl,
               children: [
                 const SizedBox(height: 40),
                 Container(
@@ -110,8 +111,8 @@ class _ResultPageState extends State<ResultPage> {
                   final isSaved = savedIds.contains(word.id);
                   return Container(
                     margin: const EdgeInsets.only(bottom: 12),
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(16)),
+                    padding: AppDimensions.paddingMd,
+                    decoration: BoxDecoration(color: cardColor, borderRadius: BorderRadius.circular(AppDimensions.radiusMd)),
                     child: Row(
                       children: [
                         Icon(isCorrect ? Icons.check_circle : Icons.cancel, color: isCorrect ? AppColors.success : AppColors.error, size: 30),
@@ -119,8 +120,8 @@ class _ResultPageState extends State<ResultPage> {
                         Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(word.zh, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: textColor)), Text(word.pinyin, style: const TextStyle(color: Colors.grey, fontSize: 13)), if (!isCorrect) Text("Ans: ${res['correctAnswer']}", style: const TextStyle(color: Color(0xFF38ef7d), fontWeight: FontWeight.bold))])),
                         ThreeDButton(
                           onPressed: () => _toggleSave(word.id),
-                          borderRadius: BorderRadius.circular(20),
-                          child: Padding(padding: const EdgeInsets.all(8.0), child: Icon(isSaved ? Icons.star : Icons.star_border, color: isSaved ? Colors.amber : Colors.grey.shade300, size: 28)),
+                          borderRadius: BorderRadius.circular(AppDimensions.radiusLg),
+                          child: Padding(padding: AppDimensions.paddingXs, child: Icon(isSaved ? Icons.star : Icons.star_border, color: isSaved ? Colors.amber : Colors.grey.shade300, size: 28)),
                         )
                       ],
                     ),
@@ -130,13 +131,13 @@ class _ResultPageState extends State<ResultPage> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(24), color: cardColor,
+            padding: AppDimensions.paddingXl, color: cardColor,
             child: Row(children: [
               Expanded(
                 child: ThreeDButton(
                   onPressed: () => Navigator.popUntil(context, (route) => route.isFirst),
-                  borderRadius: BorderRadius.circular(16),
-                  child: Container(padding: const EdgeInsets.symmetric(vertical: 16), decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(16)), alignment: Alignment.center, child: const Text("Home", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold))),
+                  borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
+                  child: Container(padding: AppDimensions.buttonPaddingV, decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(AppDimensions.radiusMd)), alignment: Alignment.center, child: const Text("Home", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold))),
                 ),
               ),
               const SizedBox(width: 16),
@@ -148,8 +149,8 @@ class _ResultPageState extends State<ResultPage> {
                     themeColor: AppColors.primary,
                     groupTitle: widget.groupTitle ?? "",
                   ))),
-                  borderRadius: BorderRadius.circular(16),
-                  child: Container(padding: const EdgeInsets.symmetric(vertical: 16), decoration: BoxDecoration(color: AppColors.primary, borderRadius: BorderRadius.circular(16)), alignment: Alignment.center, child: const Text("Study Again", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+                  borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
+                  child: Container(padding: AppDimensions.buttonPaddingV, decoration: BoxDecoration(color: AppColors.primary, borderRadius: BorderRadius.circular(AppDimensions.radiusMd)), alignment: Alignment.center, child: const Text("Study Again", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
                 ),
               ),
             ]),

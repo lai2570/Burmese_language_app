@@ -1,10 +1,11 @@
-import 'dart:math';
+﻿import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:chin/data/vocab_data.dart';
 import 'package:chin/core/global_settings.dart';
 import 'package:chin/widgets/three_d_button.dart';
 import 'package:chin/theme/app_colors.dart';
+import 'package:chin/theme/app_dimensions.dart';
 import 'package:chin/theme/app_durations.dart';
 import 'result_page.dart';
 
@@ -159,9 +160,9 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
           children: [
             LinearProgressIndicator(value: (currentIndex) / totalQuestions, backgroundColor: Colors.white10, color: AppColors.success, minHeight: 6),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: AppDimensions.buttonPadding,
               child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                ThreeDButton(onPressed: () => Navigator.pop(context), borderRadius: BorderRadius.circular(20), child: const Padding(padding: EdgeInsets.all(8.0), child: Icon(Icons.close, color: Colors.grey))),
+                ThreeDButton(onPressed: () => Navigator.pop(context), borderRadius: BorderRadius.circular(AppDimensions.radiusLg), child: const Padding(padding: AppDimensions.paddingXs, child: Icon(Icons.close, color: Colors.grey))),
                 Text("${currentIndex + 1} / $totalQuestions", style: const TextStyle(color: Colors.grey, fontSize: 16, fontFamily: 'monospace')),
                 const SizedBox(width: 48),
               ]),
@@ -175,7 +176,7 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
                 child: Column(mainAxisSize: MainAxisSize.min, children: [
                   ThreeDButton(
                     onPressed: _playCurrentWordAudio,
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(AppDimensions.radiusLg),
                     child: Text(word.zh, style: const TextStyle(color: Colors.white, fontSize: 64, fontWeight: FontWeight.w900)),
                   ),
                   const SizedBox(height: 12),
@@ -186,8 +187,8 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
                       const SizedBox(width: 10),
                       ThreeDButton(
                         onPressed: _playCurrentWordAudio,
-                        borderRadius: BorderRadius.circular(20),
-                        child: const Padding(padding: EdgeInsets.all(8.0), child: Icon(Icons.volume_up, color: Colors.white70)),
+                        borderRadius: BorderRadius.circular(AppDimensions.radiusLg),
+                        child: const Padding(padding: AppDimensions.paddingXs, child: Icon(Icons.volume_up, color: Colors.white70)),
                       ),
                     ],
                   ),
@@ -195,7 +196,7 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(24.0),
+              padding: AppDimensions.paddingXl,
               child: Column(
                 children: List.generate(2, (idx) {
                   Color btnColor = Colors.white;
@@ -213,12 +214,12 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
                     padding: const EdgeInsets.only(bottom: 16),
                     child: ThreeDButton(
                       onPressed: () => _handleAnswer(idx),
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(AppDimensions.radiusMd),
                       child: AnimatedContainer(
                         duration: AppDurations.answerReveal,
                         width: double.infinity,
                         height: 80,
-                        decoration: BoxDecoration(color: btnColor, borderRadius: BorderRadius.circular(16)),
+                        decoration: BoxDecoration(color: btnColor, borderRadius: BorderRadius.circular(AppDimensions.radiusMd)),
                         alignment: Alignment.center,
                         child: Text(options[idx], style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: textColor)),
                       ),
