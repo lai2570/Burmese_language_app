@@ -28,8 +28,13 @@ class _CategoryPageState extends State<CategoryPage> {
 
   Future<void> _loadScores() async {
     final prefs = await SharedPreferences.getInstance();
-    final allWords = getFullVocabulary();
-    final groupWords = allWords.where((w) => w.id >= widget.group.startId && w.id <= widget.group.endId).toList();
+    final List<Word> groupWords;
+    if (widget.group.wordOverride != null) {
+      groupWords = widget.group.wordOverride!;
+    } else {
+      final allWords = getFullVocabulary();
+      groupWords = allWords.where((w) => w.id >= widget.group.startId && w.id <= widget.group.endId).toList();
+    }
     int availableUnitsCount = (groupWords.length / 10).floor();
     int displayCount = min(availableUnitsCount, widget.group.subUnits.length);
 
@@ -68,8 +73,13 @@ class _CategoryPageState extends State<CategoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    final allWords = getFullVocabulary();
-    final groupWords = allWords.where((w) => w.id >= widget.group.startId && w.id <= widget.group.endId).toList();
+    final List<Word> groupWords;
+    if (widget.group.wordOverride != null) {
+      groupWords = widget.group.wordOverride!;
+    } else {
+      final allWords = getFullVocabulary();
+      groupWords = allWords.where((w) => w.id >= widget.group.startId && w.id <= widget.group.endId).toList();
+    }
 
     int availableUnitsCount = (groupWords.length / 10).floor();
     int displayCount = min(availableUnitsCount, widget.group.subUnits.length);

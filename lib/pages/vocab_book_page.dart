@@ -1,6 +1,7 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chin/data/vocab_data.dart';
+import 'package:chin/data/tocfl_data.dart';
 import 'package:chin/l10n/app_localizations.dart';
 import 'package:chin/theme/app_colors.dart';
 import 'package:chin/theme/app_dimensions.dart';
@@ -26,7 +27,7 @@ class _VocabBookPageState extends State<VocabBookPage> {
   Future<void> _loadSavedWords() async {
     final prefs = await SharedPreferences.getInstance();
     final savedIds = (prefs.getStringList('savedWords') ?? []).map(int.parse).toList();
-    final allWords = getFullVocabulary();
+    final allWords = getAllVocabulary();
     setState(() { savedWords = allWords.where((w) => savedIds.contains(w.id)).toList(); isLoading = false; });
   }
 

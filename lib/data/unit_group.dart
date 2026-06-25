@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'vocab_data.dart';
+import 'tocfl_data.dart';
 
 class UnitGroup {
   final String title;
@@ -7,6 +9,7 @@ class UnitGroup {
   final int endId;
   final List<String> subUnits;
   final Color color;
+  final List<Word>? wordOverride;
 
   const UnitGroup({
     required this.title,
@@ -15,6 +18,7 @@ class UnitGroup {
     required this.endId,
     required this.subUnits,
     required this.color,
+    this.wordOverride,
   });
 }
 
@@ -34,4 +38,32 @@ final List<UnitGroup> appUnitGroups = [
   UnitGroup(title: "Food (အစားအစာ)", icon: Icons.fastfood, startId: 2801, endId: 2900, subUnits: ["Food (အစားအစာ)"], color: const Color(0xFF6A1B9A)),
   UnitGroup(title: "Festivals (ပွဲတော်များ)", icon: Icons.celebration, startId: 2901, endId: 3000, subUnits: ["Festivals (ပွဲတော်များ)"], color: const Color(0xFFBF360C)),
   UnitGroup(title: "Document (စာရွက်စာတမ်း)", icon: Icons.description, startId: 3001, endId: 3100, subUnits: ["Document (စာရွက်စာတမ်း)"], color: const Color(0xFF283593)),
+  UnitGroup(
+    title: "TOCFL 準備級",
+    icon: Icons.local_library,
+    startId: 10001,
+    endId: 10100,
+    color: const Color(0xFF00796B),
+    subUnits: [
+      "人稱與問候", "電話與時間", "數字",
+      "家人與學校", "學習", "動詞一",
+      "動詞二", "能力與形容詞", "形容詞二",
+      "方向與地點",
+    ],
+    wordOverride: tocflNoviceWords,
+  ),
+  UnitGroup(
+    title: "TOCFL 入門/基礎級",
+    icon: Icons.auto_stories,
+    startId: 10101,
+    endId: 10200,
+    color: const Color(0xFF3949AB),
+    subUnits: [
+      "家庭與社會", "情緒與個性", "工作與職業",
+      "學校進階", "家與居家", "自然與動物",
+      "運動與娛樂", "購物與消費", "交通與旅遊",
+      "常用語與表達",
+    ],
+    wordOverride: tocflBandAWords,
+  ),
 ];
