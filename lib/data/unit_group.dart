@@ -66,4 +66,32 @@ final List<UnitGroup> appUnitGroups = [
     ],
     wordOverride: tocflBandAWords,
   ),
+  UnitGroup(
+    title: "TOCFL 進階級",
+    icon: Icons.menu_book,
+    startId: 10201,
+    endId: 10300,
+    color: const Color(0xFFE65100),
+    subUnits: [
+      "社會與關係", "情感與態度", "工作與職場",
+      "教育與學術", "飲食文化", "身體與健康",
+      "自然與環境", "媒體與科技", "旅行與文化",
+      "表達與溝通",
+    ],
+    wordOverride: tocflBandBWords,
+  ),
+  UnitGroup(
+    title: "TOCFL 精通級",
+    icon: Icons.psychology,
+    startId: 10301,
+    endId: 10400,
+    color: const Color(0xFF1A237E),
+    subUnits: [
+      "社會與政治", "心理與哲學", "經濟與商業",
+      "學術與研究", "文學與藝術", "法律與道德",
+      "科學與技術", "歷史與地理", "環境與生態",
+      "高級表達",
+    ],
+    wordOverride: tocflBandCWords,
+  ),
 ];
